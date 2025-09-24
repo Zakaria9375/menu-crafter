@@ -1,0 +1,36 @@
+import { ChefHat } from "lucide-react"
+import { Button } from "../ui/button"
+import { LanguageSelector } from "./LanguageSelector"
+import { Link } from "@/i18n/navigation"
+import { useTranslations } from "next-intl"
+
+const NavBar = () => {
+	const t = useTranslations('nav');
+	
+	return (
+		<nav className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+		<div className="container mx-auto px-6 py-4">
+			<div className="flex items-center justify-between">
+				<div className="flex items-center space-x-2">
+					<ChefHat className="h-8 w-8 text-primary" />
+					<span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+						Menu Crafter
+					</span>
+				</div>
+				
+				<div className="flex items-center space-x-4">
+					<LanguageSelector />
+					<Link href="/login">
+						<Button variant="outline">{t('login')}</Button>
+					</Link>
+					<Link href="/register">
+						<Button variant="hero">{t('register')}</Button>
+					</Link>
+				</div>
+			</div>
+		</div>
+	</nav>
+	)
+}
+
+export default NavBar

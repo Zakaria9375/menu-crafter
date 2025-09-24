@@ -1,6 +1,58 @@
 {
-	"HomePage": {
-		"title": "Home Page",
-		"description": "This is the home page"
+	"nav": {
+		"home": "Home",
+		"login": "Login",
+		"register": "Sign Up"
+	},
+	"home": {
+		"hero": {
+			"title": "Craft Beautiful Menus",
+			"subtitle": "The modern platform for restaurants to create, manage, and showcase their menus with ease.",
+			"cta": "Get Started",
+			"secondary": "View Demo"
+		},
+		"features": {
+			"title": "Everything you need to manage your restaurant menus",
+			"design": {
+				"title": "Beautiful Design",
+				"desc": "Create stunning menus with our intuitive design tools"
+			},
+			"multi": {
+				"title": "Multi-language Support",
+				"desc": "Serve customers in their preferred language"
+			},
+			"analytics": {
+				"title": "Analytics & Insights",
+				"desc": "Track popular dishes and customer preferences"
+			}
+		}
+	},
+	"auth": {
+		"login": {
+			"title": "Welcome back",
+			"subtitle": "Sign in to your account",
+			"username": "Username",
+			"password": "Password",
+			"tenant": "Tenant Name",
+			"button": "Sign In",
+			"noAccount": "Don't have an account?",
+			"signUp": "Sign up"
+		},
+		"register": {
+			"title": "Create your account",
+			"subtitle": "Start crafting beautiful menus today",
+			"name": "Full Name",
+			"phone": "Phone Number",
+			"address": "Address",
+			"email": "Email",
+			"button": "Create Account",
+			"hasAccount": "Already have an account?",
+			"signIn": "Sign in"
+		}
+	},
+	"common": {
+		"email": "Email",
+		"password": "Password",
+		"loading": "Loading..."
 	}
 }

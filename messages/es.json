@@ -1,0 +1,58 @@
+{
+	"nav": {
+		"home": "Inicio",
+		"login": "Iniciar Sesión",
+		"register": "Registrarse"
+	},
+	"home": {
+		"hero": {
+			"title": "Crea Menús Hermosos",
+			"subtitle": "La plataforma moderna para restaurantes para crear, gestionar y mostrar sus menús con facilidad.",
+			"cta": "Comenzar",
+			"secondary": "Ver Demo"
+		},
+		"features": {
+			"title": "Todo lo que necesitas para gestionar los menús de tu restaurante",
+			"design": {
+				"title": "Diseño Hermoso",
+				"desc": "Crea menús impresionantes con nuestras herramientas de diseño intuitivas"
+			},
+			"multi": {
+				"title": "Soporte Multi-idioma",
+				"desc": "Sirve a los clientes en su idioma preferido"
+			},
+			"analytics": {
+				"title": "Análisis y Perspectivas",
+				"desc": "Rastrea platos populares y preferencias de clientes"
+			}
+		}
+	},
+	"auth": {
+		"login": {
+			"title": "Bienvenido de vuelta",
+			"subtitle": "Inicia sesión en tu cuenta",
+			"username": "Nombre de Usuario",
+			"password": "Contraseña",
+			"tenant": "Nombre del Inquilino",
+			"button": "Iniciar Sesión",
+			"noAccount": "¿No tienes una cuenta?",
+			"signUp": "Regístrate"
+		},
+		"register": {
+			"title": "Crea tu cuenta",
+			"subtitle": "Comienza a crear menús hermosos hoy",
+			"name": "Nombre Completo",
+			"phone": "Número de Teléfono",
+			"address": "Dirección",
+			"email": "Correo Electrónico",
+			"button": "Crear Cuenta",
+			"hasAccount": "¿Ya tienes una cuenta?",
+			"signIn": "Iniciar sesión"
+		}
+	},
+	"common": {
+		"email": "Correo Electrónico",
+		"password": "Contraseña",
+		"loading": "Cargando..."
+	}
+}

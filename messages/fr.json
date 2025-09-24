@@ -1,6 +1,58 @@
 {
-	"HomePage": {
-		"title": "Page d'accueil",
-		"description": "C'est la page d'accueil"
+	"nav": {
+		"home": "Accueil",
+		"login": "Connexion",
+		"register": "S'inscrire"
+	},
+	"home": {
+		"hero": {
+			"title": "Créez de Beaux Menus",
+			"subtitle": "La plateforme moderne pour les restaurants pour créer, gérer et présenter leurs menus en toute simplicité.",
+			"cta": "Commencer",
+			"secondary": "Voir la Démo"
+		},
+		"features": {
+			"title": "Tout ce dont vous avez besoin pour gérer les menus de votre restaurant",
+			"design": {
+				"title": "Design Magnifique",
+				"desc": "Créez des menus époustouflants avec nos outils de design intuitifs"
+			},
+			"multi": {
+				"title": "Support Multi-langues",
+				"desc": "Servez les clients dans leur langue préférée"
+			},
+			"analytics": {
+				"title": "Analyses et Insights",
+				"desc": "Suivez les plats populaires et les préférences des clients"
+			}
+		}
+	},
+	"auth": {
+		"login": {
+			"title": "Bon retour",
+			"subtitle": "Connectez-vous à votre compte",
+			"username": "Nom d'utilisateur",
+			"password": "Mot de passe",
+			"tenant": "Nom du Locataire",
+			"button": "Se Connecter",
+			"noAccount": "Vous n'avez pas de compte ?",
+			"signUp": "S'inscrire"
+		},
+		"register": {
+			"title": "Créez votre compte",
+			"subtitle": "Commencez à créer de beaux menus dès aujourd'hui",
+			"name": "Nom Complet",
+			"phone": "Numéro de Téléphone",
+			"address": "Adresse",
+			"email": "Email",
+			"button": "Créer un Compte",
+			"hasAccount": "Vous avez déjà un compte ?",
+			"signIn": "Se connecter"
+		}
+	},
+	"common": {
+		"email": "Email",
+		"password": "Mot de passe",
+		"loading": "Chargement..."
 	}
 }
