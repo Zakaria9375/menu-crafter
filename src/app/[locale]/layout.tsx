@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { hasLocale, Locale, NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
+import { Locale, routing } from "@/i18n/routing";
 import NavBar from "@/components/nav/NavBar";
 
 const geistSans = Geist({
@@ -27,14 +27,20 @@ type Props = {
   params: Promise<{ locale: Locale }>;
 };
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({locale}));
+}
+
 export default async function RootLayout({
   children,
   params,
 }: Readonly<Props>) {
   const { locale } = await params;
-  if (!hasLocale(routing.locales, locale)) {
+  if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
+  setRequestLocale(locale);
+
   const messages = await getMessages({locale});
   return (
     <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>

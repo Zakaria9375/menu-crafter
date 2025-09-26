@@ -1,13 +1,12 @@
 import { getRequestConfig, GetRequestConfigParams, RequestConfig } from "next-intl/server";
-import { routing } from "./routing";
-import {hasLocale} from 'next-intl';
+import { Locale, routing } from "./routing";
 
 
 const createRequestConfig = async ({requestLocale}: GetRequestConfigParams): Promise<RequestConfig> => {
-	const requested = await requestLocale;
-  const locale = hasLocale(routing.locales, requested)
-    ? requested
-    : routing.defaultLocale;
+	let locale = await requestLocale;
+  if (!locale || !routing.locales.includes(locale as Locale)) {
+    locale = routing.defaultLocale;
+  }
 	return {
 		locale,
 		messages: (await import(`../../messages/${locale}.json`)).default,
