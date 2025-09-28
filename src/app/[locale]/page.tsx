@@ -1,15 +1,12 @@
 import Features from "@/components/home/Features";
-import Footer from "@/components/home/Footer";
 import Hero from "@/components/home/Hero";
-import HomeNavBar from "@/components/nav/HomeNavBar";
+import ProductLayout from "./product/layout";
 
 export default function Home() {
 	return (
-		<div className="min-h-screen bg-background">
-			<HomeNavBar />
+		<ProductLayout>
 			<Hero />
 			<Features />
-			<Footer />
-		</div>
+		</ProductLayout>
 	);
 }

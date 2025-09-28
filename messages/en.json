@@ -1,5 +1,6 @@
 {
 	"nav": {
+		"title": "Menu Crafter",
 		"home": "Home",
 		"login": "Login",
 		"register": "Sign Up"
@@ -36,7 +37,8 @@
 			"tenant": "Tenant Name",
 			"button": "Sign In",
 			"noAccount": "Don't have an account?",
-			"signUp": "Sign up"
+			"signUp": "Sign up",
+			"forgot": "Forgot your password?"
 		},
 		"register": {
 			"title": "Create your account",
@@ -47,12 +49,220 @@
 			"email": "Email",
 			"button": "Create Account",
 			"hasAccount": "Already have an account?",
-			"signIn": "Sign in"
+			"signIn": "Sign in",
+			"forgot": "Forgot your password?"
+		},
+		"forgot": {
+			"title": "Forgot Password?",
+			"subtitle": "Enter your email address and we'll send you a link to reset your password.",
+			"emailPlaceholder": "Enter your email address",
+			"button": "Send Reset Link",
+			"backToLogin": "Back to Login"
 		}
 	},
 	"common": {
 		"email": "Email",
 		"password": "Password",
 		"loading": "Loading..."
+	},
+	"faq": {
+		"title": "Frequently Asked Questions",
+		"subtitle": "Find answers to common questions about Menu Crafter and how to get the most out of our platform.",
+		"questions": {
+			"q1": {
+				"question": "How do I create my first menu?",
+				"answer": "Getting started is easy! Simply sign up for an account, click 'Create New Menu', and use our intuitive drag-and-drop editor to add dishes, prices, and descriptions. You can customize colors, fonts, and layout to match your restaurant's brand."
+			},
+			"q2": {
+				"question": "Can I update my menu in real-time?",
+				"answer": "Yes! Menu Crafter allows you to update your menu instantly. Changes are reflected immediately on your live menu, so you can add new dishes, adjust prices, or mark items as unavailable without any delay."
+			},
+			"q3": {
+				"question": "Do you support multiple languages?",
+				"answer": "Absolutely! Menu Crafter supports multiple languages including English, French, Spanish, Arabic, Latvian, and Russian. You can create menus in different languages to serve diverse customer bases."
+			},
+			"q4": {
+				"question": "How much does Menu Crafter cost?",
+				"answer": "We offer flexible pricing plans to suit different restaurant sizes. Start with our free plan to create up to 3 menus, or choose from our premium plans for unlimited menus and advanced features. Contact us for custom enterprise solutions."
+			},
+			"q5": {
+				"question": "Can I integrate Menu Crafter with my existing systems?",
+				"answer": "Yes, we provide APIs and integrations with popular POS systems, restaurant management software, and online ordering platforms. Our technical team can help you set up seamless integrations."
+			},
+			"q6": {
+				"question": "Is my menu data secure?",
+				"answer": "Security is our top priority. All menu data is encrypted and stored securely. We comply with industry standards and regularly update our security measures to protect your information."
+			},
+			"q7": {
+				"question": "Can I get analytics on my menu performance?",
+				"answer": "Yes! Our analytics dashboard provides insights into popular dishes, customer preferences, and menu performance. Track which items are most viewed and help optimize your offerings."
+			},
+			"q8": {
+				"question": "What if I need help or support?",
+				"answer": "We're here to help! Our support team is available via email, chat, and phone. We also provide comprehensive documentation, video tutorials, and regular webinars to help you get the most out of Menu Crafter."
+			}
+		},
+		"stillNeedHelp": {
+			"title": "Still need help?",
+			"description": "Can't find what you're looking for? Our support team is ready to assist you with any questions or concerns.",
+			"button": "Contact Support"
+		}
+	},
+	"contact": {
+		"title": "Get in Touch",
+		"subtitle": "Have questions about Menu Crafter? We're here to help! Reach out to our team and we'll get back to you as soon as possible.",
+		"form": {
+			"title": "Send us a Message",
+			"subtitle": "Fill out the form below and we'll respond within 24 hours.",
+			"firstName": "First Name",
+			"lastName": "Last Name",
+			"subject": "Subject",
+			"message": "Message",
+			"send": "Send Message"
+		},
+		"info": {
+			"email": {
+				"title": "Email Us",
+				"desc": "Send us an email and we'll respond as soon as possible."
+			},
+			"phone": {
+				"title": "Call Us",
+				"desc": "Speak directly with our support team during business hours."
+			},
+			"address": {
+				"title": "Visit Us",
+				"desc": "Come visit our office for in-person assistance."
+			}
+		}
+	},
+	"pricing": {
+		"title": "Simple, Transparent Pricing",
+		"subtitle": "Choose the perfect plan for your restaurant. No hidden fees, no surprises. Cancel anytime.",
+		"popular": "Most Popular",
+		"getStarted": "Get Started",
+		"contactUs": "Contact Us",
+		"starter": {
+			"name": "Starter",
+			"desc": "Perfect for small restaurants getting started",
+			"price": "Free",
+			"feature1": "Up to 3 menus",
+			"feature2": "Basic customization",
+			"feature3": "Email support"
+		},
+		"pro": {
+			"name": "Professional",
+			"desc": "Ideal for growing restaurants",
+			"price": "$29/month",
+			"feature1": "Unlimited menus",
+			"feature2": "Advanced customization",
+			"feature3": "Analytics dashboard",
+			"feature4": "Priority support"
+		},
+		"enterprise": {
+			"name": "Enterprise",
+			"desc": "For large restaurants and chains",
+			"price": "Custom",
+			"feature1": "Everything in Pro",
+			"feature2": "Custom integrations",
+			"feature3": "Dedicated account manager",
+			"feature4": "24/7 phone support"
+		}
+	},
+	"terms": {
+		"title": "Terms of Service",
+		"lastUpdated": "Last updated",
+		"acceptance": {
+			"title": "Acceptance of Terms",
+			"content": "By accessing and using Menu Crafter, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service."
+		},
+		"services": {
+			"title": "Description of Services",
+			"intro": "Menu Crafter provides a comprehensive platform for restaurant menu management. Our services include:",
+			"item1": "Digital menu creation and customization tools",
+			"item2": "Multi-language menu support",
+			"item3": "Analytics and performance tracking",
+			"item4": "Customer support and technical assistance"
+		},
+		"userRights": {
+			"title": "User Rights and Responsibilities",
+			"intro": "As a user of Menu Crafter, you have the right to:",
+			"item1": "Create and manage your restaurant menus",
+			"item2": "Access customer analytics and insights",
+			"item3": "Receive technical support and assistance"
+		},
+		"prohibited": {
+			"title": "Prohibited Uses",
+			"intro": "You may not use Menu Crafter for any unlawful purpose or to solicit others to perform unlawful acts. Prohibited uses include:",
+			"item1": "Violating any applicable laws or regulations",
+			"item2": "Infringing upon intellectual property rights",
+			"item3": "Transmitting harmful or malicious code",
+			"item4": "Attempting to gain unauthorized access to our systems"
+		},
+		"liability": {
+			"title": "Limitation of Liability",
+			"content": "Menu Crafter shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the service."
+		},
+		"changes": {
+			"title": "Changes to Terms",
+			"content": "We reserve the right to modify these terms of service at any time. We will notify users of any material changes via email or through our platform. Your continued use of the service after such modifications constitutes acceptance of the updated terms."
+		},
+		"contact": {
+			"title": "Contact Information",
+			"content": "If you have any questions about these Terms of Service, please contact us through our support channels.",
+			"button": "Contact Support"
+		}
+	},
+	"privacy": {
+		"title": "Privacy Policy",
+		"lastUpdated": "Last updated",
+		"overview": {
+			"title": "Overview",
+			"content": "At Menu Crafter, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you use our platform."
+		},
+		"collection": {
+			"title": "Information We Collect",
+			"intro": "We collect information to provide better services to our users. The types of information we collect include:",
+			"item1": "Account information (name, email, phone number)",
+			"item2": "Restaurant and menu data you create",
+			"item3": "Usage analytics and performance metrics",
+			"item4": "Communication records and support interactions"
+		},
+		"use": {
+			"title": "How We Use Your Information",
+			"intro": "We use the information we collect to:",
+			"item1": "Provide and improve our menu management services",
+			"item2": "Process transactions and manage your account",
+			"item3": "Send important updates and notifications",
+			"item4": "Analyze usage patterns to enhance user experience"
+		},
+		"sharing": {
+			"title": "Information Sharing",
+			"content": "We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as necessary to provide our services or as required by law. We may share information with trusted service providers who assist us in operating our platform."
+		},
+		"security": {
+			"title": "Data Security",
+			"content": "We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. Your data is encrypted both in transit and at rest, and we regularly review our security practices to ensure compliance with industry standards."
+		},
+		"contact": {
+			"title": "Contact Us",
+			"content": "If you have any questions about this Privacy Policy or how we handle your personal information, please contact us through our support channels.",
+			"button": "Contact Support"
+		}
+	},
+	"footer": {
+		"title": "Menu Crafter",
+		"subtitle": "The modern platform for restaurants to create, manage, and showcase their menus with ease.",
+		"product": "Product",
+		"pricing": "Pricing",
+		"features": "Features",
+		"demo": "Demo",
+		"support": "Support",
+		"faq": "FAQ",
+		"contact": "Contact",
+		"helpCenter": "Help Center",
+		"legal": "Legal",
+		"privacyPolicy": "Privacy Policy",
+		"termsOfService": "Terms of Service",
+		"copyright": "© 2024 Menu Crafter. All rights reserved."
 	}
 }

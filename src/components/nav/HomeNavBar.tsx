@@ -12,12 +12,12 @@ const HomeNavBar = () => {
 		<nav className="border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-50">
 		<div className="container mx-auto px-6 py-4">
 			<div className="flex items-center justify-between">
-				<div className="flex items-center space-x-2">
+				<Link href="/" className="flex items-center space-x-2">
 					<ChefHat className="h-8 w-8 text-primary" />
 					<span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-						Menu Crafter
+						{t('title')}
 					</span>
-				</div>
+				</Link>
 				
 				<div className="flex items-center space-x-4">
 					<LanguageSelector />
