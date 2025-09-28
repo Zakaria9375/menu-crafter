@@ -3,7 +3,7 @@ import { ChefHat } from "lucide-react"
 import { Button } from "../ui/button"
 import { LanguageSelector } from "../i18n/LanguageSelector"
 import { useTranslations } from "next-intl"
-import NavigationLink from "../i18n/NavigationLink"
+import { Link } from "@/i18n/navigation"
 
 const HomeNavBar = () => {
 	const t = useTranslations('nav');
@@ -21,12 +21,12 @@ const HomeNavBar = () => {
 				
 				<div className="flex items-center space-x-4">
 					<LanguageSelector />
-					<NavigationLink href="/auth/login">
+					<Link href="/auth/login">
 						<Button variant="outline">{t('login')}</Button>
-					</NavigationLink>
-					<NavigationLink href="/auth/register">
+					</Link>
+					<Link href="/auth/register">
 						<Button variant="hero">{t('register')}</Button>
-					</NavigationLink>
+					</Link>
 				</div>
 			</div>
 		</div>

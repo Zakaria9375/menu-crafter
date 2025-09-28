@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChefHat } from 'lucide-react';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 
 const Login = () => {
   const t = useTranslations('auth.login');
@@ -83,7 +83,7 @@ const Login = () => {
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
                 {t('noAccount')}{' '}
-                <Link href="/register" className="text-primary hover:text-primary-glow font-semibold transition-colors">
+                <Link href="/auth/register" className="text-primary hover:text-primary-glow font-semibold transition-colors">
                   {t('signUp')}
                 </Link>
               </p>
