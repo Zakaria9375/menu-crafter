@@ -1,7 +1,8 @@
 import { defineRouting } from "next-intl/routing";
 
 export const routing = defineRouting({
-	locales: ["en", "fr", "ar", "es", "lv", "ru"],
+	// locales: ["en", "fr", "ar", "es", "lv", "ru"],
+  locales: ["en", "ar"],
 	defaultLocale: "en",
 	localePrefix: "always",
 	localeCookie: true,
@@ -10,11 +11,11 @@ export const routing = defineRouting({
 
 export const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'fr', name: 'Français', flag: '🇫🇷' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' },
   { code: 'ar', name: 'Arabic', flag: '🇸🇦' },
-  { code: 'lv', name: 'Latviešu', flag: '🇱🇻' },
-  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  // { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  // { code: 'es', name: 'Español', flag: '🇪🇸' },
+  // { code: 'lv', name: 'Latviešu', flag: '🇱🇻' },
+  // { code: 'ru', name: 'Русский', flag: '🇷🇺' },
 ];
 
 export type Locale = (typeof routing.locales)[number];
