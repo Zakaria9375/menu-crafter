@@ -1,10 +1,11 @@
+"use client"
 import { ChefHat } from "lucide-react"
 import { Button } from "../ui/button"
-import { LanguageSelector } from "./LanguageSelector"
-import { Link } from "@/i18n/navigation"
+import { LanguageSelector } from "../i18n/LanguageSelector"
 import { useTranslations } from "next-intl"
+import NavigationLink from "../i18n/NavigationLink"
 
-const NavBar = () => {
+const HomeNavBar = () => {
 	const t = useTranslations('nav');
 	
 	return (
@@ -20,12 +21,12 @@ const NavBar = () => {
 				
 				<div className="flex items-center space-x-4">
 					<LanguageSelector />
-					<Link href="/login">
+					<NavigationLink href="/auth/login">
 						<Button variant="outline">{t('login')}</Button>
-					</Link>
-					<Link href="/register">
+					</NavigationLink>
+					<NavigationLink href="/auth/register">
 						<Button variant="hero">{t('register')}</Button>
-					</Link>
+					</NavigationLink>
 				</div>
 			</div>
 		</div>
@@ -33,4 +34,4 @@ const NavBar = () => {
 	)
 }
 
-export default NavBar
+export default HomeNavBar

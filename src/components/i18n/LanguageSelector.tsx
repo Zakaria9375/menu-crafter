@@ -13,19 +13,28 @@ import { usePathname, useRouter } from '@/i18n/navigation';
 import { useParams } from 'next/navigation';
 
 
+
 export const LanguageSelector = () => {
 
   const locale = useLocale();
   const router = useRouter();
-  const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
   const pathname = usePathname();
   const params = useParams();
+
+  const normalizedPathname = (() => {
+    // e.g. /^\/(en|es|fr)(?=\/|$)/
+    const localePrefix = new RegExp(`^/(?:${languages.map(l => l.code).join("|")})(?=/|$)`);
+    const withoutLocale = pathname.replace(localePrefix, "");
+    return withoutLocale === "" ? "/" : withoutLocale;
+  })();
+
+  const currentLanguage = languages.find(lang => lang.code === locale) || languages[0];
+
   const changeLanguage = (languageCode: string) => {
-    console.log(pathname, locale, languageCode, params);
     // @ts-expect-error -- TypeScript will validate that only known `params`
     // are used in combination with a given `pathname`. Since the two will
     // always match for the current route, we can skip runtime checks.
-    router.replace({ pathname, params }, { locale: languageCode })
+    router.replace({ pathname: normalizedPathname, params }, { locale: languageCode })
   };
 
   return (

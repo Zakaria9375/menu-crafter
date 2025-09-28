@@ -1,0 +1,58 @@
+{
+	"nav": {
+		"home": "Sākums",
+		"login": "Ielogoties",
+		"register": "Reģistrēties"
+	},
+	"home": {
+		"hero": {
+			"title": "Izveidojiet Skaistus Ēdienkartes",
+			"subtitle": "Mūsdienīga platforma restorāniem, lai viegli izveidotu, pārvaldītu un demonstrētu savas ēdienkartes.",
+			"cta": "Sākt",
+			"secondary": "Skatīt Demo"
+		},
+		"features": {
+			"title": "Viss, kas nepieciešams jūsu restorāna ēdienkartju pārvaldīšanai",
+			"design": {
+				"title": "Skaists Dizains",
+				"desc": "Izveidojiet aizraujošas ēdienkartes ar mūsu intuitīvajiem dizaina rīkiem"
+			},
+			"multi": {
+				"title": "Daudzvalodu Atbalsts",
+				"desc": "Servējiet klientus viņu vēlamajā valodā"
+			},
+			"analytics": {
+				"title": "Analītika un Ieskati",
+				"desc": "Sekojiet populārajām ēdienu daļām un klientu vēlmēm"
+			}
+		}
+	},
+	"auth": {
+		"login": {
+			"title": "Laipni lūdzam atpakaļ",
+			"subtitle": "Ielogojieties savā kontā",
+			"username": "Lietotājvārds",
+			"password": "Parole",
+			"tenant": "Nomas īpašnieka nosaukums",
+			"button": "Ielogoties",
+			"noAccount": "Nav konta?",
+			"signUp": "Reģistrēties"
+		},
+		"register": {
+			"title": "Izveidojiet savu kontu",
+			"subtitle": "Sāciet izveidot skaistas ēdienkartes jau šodien",
+			"name": "Pilns vārds",
+			"phone": "Tālruņa numurs",
+			"address": "Adrese",
+			"email": "E-pasts",
+			"button": "Izveidot kontu",
+			"hasAccount": "Jau ir konts?",
+			"signIn": "Ielogoties"
+		}
+	},
+	"common": {
+		"email": "E-pasts",
+		"password": "Parole",
+		"loading": "Ielādē..."
+	}
+}
