@@ -25,7 +25,7 @@ const ForgotPassword = () => {
           
           <CardContent className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email">{t('common.email')}</Label>
+              <Label htmlFor="email">{t('email')}</Label>
               <Input
                 id="email"
                 type="email"
