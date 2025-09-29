@@ -123,7 +123,8 @@
 			"lastName": "Last Name",
 			"subject": "Subject",
 			"message": "Message",
-			"send": "Send Message"
+			"send": "Send Message",
+			"email": "Email"
 		},
 		"info": {
 			"email": {

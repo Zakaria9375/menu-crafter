@@ -8,15 +8,15 @@ import {
 } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { Check, Star, Zap, Crown } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
 
-const Pricing = ({params}: {params: {locale: string}}) => {
-	const { locale } = params;
+const Pricing = async ({params}: {params: Promise<{locale: string}>}) => {
+	const { locale } = await params;
 
 	setRequestLocale(locale);
 
-	const t = useTranslations("pricing");
+	const t = await getTranslations("pricing");
 
 	return (
 		<main className="container mx-auto px-6 py-12">

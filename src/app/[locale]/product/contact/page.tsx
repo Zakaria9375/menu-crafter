@@ -4,15 +4,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-const Contact = ({params}: {params: {locale: string}}) => {
-  const { locale } = params;
+const Contact = async ({params}: {params: Promise<{locale: string}>}) => {
+  const { locale } = await params;
 
   setRequestLocale(locale);
 
-  const t = useTranslations('contact');
+  const t = await getTranslations('contact');
 
   return (
       <main className="container mx-auto px-6 py-12">
@@ -45,7 +44,7 @@ const Contact = ({params}: {params: {locale: string}}) => {
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="email">{t('email')}</Label>
+                <Label htmlFor="email">{t('form.email')}</Label>
                 <Input id="email" type="email" className="bg-background/50" />
               </div>
               

@@ -3,15 +3,14 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
 import { HelpCircle, MessageCircle } from 'lucide-react';
-import { useTranslations } from 'next-intl';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-const FAQ = ({params}: {params: {locale: string}}) => {
-  const { locale } = params;
+const FAQ = async ({params}: {params: Promise<{locale: string}>}) => {
+  const { locale } = await params;
 
   setRequestLocale(locale);
 
-  const t = useTranslations('faq');
+  const t = await getTranslations('faq');
 
   return (
       <main className="container mx-auto px-6 py-12">

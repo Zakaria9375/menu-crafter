@@ -2,14 +2,14 @@ import Footer from "@/components/nav/Footer";
 import HomeNavBar from "@/components/nav/HomeNavBar";
 import { setRequestLocale } from "next-intl/server";
 
-export default function ProductLayout({
+export default async function ProductLayout({
 	children,
 	params,
 }: {
 	children: React.ReactNode;
-	params: { locale: string };
+	params: Promise<{ locale: string }>;
 }) {
-	const { locale } = params;
+	const { locale } = await params;
 
 	setRequestLocale(locale);
 

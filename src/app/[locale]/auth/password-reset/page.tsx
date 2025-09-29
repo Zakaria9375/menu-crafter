@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -11,13 +10,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Mail } from "lucide-react";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-const ForgotPassword = ({ params }: { params: { locale: string } }) => {
-	const { locale } = params;
+const ForgotPassword = async ({
+	params,
+}: {
+	params: Promise<{ locale: string }>;
+}) => {
+	const { locale } = await params;
 
 	setRequestLocale(locale);
-	const t = useTranslations("auth.forgot");
+	const t = await getTranslations("auth.forgot");
 
 	return (
 		<div className="flex-1 flex items-center justify-center px-6 py-12">

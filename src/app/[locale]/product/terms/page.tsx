@@ -1,15 +1,15 @@
-import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
 import { FileText, Scale, AlertTriangle, Users } from 'lucide-react';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-const Terms = ({params}: {params: {locale: string}}) => {
-  const { locale } = params;
+const Terms = async ({params}: {params: Promise<{locale: string}>}) => {
+  const { locale } = await params;
 
   setRequestLocale(locale);
-  const t = useTranslations('terms');
+  const t = await getTranslations('terms');
 
   return (
       <main className="container mx-auto px-6 py-12">
