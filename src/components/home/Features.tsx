@@ -1,4 +1,3 @@
-"use client"
 import { Palette, Globe, BarChart3 } from "lucide-react"
 import { Card, CardContent } from "../ui/card"
 import { useTranslations } from "next-intl"

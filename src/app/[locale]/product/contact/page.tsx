@@ -5,8 +5,13 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 
-const Contact = () => {
+const Contact = ({params}: {params: {locale: string}}) => {
+  const { locale } = params;
+
+  setRequestLocale(locale);
+
   const t = useTranslations('contact');
 
   return (

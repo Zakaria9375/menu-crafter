@@ -1,4 +1,8 @@
 {
+	"lang": {
+		"en": "English",
+		"ar": "Arabic"
+	},
 	"nav": {
 		"title": "Menu Crafter",
 		"home": "Home",

@@ -1,4 +1,3 @@
-'use client';
 import { Button } from "@/components/ui/button";
 import {
 	Card,
@@ -10,8 +9,13 @@ import {
 import { Link } from "@/i18n/navigation";
 import { Check, Star, Zap, Crown } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 
-const Pricing = () => {
+const Pricing = ({params}: {params: {locale: string}}) => {
+	const { locale } = params;
+
+	setRequestLocale(locale);
+
 	const t = useTranslations("pricing");
 
 	return (
@@ -49,7 +53,7 @@ const Pricing = () => {
 								{t("starter.feature3")}
 							</li>
 						</ul>
-						<Link href="/register" className="block">
+						<Link href="/auth/register" className="block">
 							<Button variant="outline" className="w-full">
 								{t("getStarted")}
 							</Button>
@@ -91,7 +95,7 @@ const Pricing = () => {
 								{t("pro.feature4")}
 							</li>
 						</ul>
-						<Link href="/register" className="block">
+						<Link href="/auth/register" className="block">
 							<Button variant="hero" className="w-full">
 								{t("getStarted")}
 							</Button>
@@ -130,7 +134,7 @@ const Pricing = () => {
 								{t("enterprise.feature4")}
 							</li>
 						</ul>
-						<Link href="/contact" className="block">
+						<Link href="/product/contact" className="block">
 							<Button variant="outline" className="w-full">
 								{t("contactUs")}
 							</Button>

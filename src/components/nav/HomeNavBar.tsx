@@ -1,4 +1,3 @@
-"use client"
 import { ChefHat } from "lucide-react"
 import { Button } from "../ui/button"
 import { LanguageSelector } from "../i18n/LanguageSelector"

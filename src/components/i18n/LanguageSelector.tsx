@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { languages } from '@/i18n/routing';
 import { Globe } from 'lucide-react';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/navigation';
 import { useParams } from 'next/navigation';
 
@@ -20,7 +20,7 @@ export const LanguageSelector = () => {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
-
+  const t = useTranslations("lang");
   const normalizedPathname = (() => {
     // e.g. /^\/(en|es|fr)(?=\/|$)/
     const localePrefix = new RegExp(`^/(?:${languages.map(l => l.code).join("|")})(?=/|$)`);
@@ -42,7 +42,7 @@ export const LanguageSelector = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="gap-2">
           <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">{currentLanguage.flag} {currentLanguage.name}</span>
+          <span className="hidden sm:inline">{currentLanguage.flag} {t(currentLanguage.name)}</span>
           <span className="sm:hidden">{currentLanguage.flag}</span>
         </Button>
       </DropdownMenuTrigger>
@@ -53,7 +53,7 @@ export const LanguageSelector = () => {
             onClick={() => changeLanguage(language.code)}
             className="cursor-pointer"
           >
-            {language.flag} {language.name}
+            {language.flag} {t(language.name)}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

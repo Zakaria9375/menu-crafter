@@ -10,8 +10,8 @@ export const routing = defineRouting({
 });
 
 export const languages = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'ar', name: 'Arabic', flag: '🇸🇦' },
+  { code: 'en', name: 'en', flag: '🇺🇸' },
+  { code: 'ar', name: 'ar', flag: '🇸🇦' },
   // { code: 'fr', name: 'Français', flag: '🇫🇷' },
   // { code: 'es', name: 'Español', flag: '🇪🇸' },
   // { code: 'lv', name: 'Latviešu', flag: '🇱🇻' },

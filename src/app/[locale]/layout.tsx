@@ -1,5 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Locale, routing } from "@/i18n/routing";
@@ -23,14 +23,15 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: Readonly<Props>) {
-  const { locale } = await params;
-  if (!routing.locales.includes(locale as Locale)) {
+  const {locale} = await params;
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+  // Enable static rendering
   setRequestLocale(locale);
 
   const messages = await getMessages({locale});

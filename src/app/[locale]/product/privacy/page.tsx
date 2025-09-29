@@ -1,11 +1,14 @@
-'use client';
 import { useTranslations } from 'next-intl';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
 import { Shield, Eye, Lock, Users } from 'lucide-react';
+import { setRequestLocale } from 'next-intl/server';
 
-const PrivacyPolicy = () => {
+const PrivacyPolicy = ({params}: {params: {locale: string}}) => {
+  const { locale } = params;
+
+  setRequestLocale(locale);
   const t = useTranslations('privacy');
 
   return (

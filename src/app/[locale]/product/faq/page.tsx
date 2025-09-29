@@ -1,12 +1,16 @@
-'use client';
 import { Button } from '@/components/ui/button';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
 import { HelpCircle, MessageCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 
-const FAQ = () => {
+const FAQ = ({params}: {params: {locale: string}}) => {
+  const { locale } = params;
+
+  setRequestLocale(locale);
+
   const t = useTranslations('faq');
 
   return (
