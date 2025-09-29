@@ -4,8 +4,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
 import { FileText, Scale, AlertTriangle, Users } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { LocaleParams } from '@/types/ITypes';
 
-const Terms = async ({params}: {params: Promise<{locale: string}>}) => {
+const Terms = async ({params}: {params: LocaleParams}) => {
   const { locale } = await params;
 
   setRequestLocale(locale);

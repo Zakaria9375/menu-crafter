@@ -10,8 +10,9 @@ import { Link } from "@/i18n/navigation";
 import { Check, Star, Zap, Crown } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { setRequestLocale } from "next-intl/server";
+import { LocaleParams } from "@/types/ITypes";
 
-const Pricing = async ({params}: {params: Promise<{locale: string}>}) => {
+const Pricing = async ({params}: {params: LocaleParams}) => {
 	const { locale } = await params;
 
 	setRequestLocale(locale);

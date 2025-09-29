@@ -5,8 +5,9 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { LocaleParams } from '@/types/ITypes';
 
-const Contact = async ({params}: {params: Promise<{locale: string}>}) => {
+const Contact = async ({params}: {params: LocaleParams}) => {
   const { locale } = await params;
 
   setRequestLocale(locale);

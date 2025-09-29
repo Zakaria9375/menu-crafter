@@ -2,7 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { Locale, routing } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
+import { LocaleParams } from "@/types/ITypes";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +17,7 @@ const geistMono = Geist_Mono({
 
 type Props = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: LocaleParams;
 };
 
 export function generateStaticParams() {

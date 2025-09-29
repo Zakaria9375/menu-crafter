@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
+import { LocaleParams } from '@/types/ITypes';
 import { Shield, Eye, Lock, Users } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-const PrivacyPolicy = async ({params}: {params: Promise<{locale: string}>}) => {
+const PrivacyPolicy = async ({params}: {params: LocaleParams}) => {
   const { locale } = await params;
 
   setRequestLocale(locale);

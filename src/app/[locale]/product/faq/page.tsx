@@ -4,8 +4,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Link } from '@/i18n/navigation';
 import { HelpCircle, MessageCircle } from 'lucide-react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { LocaleParams } from '@/types/ITypes';
 
-const FAQ = async ({params}: {params: Promise<{locale: string}>}) => {
+const FAQ = async ({params}: {params: LocaleParams}) => {
   const { locale } = await params;
 
   setRequestLocale(locale);

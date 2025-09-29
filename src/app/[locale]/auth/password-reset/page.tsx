@@ -11,11 +11,12 @@ import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Mail } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { LocaleParams } from "@/types/ITypes";
 
 const ForgotPassword = async ({
 	params,
 }: {
-	params: Promise<{ locale: string }>;
+	params: LocaleParams;
 }) => {
 	const { locale } = await params;
 

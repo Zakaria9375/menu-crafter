@@ -1,12 +1,13 @@
 import AuthNavBar from "@/components/nav/AuthNavBar";
 import { setRequestLocale } from "next-intl/server";
+import { LocaleParams } from "@/types/ITypes";
 
 export default async function AuthLayout({
 	children,
 	params,
 }: {
 	children: React.ReactNode;
-	params: Promise<{ locale: string }>;
+	params: LocaleParams;
 }) {
 	const { locale } = await params;
 
