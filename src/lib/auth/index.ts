@@ -9,6 +9,15 @@ import { loginSchema } from "../validation/login-schema";
 
 export const { handlers: { GET, POST }, auth, signIn, signOut } = NextAuth({
 	adapter: PrismaAdapter(prisma),
+  callbacks: {
+    async session({ session, token }) {
+      console.log(session, token)
+      if (session.user && token.sub) {
+        session.user.id = token.sub;
+      }
+      return session;
+    }
+  },
   session: {
     strategy: "jwt",
   },
