@@ -33,10 +33,14 @@
 		}
 	},
 	"auth": {
+		"continueWith": {
+			"credential": "Or continue with",
+			"google": "Continue with Google"
+		},
 		"login": {
 			"title": "Welcome back",
 			"subtitle": "Sign in to your account",
-			"username": "Username",
+			"email": "Email",
 			"password": "Password",
 			"tenant": "Tenant Name",
 			"button": "Sign In",
@@ -48,8 +52,8 @@
 			"title": "Create your account",
 			"subtitle": "Start crafting beautiful menus today",
 			"name": "Full Name",
-			"phone": "Phone Number",
-			"address": "Address",
+			"password": "Password",
+			"confirmPassword": "Confirm Password",
 			"email": "Email",
 			"button": "Create Account",
 			"hasAccount": "Already have an account?",
@@ -269,6 +273,6 @@
 		"legal": "Legal",
 		"privacyPolicy": "Privacy Policy",
 		"termsOfService": "Terms of Service",
-		"copyright": "© 2024 Menu Crafter. All rights reserved."
+		"copyright": "© 2025 Menu Crafter. All rights reserved."
 	}
 }

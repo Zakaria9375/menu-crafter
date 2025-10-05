@@ -4,5 +4,11 @@
 		"src/i18n",
 		"src/components/i18n"
 	],
-	"i18n-ally.keystyle": "nested"
+	"i18n-ally.keystyle": "nested",
+	"[prisma]": {
+		"editor.defaultFormatter": "Prisma.prisma"
+	},
+	"cSpell.words": [
+		"turbopack"
+	]
 }

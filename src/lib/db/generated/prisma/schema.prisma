@@ -1,0 +1,125 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/lib/db/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id             String          @id @default(cuid())
+  name           String?
+  email          String          @unique
+  emailVerified  DateTime?
+  image          String?
+  passwordHash   String
+  accounts       Account[]
+  sessions       Session[]
+  // Optional for WebAuthn support
+  Authenticator  Authenticator[]
+  primaryTenants Tenant[]        @relation("PrimaryUser")
+  memberships    TenantUser[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+}
+
+model Tenant {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String?  @unique // optional for subdomains
+  createdAt DateTime @default(now())
+
+  // Primary owner (the creator)
+  primaryUserId String
+  primaryUser   User   @relation("PrimaryUser", fields: [primaryUserId], references: [id], onDelete: Cascade)
+
+  // Many users can belong via TenantUser join
+  members TenantUser[]
+
+  @@map("tenants")
+}
+
+model TenantUser {
+  id       String @id @default(cuid())
+  tenantId String
+  userId   String
+
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  role     TenantRole @default(MEMBER)
+  joinedAt DateTime   @default(now())
+
+  @@unique([tenantId, userId])
+  @@map("tenant_users")
+}
+
+enum TenantRole {
+  OWNER
+  ADMIN
+  STAFF
+  MEMBER
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, credentialID])
+}

@@ -1,33 +1,19 @@
-"use client"
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { ChefHat } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
 import { Link } from "@/i18n/navigation";
+import { LocaleParams } from "@/types/ITypes";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import RegisterForm from "@/components/auth/RegisterForm";
+import GoogleBtn from "@/components/ui/google-btn";
+import ContinueWithSeparator from "@/components/ui/provider-separator";
 
-const Register = () => {
-	const t = useTranslations('auth.register');
 
-		const [formData, setFormData] = useState({
-			name: "",
-			phone: "",
-			address: "",
-			email: "",
-		});
+const Register = async ({params}: {params: LocaleParams}) => {
+	const {locale} = await params;
+	setRequestLocale(locale);
+	const t = await getTranslations('auth.register');
 
-		const handleInputChange = (field: string, value: string) => {
-			setFormData(prev => ({ ...prev, [field]: value }));
-		};
-	
-		const handleSubmit = (e: React.FormEvent) => {
-			e.preventDefault();
-			console.log('Registration attempt:', formData);
-			// TODO: Implement actual registration logic
-		};
-	
 
 	return (
 			<div className="flex-1 flex items-center justify-center p-6">
@@ -45,59 +31,9 @@ const Register = () => {
 					</CardHeader>
 
 					<CardContent>
-						<form onSubmit={handleSubmit} className="space-y-4">
-							<div className="space-y-2">
-								<Label htmlFor="name">{t("name")}</Label>
-								<Input
-									id="name"
-									type="text"
-									value={formData.name}
-									onChange={(e) => handleInputChange("name", e.target.value)}
-									required
-									className="transition-all focus:shadow-soft"
-								/>
-							</div>
-
-							<div className="space-y-2">
-								<Label htmlFor="phone">{t("phone")}</Label>
-								<Input
-									id="phone"
-									type="tel"
-									value={formData.phone}
-									onChange={(e) => handleInputChange("phone", e.target.value)}
-									required
-									className="transition-all focus:shadow-soft"
-								/>
-							</div>
-
-							<div className="space-y-2">
-								<Label htmlFor="address">{t("address")}</Label>
-								<Input
-									id="address"
-									type="text"
-									value={formData.address}
-									onChange={(e) => handleInputChange("address", e.target.value)}
-									required
-									className="transition-all focus:shadow-soft"
-								/>
-							</div>
-
-							<div className="space-y-2">
-								<Label htmlFor="email">{t("email")}</Label>
-								<Input
-									id="email"
-									type="email"
-									value={formData.email}
-									onChange={(e) => handleInputChange("email", e.target.value)}
-									required
-									className="transition-all focus:shadow-soft"
-								/>
-							</div>
-
-							<Button type="submit" className="w-full" variant="hero">
-								{t("button")}
-							</Button>
-						</form>
+						<GoogleBtn />
+						<ContinueWithSeparator />
+						<RegisterForm />
 
 						<div className="mt-6 text-center">
 							<p className="text-sm text-muted-foreground">
