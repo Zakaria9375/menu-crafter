@@ -3,10 +3,9 @@
 import { IRegisterSchema, registerSchema } from "@/lib/validation/register-schema";
 import { signIn, signOut } from "./index";
 import bcrypt from "bcryptjs";
-import prisma from "../db";
+import { createUser } from "../db/actions";
+import type { User } from "../db/schema";
 import { IActionResult } from "@/types/ITypes";
-import { User } from "../db/generated/prisma";
-
 
 /**
  * Register a new user
@@ -26,17 +25,21 @@ export const registerAction = async (
     }
 		const { name, email, password } = validatedData.data;
 		const hashedPassword = await bcrypt.hash(password, 10);
-		const newUser = await prisma.user.create({
-			data: {
-				name: name,
-				email: email,
-				passwordHash: hashedPassword,
-			},
-		});
+		
+		const result = await createUser(name, email, hashedPassword);
+		
+		if (!result.success) {
+			return {
+				success: false,
+				message: "User registration failed",
+				error: result.error,
+			};
+		}
+		
 		return {
 			success: true,
 			message: "User registered successfully",
-			data: newUser,
+			data: result.data,
 		};
 	} catch (error) {
 		return {

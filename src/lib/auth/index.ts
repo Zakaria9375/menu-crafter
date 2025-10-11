@@ -1,9 +1,9 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import prisma from "@/lib/db";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import db from "@/lib/db";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Google from "next-auth/providers/google";
-import { getUserByEmail } from "../db/actions";
+import { getUserByEmail, getUserMembershipsWithTenants } from "../db/actions";
 import bcrypt from "bcryptjs";
 
 export const {
@@ -12,22 +12,22 @@ export const {
 	signIn,
 	signOut,
 } = NextAuth({
-	adapter: PrismaAdapter(prisma),
+	adapter: DrizzleAdapter(db),
 	cookies: {
 	},
 	callbacks: {
 		async jwt({ token, user }) {
 			// On first sign-in, fetch memberships
 			if (user) {
-				const memberships = await prisma.membership.findMany({
-					where: { userId: user.id },
-					include: { tenant: true },
-				});
-				token.tenants = memberships.map((m) => ({
-					id: m.tenantId,
-					slug: m.tenant.slug,
-					role: m.role,
-				}));
+				const result = await getUserMembershipsWithTenants(user.id ?? "");
+
+				if (result.success && result.data) {
+					token.tenants = result.data.map((m) => ({
+						id: m.tenantId,
+						slug: m.slug,
+						role: m.role,
+					}));
+				}
 			}
 			return token;
 		},

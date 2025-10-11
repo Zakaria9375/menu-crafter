@@ -10,8 +10,29 @@
 	},
 	"cSpell.words": [
 		"authjs",
+		"neondatabase",
 		"segs",
 		"tldts",
 		"turbopack"
-	]
+	],
+	"search.exclude": {
+    "**/node_modules": true,
+    "**/docs": true,
+    "**/local": true,
+    "**/.vercel": true,
+    "**/.next": true,
+    "**/.vscode": true,
+  },
+  "files.exclude": {
+    ".next": true,
+    ".vercel": true,
+    "node_modules": true,
+  },
+	"explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .npmignore",
+		"tailwind.config.ts": "postcss.config.mjs",
+		"next.config.ts": "next-env.d.ts",
+  },
 }

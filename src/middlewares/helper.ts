@@ -2,9 +2,11 @@ import { hasLocale as isLocale } from "next-intl";
 import { Locale, routing } from "../i18n/routing";
 import { NextRequest } from "next/server";
 import { parse } from 'tldts';
-import prisma from "@/lib/db";
+import db from "@/lib/db";
+import { tenants } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
 
-/** Utility: split out the first segment if it’s a known locale */
+/** Utility: split out the first segment if it's a known locale */
 export function splitLocale(pathname: string): {
 	hasLocale: boolean;
 	locale: Locale;
@@ -67,11 +69,12 @@ export const isTenantRoute = async (p: string): Promise<{ isTenant: boolean; ten
   if (segments.length >= 1) {
     // First segment might be tenant slug
     const tenantSlug = segments[0];
-		const tenant = await prisma.tenant.findUnique({
-			where: { slug: tenantSlug },
-			select: { id: true, slug: true }
-		});
-		if (!tenant) {
+		const tenant = await db.select({ id: tenants.id, slug: tenants.slug })
+			.from(tenants)
+			.where(eq(tenants.slug, tenantSlug))
+			.limit(1);
+			
+		if (tenant.length === 0) {
 			return { isTenant: false };
 		}
     const remainingPath = '/' + segments.slice(1).join('/');
