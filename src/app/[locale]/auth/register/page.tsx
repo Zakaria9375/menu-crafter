@@ -4,9 +4,9 @@ import { ChefHat } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { LocaleParams } from "@/types/ITypes";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import RegisterForm from "@/components/auth/RegisterForm";
 import GoogleBtn from "@/components/ui/google-btn";
 import ContinueWithSeparator from "@/components/ui/provider-separator";
+import RegisterForm from "./RegisterForm";
 
 
 const Register = async ({params}: {params: LocaleParams}) => {

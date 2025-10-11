@@ -3,35 +3,10 @@
 import { IRegisterSchema, registerSchema } from "@/lib/validation/register-schema";
 import { signIn, signOut } from "./index";
 import bcrypt from "bcryptjs";
-import { prisma } from "../db";
+import prisma from "../db";
 import { IActionResult } from "@/types/ITypes";
 import { User } from "../db/generated/prisma";
 
-/**
- * Get a user by email
- * @param email - User email
- * @returns IActionResult
- */
-export const getUserByEmail = async (
-	email: string
-): Promise<IActionResult<User>> => {
-	try {
-		const result = await prisma.user.findUnique({
-			where: { email },
-		});
-		return {
-			success: !!result,
-			message: result ? "User found" : "User not found",
-			data: result ?? undefined,
-		};
-	} catch (error) {
-		return {
-			success: false,
-			message: "User not found",
-			error: error as Error,
-		};
-	}
-};
 
 /**
  * Register a new user
@@ -109,32 +84,4 @@ export const signInAction = async (
 export const signOutAction = async () => {
 	const result = await signOut();
 	return result;
-};
-
-
-
-/**
- * Get a user by id
- * @param id - User id
- * @returns IActionResult
- */
-export const getUserById = async (
-	id: string
-): Promise<IActionResult<User>> => {
-	try {
-		const result = await prisma.user.findUnique({
-			where: { id },
-		});
-		return {
-			success: !!result,
-			message: result ? "User found" : "User not found",
-			data: result ?? undefined,
-		};
-	} catch (error) {
-		return {
-			success: false,
-			message: "User not found",
-			error: error as Error,
-		};
-	}
 };

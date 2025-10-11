@@ -9,6 +9,9 @@
 		"editor.defaultFormatter": "Prisma.prisma"
 	},
 	"cSpell.words": [
+		"authjs",
+		"segs",
+		"tldts",
 		"turbopack"
 	]
 }

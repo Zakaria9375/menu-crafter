@@ -2,19 +2,24 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { loginSchema, ILoginSchema } from "@/lib/validation/login-schema";
+import { createLoginSchema, ILoginSchema } from "@/lib/validation/login-schema";
 import { useTranslations } from "next-intl";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useRouter } from "@/i18n/navigation";
-import { getUserByEmail, signInAction } from "@/lib/auth/actions";
-import ErrorMessage from "../ui/error-message";
+import { signInAction } from "@/lib/auth/actions";
+import { getUserByEmail } from "@/lib/db/actions";
+import { ErrorMessage } from "@/components/ui/error-message";
 
 export default function LoginForm() {
 	const t = useTranslations("auth.login");
+	const tValidation = useTranslations();
 	const [serverError, setServerError] = useState<string>("");
 	const router = useRouter();
+	
+	const loginSchema = useMemo(() => createLoginSchema(tValidation), [tValidation]);
+	
 	const {
 		control,
 		handleSubmit,
@@ -24,19 +29,15 @@ export default function LoginForm() {
 		delayError: 1000,
 		mode: "onSubmit",
 		defaultValues: {
-			username: "",
+			email: "",
 			password: "",
 		},
 	});
 	const onSubmit = handleSubmit(async (data) => {
 		setServerError("");
-		const credentials = {
-			email: data.username,
-			password: data.password,
-		};
-		const existedUser = await getUserByEmail(credentials.email);
+		const existedUser = await getUserByEmail(data.email);
 		if (existedUser.success) {
-			const result = await signInAction(credentials.email, data.password);
+			const result = await signInAction(data.email, data.password);
 			if (result.success) {
 				router.push("/onboarding");
 			} else {
@@ -53,18 +54,17 @@ export default function LoginForm() {
 				<Label htmlFor="email">{t("email")}</Label>
 				<Controller
 					control={control}
-					name="username"
+					name="email"
 					render={({ field }) => (
 						<>
 							<Input
-								id="username"
-								type="email"
-								required
-								autoComplete="username"
+								id="email"
+								type="text"
+								autoComplete="email"
 								className="transition-all focus:shadow-soft"
 								{...field}
 							/>
-							<ErrorMessage error={errors.username?.message} />
+							<ErrorMessage error={errors.email?.message} />
 						</>
 					)}
 				/>
@@ -80,7 +80,6 @@ export default function LoginForm() {
 							<Input
 								id="password"
 								type="password"
-								required
 								autoComplete="current-password"
 								className="transition-all focus:shadow-soft"
 								{...field}

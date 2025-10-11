@@ -41,7 +41,7 @@ const ForgotPassword = async ({
 						<Label htmlFor="email">{t("email")}</Label>
 						<Input
 							id="email"
-							type="email"
+							type="text"
 							placeholder={t("emailPlaceholder")}
 							className="bg-background/50"
 						/>

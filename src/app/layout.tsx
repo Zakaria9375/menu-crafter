@@ -15,6 +15,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Menu Crafter",
   description: "Create and manage your restaurant menus with ease",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 type Props = {

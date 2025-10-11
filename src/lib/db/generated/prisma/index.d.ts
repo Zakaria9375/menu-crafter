@@ -39,10 +39,10 @@ export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTok
  */
 export type Tenant = $Result.DefaultSelection<Prisma.$TenantPayload>
 /**
- * Model TenantUser
+ * Model Membership
  * 
  */
-export type TenantUser = $Result.DefaultSelection<Prisma.$TenantUserPayload>
+export type Membership = $Result.DefaultSelection<Prisma.$MembershipPayload>
 /**
  * Model Authenticator
  * 
@@ -237,14 +237,14 @@ export class PrismaClient<
   get tenant(): Prisma.TenantDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.tenantUser`: Exposes CRUD operations for the **TenantUser** model.
+   * `prisma.membership`: Exposes CRUD operations for the **Membership** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more TenantUsers
-    * const tenantUsers = await prisma.tenantUser.findMany()
+    * // Fetch zero or more Memberships
+    * const memberships = await prisma.membership.findMany()
     * ```
     */
-  get tenantUser(): Prisma.TenantUserDelegate<ExtArgs, ClientOptions>;
+  get membership(): Prisma.MembershipDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.authenticator`: Exposes CRUD operations for the **Authenticator** model.
@@ -313,8 +313,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.16.3
-   * Query Engine version: bb420e667c1820a8c05a38023385f6cc7ef8e83a
+   * Prisma Client JS version: 6.17.1
+   * Query Engine version: 272a37d34178c2894197e17273bf937f25acdeac
    */
   export type PrismaVersion = {
     client: string
@@ -700,7 +700,7 @@ export namespace Prisma {
     User: 'User',
     VerificationToken: 'VerificationToken',
     Tenant: 'Tenant',
-    TenantUser: 'TenantUser',
+    Membership: 'Membership',
     Authenticator: 'Authenticator'
   };
 
@@ -720,7 +720,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "user" | "verificationToken" | "tenant" | "tenantUser" | "authenticator"
+      modelProps: "account" | "session" | "user" | "verificationToken" | "tenant" | "membership" | "authenticator"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1094,77 +1094,77 @@ export namespace Prisma {
           }
         }
       }
-      TenantUser: {
-        payload: Prisma.$TenantUserPayload<ExtArgs>
-        fields: Prisma.TenantUserFieldRefs
+      Membership: {
+        payload: Prisma.$MembershipPayload<ExtArgs>
+        fields: Prisma.MembershipFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.TenantUserFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload> | null
+            args: Prisma.MembershipFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.TenantUserFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>
+            args: Prisma.MembershipFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           findFirst: {
-            args: Prisma.TenantUserFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload> | null
+            args: Prisma.MembershipFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.TenantUserFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>
+            args: Prisma.MembershipFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           findMany: {
-            args: Prisma.TenantUserFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>[]
+            args: Prisma.MembershipFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>[]
           }
           create: {
-            args: Prisma.TenantUserCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>
+            args: Prisma.MembershipCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           createMany: {
-            args: Prisma.TenantUserCreateManyArgs<ExtArgs>
+            args: Prisma.MembershipCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.TenantUserCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>[]
+            args: Prisma.MembershipCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>[]
           }
           delete: {
-            args: Prisma.TenantUserDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>
+            args: Prisma.MembershipDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           update: {
-            args: Prisma.TenantUserUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>
+            args: Prisma.MembershipUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           deleteMany: {
-            args: Prisma.TenantUserDeleteManyArgs<ExtArgs>
+            args: Prisma.MembershipDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.TenantUserUpdateManyArgs<ExtArgs>
+            args: Prisma.MembershipUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.TenantUserUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>[]
+            args: Prisma.MembershipUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>[]
           }
           upsert: {
-            args: Prisma.TenantUserUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$TenantUserPayload>
+            args: Prisma.MembershipUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MembershipPayload>
           }
           aggregate: {
-            args: Prisma.TenantUserAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateTenantUser>
+            args: Prisma.MembershipAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMembership>
           }
           groupBy: {
-            args: Prisma.TenantUserGroupByArgs<ExtArgs>
-            result: $Utils.Optional<TenantUserGroupByOutputType>[]
+            args: Prisma.MembershipGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MembershipGroupByOutputType>[]
           }
           count: {
-            args: Prisma.TenantUserCountArgs<ExtArgs>
-            result: $Utils.Optional<TenantUserCountAggregateOutputType> | number
+            args: Prisma.MembershipCountArgs<ExtArgs>
+            result: $Utils.Optional<MembershipCountAggregateOutputType> | number
           }
         }
       }
@@ -1343,7 +1343,7 @@ export namespace Prisma {
     user?: UserOmit
     verificationToken?: VerificationTokenOmit
     tenant?: TenantOmit
-    tenantUser?: TenantUserOmit
+    membership?: MembershipOmit
     authenticator?: AuthenticatorOmit
   }
 
@@ -1428,7 +1428,6 @@ export namespace Prisma {
     accounts: number
     sessions: number
     Authenticator: number
-    primaryTenants: number
     memberships: number
   }
 
@@ -1436,7 +1435,6 @@ export namespace Prisma {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     Authenticator?: boolean | UserCountOutputTypeCountAuthenticatorArgs
-    primaryTenants?: boolean | UserCountOutputTypeCountPrimaryTenantsArgs
     memberships?: boolean | UserCountOutputTypeCountMembershipsArgs
   }
 
@@ -1475,15 +1473,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountPrimaryTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TenantWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
   export type UserCountOutputTypeCountMembershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
   }
 
 
@@ -1514,7 +1505,7 @@ export namespace Prisma {
    * TenantCountOutputType without action
    */
   export type TenantCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
   }
 
 
@@ -3967,7 +3958,6 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
-    primaryTenants?: boolean | User$primaryTenantsArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -4010,7 +4000,6 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     Authenticator?: boolean | User$AuthenticatorArgs<ExtArgs>
-    primaryTenants?: boolean | User$primaryTenantsArgs<ExtArgs>
     memberships?: boolean | User$membershipsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -4023,8 +4012,7 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       Authenticator: Prisma.$AuthenticatorPayload<ExtArgs>[]
-      primaryTenants: Prisma.$TenantPayload<ExtArgs>[]
-      memberships: Prisma.$TenantUserPayload<ExtArgs>[]
+      memberships: Prisma.$MembershipPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4432,8 +4420,7 @@ export namespace Prisma {
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     Authenticator<T extends User$AuthenticatorArgs<ExtArgs> = {}>(args?: Subset<T, User$AuthenticatorArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuthenticatorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    primaryTenants<T extends User$primaryTenantsArgs<ExtArgs> = {}>(args?: Subset<T, User$primaryTenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    memberships<T extends User$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    memberships<T extends User$membershipsArgs<ExtArgs> = {}>(args?: Subset<T, User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4931,51 +4918,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.primaryTenants
-   */
-  export type User$primaryTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Tenant
-     */
-    select?: TenantSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the Tenant
-     */
-    omit?: TenantOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TenantInclude<ExtArgs> | null
-    where?: TenantWhereInput
-    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
-    cursor?: TenantWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
-  }
-
-  /**
    * User.memberships
    */
   export type User$membershipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
-    where?: TenantUserWhereInput
-    orderBy?: TenantUserOrderByWithRelationInput | TenantUserOrderByWithRelationInput[]
-    cursor?: TenantUserWhereUniqueInput
+    include?: MembershipInclude<ExtArgs> | null
+    where?: MembershipWhereInput
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
+    cursor?: MembershipWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TenantUserScalarFieldEnum | TenantUserScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
@@ -5981,7 +5944,8 @@ export namespace Prisma {
     name: string | null
     slug: string | null
     createdAt: Date | null
-    primaryUserId: string | null
+    phoneNumber: string | null
+    address: string | null
   }
 
   export type TenantMaxAggregateOutputType = {
@@ -5989,7 +5953,8 @@ export namespace Prisma {
     name: string | null
     slug: string | null
     createdAt: Date | null
-    primaryUserId: string | null
+    phoneNumber: string | null
+    address: string | null
   }
 
   export type TenantCountAggregateOutputType = {
@@ -5997,7 +5962,8 @@ export namespace Prisma {
     name: number
     slug: number
     createdAt: number
-    primaryUserId: number
+    phoneNumber: number
+    address: number
     _all: number
   }
 
@@ -6007,7 +5973,8 @@ export namespace Prisma {
     name?: true
     slug?: true
     createdAt?: true
-    primaryUserId?: true
+    phoneNumber?: true
+    address?: true
   }
 
   export type TenantMaxAggregateInputType = {
@@ -6015,7 +5982,8 @@ export namespace Prisma {
     name?: true
     slug?: true
     createdAt?: true
-    primaryUserId?: true
+    phoneNumber?: true
+    address?: true
   }
 
   export type TenantCountAggregateInputType = {
@@ -6023,7 +5991,8 @@ export namespace Prisma {
     name?: true
     slug?: true
     createdAt?: true
-    primaryUserId?: true
+    phoneNumber?: true
+    address?: true
     _all?: true
   }
 
@@ -6102,9 +6071,10 @@ export namespace Prisma {
   export type TenantGroupByOutputType = {
     id: string
     name: string
-    slug: string | null
+    slug: string
     createdAt: Date
-    primaryUserId: string
+    phoneNumber: string
+    address: string
     _count: TenantCountAggregateOutputType | null
     _min: TenantMinAggregateOutputType | null
     _max: TenantMaxAggregateOutputType | null
@@ -6129,8 +6099,8 @@ export namespace Prisma {
     name?: boolean
     slug?: boolean
     createdAt?: boolean
-    primaryUserId?: boolean
-    primaryUser?: boolean | UserDefaultArgs<ExtArgs>
+    phoneNumber?: boolean
+    address?: boolean
     members?: boolean | Tenant$membersArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
@@ -6140,8 +6110,8 @@ export namespace Prisma {
     name?: boolean
     slug?: boolean
     createdAt?: boolean
-    primaryUserId?: boolean
-    primaryUser?: boolean | UserDefaultArgs<ExtArgs>
+    phoneNumber?: boolean
+    address?: boolean
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6149,8 +6119,8 @@ export namespace Prisma {
     name?: boolean
     slug?: boolean
     createdAt?: boolean
-    primaryUserId?: boolean
-    primaryUser?: boolean | UserDefaultArgs<ExtArgs>
+    phoneNumber?: boolean
+    address?: boolean
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectScalar = {
@@ -6158,34 +6128,30 @@ export namespace Prisma {
     name?: boolean
     slug?: boolean
     createdAt?: boolean
-    primaryUserId?: boolean
+    phoneNumber?: boolean
+    address?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "createdAt" | "primaryUserId", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "createdAt" | "phoneNumber" | "address", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    primaryUser?: boolean | UserDefaultArgs<ExtArgs>
     members?: boolean | Tenant$membersArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    primaryUser?: boolean | UserDefaultArgs<ExtArgs>
-  }
-  export type TenantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    primaryUser?: boolean | UserDefaultArgs<ExtArgs>
-  }
+  export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TenantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
 
   export type $TenantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tenant"
     objects: {
-      primaryUser: Prisma.$UserPayload<ExtArgs>
-      members: Prisma.$TenantUserPayload<ExtArgs>[]
+      members: Prisma.$MembershipPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
-      slug: string | null
+      slug: string
       createdAt: Date
-      primaryUserId: string
+      phoneNumber: string
+      address: string
     }, ExtArgs["result"]["tenant"]>
     composites: {}
   }
@@ -6580,8 +6546,7 @@ export namespace Prisma {
    */
   export interface Prisma__TenantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    primaryUser<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    members<T extends Tenant$membersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    members<T extends Tenant$membersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6615,7 +6580,8 @@ export namespace Prisma {
     readonly name: FieldRef<"Tenant", 'String'>
     readonly slug: FieldRef<"Tenant", 'String'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
-    readonly primaryUserId: FieldRef<"Tenant", 'String'>
+    readonly phoneNumber: FieldRef<"Tenant", 'String'>
+    readonly address: FieldRef<"Tenant", 'String'>
   }
     
 
@@ -6865,10 +6831,6 @@ export namespace Prisma {
      */
     data: TenantCreateManyInput | TenantCreateManyInput[]
     skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TenantIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -6939,10 +6901,6 @@ export namespace Prisma {
      * Limit how many Tenants to update.
      */
     limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: TenantIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -7016,23 +6974,23 @@ export namespace Prisma {
    */
   export type Tenant$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
-    where?: TenantUserWhereInput
-    orderBy?: TenantUserOrderByWithRelationInput | TenantUserOrderByWithRelationInput[]
-    cursor?: TenantUserWhereUniqueInput
+    include?: MembershipInclude<ExtArgs> | null
+    where?: MembershipWhereInput
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
+    cursor?: MembershipWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: TenantUserScalarFieldEnum | TenantUserScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
@@ -7055,16 +7013,16 @@ export namespace Prisma {
 
 
   /**
-   * Model TenantUser
+   * Model Membership
    */
 
-  export type AggregateTenantUser = {
-    _count: TenantUserCountAggregateOutputType | null
-    _min: TenantUserMinAggregateOutputType | null
-    _max: TenantUserMaxAggregateOutputType | null
+  export type AggregateMembership = {
+    _count: MembershipCountAggregateOutputType | null
+    _min: MembershipMinAggregateOutputType | null
+    _max: MembershipMaxAggregateOutputType | null
   }
 
-  export type TenantUserMinAggregateOutputType = {
+  export type MembershipMinAggregateOutputType = {
     id: string | null
     tenantId: string | null
     userId: string | null
@@ -7072,7 +7030,7 @@ export namespace Prisma {
     joinedAt: Date | null
   }
 
-  export type TenantUserMaxAggregateOutputType = {
+  export type MembershipMaxAggregateOutputType = {
     id: string | null
     tenantId: string | null
     userId: string | null
@@ -7080,7 +7038,7 @@ export namespace Prisma {
     joinedAt: Date | null
   }
 
-  export type TenantUserCountAggregateOutputType = {
+  export type MembershipCountAggregateOutputType = {
     id: number
     tenantId: number
     userId: number
@@ -7090,7 +7048,7 @@ export namespace Prisma {
   }
 
 
-  export type TenantUserMinAggregateInputType = {
+  export type MembershipMinAggregateInputType = {
     id?: true
     tenantId?: true
     userId?: true
@@ -7098,7 +7056,7 @@ export namespace Prisma {
     joinedAt?: true
   }
 
-  export type TenantUserMaxAggregateInputType = {
+  export type MembershipMaxAggregateInputType = {
     id?: true
     tenantId?: true
     userId?: true
@@ -7106,7 +7064,7 @@ export namespace Prisma {
     joinedAt?: true
   }
 
-  export type TenantUserCountAggregateInputType = {
+  export type MembershipCountAggregateInputType = {
     id?: true
     tenantId?: true
     userId?: true
@@ -7115,104 +7073,104 @@ export namespace Prisma {
     _all?: true
   }
 
-  export type TenantUserAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which TenantUser to aggregate.
+     * Filter which Membership to aggregate.
      */
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of TenantUsers to fetch.
+     * Determine the order of Memberships to fetch.
      */
-    orderBy?: TenantUserOrderByWithRelationInput | TenantUserOrderByWithRelationInput[]
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: TenantUserWhereUniqueInput
+    cursor?: MembershipWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` TenantUsers from the position of the cursor.
+     * Take `±n` Memberships from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` TenantUsers.
+     * Skip the first `n` Memberships.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned TenantUsers
+     * Count returned Memberships
     **/
-    _count?: true | TenantUserCountAggregateInputType
+    _count?: true | MembershipCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: TenantUserMinAggregateInputType
+    _min?: MembershipMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: TenantUserMaxAggregateInputType
+    _max?: MembershipMaxAggregateInputType
   }
 
-  export type GetTenantUserAggregateType<T extends TenantUserAggregateArgs> = {
-        [P in keyof T & keyof AggregateTenantUser]: P extends '_count' | 'count'
+  export type GetMembershipAggregateType<T extends MembershipAggregateArgs> = {
+        [P in keyof T & keyof AggregateMembership]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateTenantUser[P]>
-      : GetScalarType<T[P], AggregateTenantUser[P]>
+        : GetScalarType<T[P], AggregateMembership[P]>
+      : GetScalarType<T[P], AggregateMembership[P]>
   }
 
 
 
 
-  export type TenantUserGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: TenantUserWhereInput
-    orderBy?: TenantUserOrderByWithAggregationInput | TenantUserOrderByWithAggregationInput[]
-    by: TenantUserScalarFieldEnum[] | TenantUserScalarFieldEnum
-    having?: TenantUserScalarWhereWithAggregatesInput
+  export type MembershipGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MembershipWhereInput
+    orderBy?: MembershipOrderByWithAggregationInput | MembershipOrderByWithAggregationInput[]
+    by: MembershipScalarFieldEnum[] | MembershipScalarFieldEnum
+    having?: MembershipScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: TenantUserCountAggregateInputType | true
-    _min?: TenantUserMinAggregateInputType
-    _max?: TenantUserMaxAggregateInputType
+    _count?: MembershipCountAggregateInputType | true
+    _min?: MembershipMinAggregateInputType
+    _max?: MembershipMaxAggregateInputType
   }
 
-  export type TenantUserGroupByOutputType = {
+  export type MembershipGroupByOutputType = {
     id: string
     tenantId: string
     userId: string
     role: $Enums.TenantRole
     joinedAt: Date
-    _count: TenantUserCountAggregateOutputType | null
-    _min: TenantUserMinAggregateOutputType | null
-    _max: TenantUserMaxAggregateOutputType | null
+    _count: MembershipCountAggregateOutputType | null
+    _min: MembershipMinAggregateOutputType | null
+    _max: MembershipMaxAggregateOutputType | null
   }
 
-  type GetTenantUserGroupByPayload<T extends TenantUserGroupByArgs> = Prisma.PrismaPromise<
+  type GetMembershipGroupByPayload<T extends MembershipGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<TenantUserGroupByOutputType, T['by']> &
+      PickEnumerable<MembershipGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof TenantUserGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof MembershipGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], TenantUserGroupByOutputType[P]>
-            : GetScalarType<T[P], TenantUserGroupByOutputType[P]>
+              : GetScalarType<T[P], MembershipGroupByOutputType[P]>
+            : GetScalarType<T[P], MembershipGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type TenantUserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MembershipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
     userId?: boolean
@@ -7220,9 +7178,9 @@ export namespace Prisma {
     joinedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["tenantUser"]>
+  }, ExtArgs["result"]["membership"]>
 
-  export type TenantUserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MembershipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
     userId?: boolean
@@ -7230,9 +7188,9 @@ export namespace Prisma {
     joinedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["tenantUser"]>
+  }, ExtArgs["result"]["membership"]>
 
-  export type TenantUserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type MembershipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     tenantId?: boolean
     userId?: boolean
@@ -7240,9 +7198,9 @@ export namespace Prisma {
     joinedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["tenantUser"]>
+  }, ExtArgs["result"]["membership"]>
 
-  export type TenantUserSelectScalar = {
+  export type MembershipSelectScalar = {
     id?: boolean
     tenantId?: boolean
     userId?: boolean
@@ -7250,22 +7208,22 @@ export namespace Prisma {
     joinedAt?: boolean
   }
 
-  export type TenantUserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "userId" | "role" | "joinedAt", ExtArgs["result"]["tenantUser"]>
-  export type TenantUserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "userId" | "role" | "joinedAt", ExtArgs["result"]["membership"]>
+  export type MembershipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type TenantUserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type TenantUserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $TenantUserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "TenantUser"
+  export type $MembershipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Membership"
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs>
       user: Prisma.$UserPayload<ExtArgs>
@@ -7276,136 +7234,136 @@ export namespace Prisma {
       userId: string
       role: $Enums.TenantRole
       joinedAt: Date
-    }, ExtArgs["result"]["tenantUser"]>
+    }, ExtArgs["result"]["membership"]>
     composites: {}
   }
 
-  type TenantUserGetPayload<S extends boolean | null | undefined | TenantUserDefaultArgs> = $Result.GetResult<Prisma.$TenantUserPayload, S>
+  type MembershipGetPayload<S extends boolean | null | undefined | MembershipDefaultArgs> = $Result.GetResult<Prisma.$MembershipPayload, S>
 
-  type TenantUserCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<TenantUserFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: TenantUserCountAggregateInputType | true
+  type MembershipCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MembershipFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MembershipCountAggregateInputType | true
     }
 
-  export interface TenantUserDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TenantUser'], meta: { name: 'TenantUser' } }
+  export interface MembershipDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Membership'], meta: { name: 'Membership' } }
     /**
-     * Find zero or one TenantUser that matches the filter.
-     * @param {TenantUserFindUniqueArgs} args - Arguments to find a TenantUser
+     * Find zero or one Membership that matches the filter.
+     * @param {MembershipFindUniqueArgs} args - Arguments to find a Membership
      * @example
-     * // Get one TenantUser
-     * const tenantUser = await prisma.tenantUser.findUnique({
+     * // Get one Membership
+     * const membership = await prisma.membership.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends TenantUserFindUniqueArgs>(args: SelectSubset<T, TenantUserFindUniqueArgs<ExtArgs>>): Prisma__TenantUserClient<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends MembershipFindUniqueArgs>(args: SelectSubset<T, MembershipFindUniqueArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one TenantUser that matches the filter or throw an error with `error.code='P2025'`
+     * Find one Membership that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {TenantUserFindUniqueOrThrowArgs} args - Arguments to find a TenantUser
+     * @param {MembershipFindUniqueOrThrowArgs} args - Arguments to find a Membership
      * @example
-     * // Get one TenantUser
-     * const tenantUser = await prisma.tenantUser.findUniqueOrThrow({
+     * // Get one Membership
+     * const membership = await prisma.membership.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends TenantUserFindUniqueOrThrowArgs>(args: SelectSubset<T, TenantUserFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TenantUserClient<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends MembershipFindUniqueOrThrowArgs>(args: SelectSubset<T, MembershipFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first TenantUser that matches the filter.
+     * Find the first Membership that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TenantUserFindFirstArgs} args - Arguments to find a TenantUser
+     * @param {MembershipFindFirstArgs} args - Arguments to find a Membership
      * @example
-     * // Get one TenantUser
-     * const tenantUser = await prisma.tenantUser.findFirst({
+     * // Get one Membership
+     * const membership = await prisma.membership.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends TenantUserFindFirstArgs>(args?: SelectSubset<T, TenantUserFindFirstArgs<ExtArgs>>): Prisma__TenantUserClient<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends MembershipFindFirstArgs>(args?: SelectSubset<T, MembershipFindFirstArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first TenantUser that matches the filter or
+     * Find the first Membership that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TenantUserFindFirstOrThrowArgs} args - Arguments to find a TenantUser
+     * @param {MembershipFindFirstOrThrowArgs} args - Arguments to find a Membership
      * @example
-     * // Get one TenantUser
-     * const tenantUser = await prisma.tenantUser.findFirstOrThrow({
+     * // Get one Membership
+     * const membership = await prisma.membership.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends TenantUserFindFirstOrThrowArgs>(args?: SelectSubset<T, TenantUserFindFirstOrThrowArgs<ExtArgs>>): Prisma__TenantUserClient<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends MembershipFindFirstOrThrowArgs>(args?: SelectSubset<T, MembershipFindFirstOrThrowArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more TenantUsers that matches the filter.
+     * Find zero or more Memberships that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TenantUserFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {MembershipFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all TenantUsers
-     * const tenantUsers = await prisma.tenantUser.findMany()
+     * // Get all Memberships
+     * const memberships = await prisma.membership.findMany()
      * 
-     * // Get first 10 TenantUsers
-     * const tenantUsers = await prisma.tenantUser.findMany({ take: 10 })
+     * // Get first 10 Memberships
+     * const memberships = await prisma.membership.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const tenantUserWithIdOnly = await prisma.tenantUser.findMany({ select: { id: true } })
+     * const membershipWithIdOnly = await prisma.membership.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends TenantUserFindManyArgs>(args?: SelectSubset<T, TenantUserFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends MembershipFindManyArgs>(args?: SelectSubset<T, MembershipFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a TenantUser.
-     * @param {TenantUserCreateArgs} args - Arguments to create a TenantUser.
+     * Create a Membership.
+     * @param {MembershipCreateArgs} args - Arguments to create a Membership.
      * @example
-     * // Create one TenantUser
-     * const TenantUser = await prisma.tenantUser.create({
+     * // Create one Membership
+     * const Membership = await prisma.membership.create({
      *   data: {
-     *     // ... data to create a TenantUser
+     *     // ... data to create a Membership
      *   }
      * })
      * 
      */
-    create<T extends TenantUserCreateArgs>(args: SelectSubset<T, TenantUserCreateArgs<ExtArgs>>): Prisma__TenantUserClient<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends MembershipCreateArgs>(args: SelectSubset<T, MembershipCreateArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many TenantUsers.
-     * @param {TenantUserCreateManyArgs} args - Arguments to create many TenantUsers.
+     * Create many Memberships.
+     * @param {MembershipCreateManyArgs} args - Arguments to create many Memberships.
      * @example
-     * // Create many TenantUsers
-     * const tenantUser = await prisma.tenantUser.createMany({
+     * // Create many Memberships
+     * const membership = await prisma.membership.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends TenantUserCreateManyArgs>(args?: SelectSubset<T, TenantUserCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends MembershipCreateManyArgs>(args?: SelectSubset<T, MembershipCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many TenantUsers and returns the data saved in the database.
-     * @param {TenantUserCreateManyAndReturnArgs} args - Arguments to create many TenantUsers.
+     * Create many Memberships and returns the data saved in the database.
+     * @param {MembershipCreateManyAndReturnArgs} args - Arguments to create many Memberships.
      * @example
-     * // Create many TenantUsers
-     * const tenantUser = await prisma.tenantUser.createManyAndReturn({
+     * // Create many Memberships
+     * const membership = await prisma.membership.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many TenantUsers and only return the `id`
-     * const tenantUserWithIdOnly = await prisma.tenantUser.createManyAndReturn({
+     * // Create many Memberships and only return the `id`
+     * const membershipWithIdOnly = await prisma.membership.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -7415,28 +7373,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends TenantUserCreateManyAndReturnArgs>(args?: SelectSubset<T, TenantUserCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends MembershipCreateManyAndReturnArgs>(args?: SelectSubset<T, MembershipCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a TenantUser.
-     * @param {TenantUserDeleteArgs} args - Arguments to delete one TenantUser.
+     * Delete a Membership.
+     * @param {MembershipDeleteArgs} args - Arguments to delete one Membership.
      * @example
-     * // Delete one TenantUser
-     * const TenantUser = await prisma.tenantUser.delete({
+     * // Delete one Membership
+     * const Membership = await prisma.membership.delete({
      *   where: {
-     *     // ... filter to delete one TenantUser
+     *     // ... filter to delete one Membership
      *   }
      * })
      * 
      */
-    delete<T extends TenantUserDeleteArgs>(args: SelectSubset<T, TenantUserDeleteArgs<ExtArgs>>): Prisma__TenantUserClient<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends MembershipDeleteArgs>(args: SelectSubset<T, MembershipDeleteArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one TenantUser.
-     * @param {TenantUserUpdateArgs} args - Arguments to update one TenantUser.
+     * Update one Membership.
+     * @param {MembershipUpdateArgs} args - Arguments to update one Membership.
      * @example
-     * // Update one TenantUser
-     * const tenantUser = await prisma.tenantUser.update({
+     * // Update one Membership
+     * const membership = await prisma.membership.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7446,30 +7404,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends TenantUserUpdateArgs>(args: SelectSubset<T, TenantUserUpdateArgs<ExtArgs>>): Prisma__TenantUserClient<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends MembershipUpdateArgs>(args: SelectSubset<T, MembershipUpdateArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more TenantUsers.
-     * @param {TenantUserDeleteManyArgs} args - Arguments to filter TenantUsers to delete.
+     * Delete zero or more Memberships.
+     * @param {MembershipDeleteManyArgs} args - Arguments to filter Memberships to delete.
      * @example
-     * // Delete a few TenantUsers
-     * const { count } = await prisma.tenantUser.deleteMany({
+     * // Delete a few Memberships
+     * const { count } = await prisma.membership.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends TenantUserDeleteManyArgs>(args?: SelectSubset<T, TenantUserDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends MembershipDeleteManyArgs>(args?: SelectSubset<T, MembershipDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more TenantUsers.
+     * Update zero or more Memberships.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TenantUserUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {MembershipUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many TenantUsers
-     * const tenantUser = await prisma.tenantUser.updateMany({
+     * // Update many Memberships
+     * const membership = await prisma.membership.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7479,14 +7437,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends TenantUserUpdateManyArgs>(args: SelectSubset<T, TenantUserUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends MembershipUpdateManyArgs>(args: SelectSubset<T, MembershipUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more TenantUsers and returns the data updated in the database.
-     * @param {TenantUserUpdateManyAndReturnArgs} args - Arguments to update many TenantUsers.
+     * Update zero or more Memberships and returns the data updated in the database.
+     * @param {MembershipUpdateManyAndReturnArgs} args - Arguments to update many Memberships.
      * @example
-     * // Update many TenantUsers
-     * const tenantUser = await prisma.tenantUser.updateManyAndReturn({
+     * // Update many Memberships
+     * const membership = await prisma.membership.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -7495,8 +7453,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more TenantUsers and only return the `id`
-     * const tenantUserWithIdOnly = await prisma.tenantUser.updateManyAndReturn({
+     * // Update zero or more Memberships and only return the `id`
+     * const membershipWithIdOnly = await prisma.membership.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -7509,56 +7467,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends TenantUserUpdateManyAndReturnArgs>(args: SelectSubset<T, TenantUserUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends MembershipUpdateManyAndReturnArgs>(args: SelectSubset<T, MembershipUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one TenantUser.
-     * @param {TenantUserUpsertArgs} args - Arguments to update or create a TenantUser.
+     * Create or update one Membership.
+     * @param {MembershipUpsertArgs} args - Arguments to update or create a Membership.
      * @example
-     * // Update or create a TenantUser
-     * const tenantUser = await prisma.tenantUser.upsert({
+     * // Update or create a Membership
+     * const membership = await prisma.membership.upsert({
      *   create: {
-     *     // ... data to create a TenantUser
+     *     // ... data to create a Membership
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the TenantUser we want to update
+     *     // ... the filter for the Membership we want to update
      *   }
      * })
      */
-    upsert<T extends TenantUserUpsertArgs>(args: SelectSubset<T, TenantUserUpsertArgs<ExtArgs>>): Prisma__TenantUserClient<$Result.GetResult<Prisma.$TenantUserPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends MembershipUpsertArgs>(args: SelectSubset<T, MembershipUpsertArgs<ExtArgs>>): Prisma__MembershipClient<$Result.GetResult<Prisma.$MembershipPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of TenantUsers.
+     * Count the number of Memberships.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TenantUserCountArgs} args - Arguments to filter TenantUsers to count.
+     * @param {MembershipCountArgs} args - Arguments to filter Memberships to count.
      * @example
-     * // Count the number of TenantUsers
-     * const count = await prisma.tenantUser.count({
+     * // Count the number of Memberships
+     * const count = await prisma.membership.count({
      *   where: {
-     *     // ... the filter for the TenantUsers we want to count
+     *     // ... the filter for the Memberships we want to count
      *   }
      * })
     **/
-    count<T extends TenantUserCountArgs>(
-      args?: Subset<T, TenantUserCountArgs>,
+    count<T extends MembershipCountArgs>(
+      args?: Subset<T, MembershipCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], TenantUserCountAggregateOutputType>
+          : GetScalarType<T['select'], MembershipCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a TenantUser.
+     * Allows you to perform aggregations operations on a Membership.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TenantUserAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {MembershipAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -7578,13 +7536,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends TenantUserAggregateArgs>(args: Subset<T, TenantUserAggregateArgs>): Prisma.PrismaPromise<GetTenantUserAggregateType<T>>
+    aggregate<T extends MembershipAggregateArgs>(args: Subset<T, MembershipAggregateArgs>): Prisma.PrismaPromise<GetMembershipAggregateType<T>>
 
     /**
-     * Group by TenantUser.
+     * Group by Membership.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {TenantUserGroupByArgs} args - Group by arguments.
+     * @param {MembershipGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -7599,14 +7557,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends TenantUserGroupByArgs,
+      T extends MembershipGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: TenantUserGroupByArgs['orderBy'] }
-        : { orderBy?: TenantUserGroupByArgs['orderBy'] },
+        ? { orderBy: MembershipGroupByArgs['orderBy'] }
+        : { orderBy?: MembershipGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -7655,20 +7613,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, TenantUserGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTenantUserGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, MembershipGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMembershipGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the TenantUser model
+   * Fields of the Membership model
    */
-  readonly fields: TenantUserFieldRefs;
+  readonly fields: MembershipFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for TenantUser.
+   * The delegate class that acts as a "Promise-like" for Membership.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__TenantUserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__MembershipClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -7698,425 +7656,425 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the TenantUser model
+   * Fields of the Membership model
    */
-  interface TenantUserFieldRefs {
-    readonly id: FieldRef<"TenantUser", 'String'>
-    readonly tenantId: FieldRef<"TenantUser", 'String'>
-    readonly userId: FieldRef<"TenantUser", 'String'>
-    readonly role: FieldRef<"TenantUser", 'TenantRole'>
-    readonly joinedAt: FieldRef<"TenantUser", 'DateTime'>
+  interface MembershipFieldRefs {
+    readonly id: FieldRef<"Membership", 'String'>
+    readonly tenantId: FieldRef<"Membership", 'String'>
+    readonly userId: FieldRef<"Membership", 'String'>
+    readonly role: FieldRef<"Membership", 'TenantRole'>
+    readonly joinedAt: FieldRef<"Membership", 'DateTime'>
   }
     
 
   // Custom InputTypes
   /**
-   * TenantUser findUnique
+   * Membership findUnique
    */
-  export type TenantUserFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which TenantUser to fetch.
+     * Filter, which Membership to fetch.
      */
-    where: TenantUserWhereUniqueInput
+    where: MembershipWhereUniqueInput
   }
 
   /**
-   * TenantUser findUniqueOrThrow
+   * Membership findUniqueOrThrow
    */
-  export type TenantUserFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which TenantUser to fetch.
+     * Filter, which Membership to fetch.
      */
-    where: TenantUserWhereUniqueInput
+    where: MembershipWhereUniqueInput
   }
 
   /**
-   * TenantUser findFirst
+   * Membership findFirst
    */
-  export type TenantUserFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which TenantUser to fetch.
+     * Filter, which Membership to fetch.
      */
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of TenantUsers to fetch.
+     * Determine the order of Memberships to fetch.
      */
-    orderBy?: TenantUserOrderByWithRelationInput | TenantUserOrderByWithRelationInput[]
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for TenantUsers.
+     * Sets the position for searching for Memberships.
      */
-    cursor?: TenantUserWhereUniqueInput
+    cursor?: MembershipWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` TenantUsers from the position of the cursor.
+     * Take `±n` Memberships from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` TenantUsers.
+     * Skip the first `n` Memberships.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of TenantUsers.
+     * Filter by unique combinations of Memberships.
      */
-    distinct?: TenantUserScalarFieldEnum | TenantUserScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
-   * TenantUser findFirstOrThrow
+   * Membership findFirstOrThrow
    */
-  export type TenantUserFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which TenantUser to fetch.
+     * Filter, which Membership to fetch.
      */
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of TenantUsers to fetch.
+     * Determine the order of Memberships to fetch.
      */
-    orderBy?: TenantUserOrderByWithRelationInput | TenantUserOrderByWithRelationInput[]
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for TenantUsers.
+     * Sets the position for searching for Memberships.
      */
-    cursor?: TenantUserWhereUniqueInput
+    cursor?: MembershipWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` TenantUsers from the position of the cursor.
+     * Take `±n` Memberships from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` TenantUsers.
+     * Skip the first `n` Memberships.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of TenantUsers.
+     * Filter by unique combinations of Memberships.
      */
-    distinct?: TenantUserScalarFieldEnum | TenantUserScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
-   * TenantUser findMany
+   * Membership findMany
    */
-  export type TenantUserFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter, which TenantUsers to fetch.
+     * Filter, which Memberships to fetch.
      */
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of TenantUsers to fetch.
+     * Determine the order of Memberships to fetch.
      */
-    orderBy?: TenantUserOrderByWithRelationInput | TenantUserOrderByWithRelationInput[]
+    orderBy?: MembershipOrderByWithRelationInput | MembershipOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing TenantUsers.
+     * Sets the position for listing Memberships.
      */
-    cursor?: TenantUserWhereUniqueInput
+    cursor?: MembershipWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` TenantUsers from the position of the cursor.
+     * Take `±n` Memberships from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` TenantUsers.
+     * Skip the first `n` Memberships.
      */
     skip?: number
-    distinct?: TenantUserScalarFieldEnum | TenantUserScalarFieldEnum[]
+    distinct?: MembershipScalarFieldEnum | MembershipScalarFieldEnum[]
   }
 
   /**
-   * TenantUser create
+   * Membership create
    */
-  export type TenantUserCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * The data needed to create a TenantUser.
+     * The data needed to create a Membership.
      */
-    data: XOR<TenantUserCreateInput, TenantUserUncheckedCreateInput>
+    data: XOR<MembershipCreateInput, MembershipUncheckedCreateInput>
   }
 
   /**
-   * TenantUser createMany
+   * Membership createMany
    */
-  export type TenantUserCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many TenantUsers.
+     * The data used to create many Memberships.
      */
-    data: TenantUserCreateManyInput | TenantUserCreateManyInput[]
+    data: MembershipCreateManyInput | MembershipCreateManyInput[]
     skipDuplicates?: boolean
   }
 
   /**
-   * TenantUser createManyAndReturn
+   * Membership createManyAndReturn
    */
-  export type TenantUserCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelectCreateManyAndReturn<ExtArgs> | null
+    select?: MembershipSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
-     * The data used to create many TenantUsers.
+     * The data used to create many Memberships.
      */
-    data: TenantUserCreateManyInput | TenantUserCreateManyInput[]
+    data: MembershipCreateManyInput | MembershipCreateManyInput[]
     skipDuplicates?: boolean
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: MembershipIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * TenantUser update
+   * Membership update
    */
-  export type TenantUserUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * The data needed to update a TenantUser.
+     * The data needed to update a Membership.
      */
-    data: XOR<TenantUserUpdateInput, TenantUserUncheckedUpdateInput>
+    data: XOR<MembershipUpdateInput, MembershipUncheckedUpdateInput>
     /**
-     * Choose, which TenantUser to update.
+     * Choose, which Membership to update.
      */
-    where: TenantUserWhereUniqueInput
+    where: MembershipWhereUniqueInput
   }
 
   /**
-   * TenantUser updateMany
+   * Membership updateMany
    */
-  export type TenantUserUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update TenantUsers.
+     * The data used to update Memberships.
      */
-    data: XOR<TenantUserUpdateManyMutationInput, TenantUserUncheckedUpdateManyInput>
+    data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyInput>
     /**
-     * Filter which TenantUsers to update
+     * Filter which Memberships to update
      */
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
     /**
-     * Limit how many TenantUsers to update.
+     * Limit how many Memberships to update.
      */
     limit?: number
   }
 
   /**
-   * TenantUser updateManyAndReturn
+   * Membership updateManyAndReturn
    */
-  export type TenantUserUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: MembershipSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
-     * The data used to update TenantUsers.
+     * The data used to update Memberships.
      */
-    data: XOR<TenantUserUpdateManyMutationInput, TenantUserUncheckedUpdateManyInput>
+    data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyInput>
     /**
-     * Filter which TenantUsers to update
+     * Filter which Memberships to update
      */
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
     /**
-     * Limit how many TenantUsers to update.
+     * Limit how many Memberships to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: MembershipIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * TenantUser upsert
+   * Membership upsert
    */
-  export type TenantUserUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * The filter to search for the TenantUser to update in case it exists.
+     * The filter to search for the Membership to update in case it exists.
      */
-    where: TenantUserWhereUniqueInput
+    where: MembershipWhereUniqueInput
     /**
-     * In case the TenantUser found by the `where` argument doesn't exist, create a new TenantUser with this data.
+     * In case the Membership found by the `where` argument doesn't exist, create a new Membership with this data.
      */
-    create: XOR<TenantUserCreateInput, TenantUserUncheckedCreateInput>
+    create: XOR<MembershipCreateInput, MembershipUncheckedCreateInput>
     /**
-     * In case the TenantUser was found with the provided `where` argument, update it with this data.
+     * In case the Membership was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<TenantUserUpdateInput, TenantUserUncheckedUpdateInput>
+    update: XOR<MembershipUpdateInput, MembershipUncheckedUpdateInput>
   }
 
   /**
-   * TenantUser delete
+   * Membership delete
    */
-  export type TenantUserDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
     /**
-     * Filter which TenantUser to delete.
+     * Filter which Membership to delete.
      */
-    where: TenantUserWhereUniqueInput
+    where: MembershipWhereUniqueInput
   }
 
   /**
-   * TenantUser deleteMany
+   * Membership deleteMany
    */
-  export type TenantUserDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which TenantUsers to delete
+     * Filter which Memberships to delete
      */
-    where?: TenantUserWhereInput
+    where?: MembershipWhereInput
     /**
-     * Limit how many TenantUsers to delete.
+     * Limit how many Memberships to delete.
      */
     limit?: number
   }
 
   /**
-   * TenantUser without action
+   * Membership without action
    */
-  export type TenantUserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type MembershipDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the TenantUser
+     * Select specific fields to fetch from the Membership
      */
-    select?: TenantUserSelect<ExtArgs> | null
+    select?: MembershipSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the TenantUser
+     * Omit specific fields from the Membership
      */
-    omit?: TenantUserOmit<ExtArgs> | null
+    omit?: MembershipOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: TenantUserInclude<ExtArgs> | null
+    include?: MembershipInclude<ExtArgs> | null
   }
 
 
@@ -9323,13 +9281,14 @@ export namespace Prisma {
     name: 'name',
     slug: 'slug',
     createdAt: 'createdAt',
-    primaryUserId: 'primaryUserId'
+    phoneNumber: 'phoneNumber',
+    address: 'address'
   };
 
   export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
 
 
-  export const TenantUserScalarFieldEnum: {
+  export const MembershipScalarFieldEnum: {
     id: 'id',
     tenantId: 'tenantId',
     userId: 'userId',
@@ -9337,7 +9296,7 @@ export namespace Prisma {
     joinedAt: 'joinedAt'
   };
 
-  export type TenantUserScalarFieldEnum = (typeof TenantUserScalarFieldEnum)[keyof typeof TenantUserScalarFieldEnum]
+  export type MembershipScalarFieldEnum = (typeof MembershipScalarFieldEnum)[keyof typeof MembershipScalarFieldEnum]
 
 
   export const AuthenticatorScalarFieldEnum: {
@@ -9631,8 +9590,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     Authenticator?: AuthenticatorListRelationFilter
-    primaryTenants?: TenantListRelationFilter
-    memberships?: TenantUserListRelationFilter
+    memberships?: MembershipListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9647,8 +9605,7 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     Authenticator?: AuthenticatorOrderByRelationAggregateInput
-    primaryTenants?: TenantOrderByRelationAggregateInput
-    memberships?: TenantUserOrderByRelationAggregateInput
+    memberships?: MembershipOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9666,8 +9623,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     Authenticator?: AuthenticatorListRelationFilter
-    primaryTenants?: TenantListRelationFilter
-    memberships?: TenantUserListRelationFilter
+    memberships?: MembershipListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9747,21 +9703,21 @@ export namespace Prisma {
     NOT?: TenantWhereInput | TenantWhereInput[]
     id?: StringFilter<"Tenant"> | string
     name?: StringFilter<"Tenant"> | string
-    slug?: StringNullableFilter<"Tenant"> | string | null
+    slug?: StringFilter<"Tenant"> | string
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
-    primaryUserId?: StringFilter<"Tenant"> | string
-    primaryUser?: XOR<UserScalarRelationFilter, UserWhereInput>
-    members?: TenantUserListRelationFilter
+    phoneNumber?: StringFilter<"Tenant"> | string
+    address?: StringFilter<"Tenant"> | string
+    members?: MembershipListRelationFilter
   }
 
   export type TenantOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
-    slug?: SortOrderInput | SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
-    primaryUserId?: SortOrder
-    primaryUser?: UserOrderByWithRelationInput
-    members?: TenantUserOrderByRelationAggregateInput
+    phoneNumber?: SortOrder
+    address?: SortOrder
+    members?: MembershipOrderByRelationAggregateInput
   }
 
   export type TenantWhereUniqueInput = Prisma.AtLeast<{
@@ -9772,17 +9728,18 @@ export namespace Prisma {
     NOT?: TenantWhereInput | TenantWhereInput[]
     name?: StringFilter<"Tenant"> | string
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
-    primaryUserId?: StringFilter<"Tenant"> | string
-    primaryUser?: XOR<UserScalarRelationFilter, UserWhereInput>
-    members?: TenantUserListRelationFilter
+    phoneNumber?: StringFilter<"Tenant"> | string
+    address?: StringFilter<"Tenant"> | string
+    members?: MembershipListRelationFilter
   }, "id" | "slug">
 
   export type TenantOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
-    slug?: SortOrderInput | SortOrder
+    slug?: SortOrder
     createdAt?: SortOrder
-    primaryUserId?: SortOrder
+    phoneNumber?: SortOrder
+    address?: SortOrder
     _count?: TenantCountOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
     _min?: TenantMinOrderByAggregateInput
@@ -9794,25 +9751,26 @@ export namespace Prisma {
     NOT?: TenantScalarWhereWithAggregatesInput | TenantScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Tenant"> | string
     name?: StringWithAggregatesFilter<"Tenant"> | string
-    slug?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
+    slug?: StringWithAggregatesFilter<"Tenant"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
-    primaryUserId?: StringWithAggregatesFilter<"Tenant"> | string
+    phoneNumber?: StringWithAggregatesFilter<"Tenant"> | string
+    address?: StringWithAggregatesFilter<"Tenant"> | string
   }
 
-  export type TenantUserWhereInput = {
-    AND?: TenantUserWhereInput | TenantUserWhereInput[]
-    OR?: TenantUserWhereInput[]
-    NOT?: TenantUserWhereInput | TenantUserWhereInput[]
-    id?: StringFilter<"TenantUser"> | string
-    tenantId?: StringFilter<"TenantUser"> | string
-    userId?: StringFilter<"TenantUser"> | string
-    role?: EnumTenantRoleFilter<"TenantUser"> | $Enums.TenantRole
-    joinedAt?: DateTimeFilter<"TenantUser"> | Date | string
+  export type MembershipWhereInput = {
+    AND?: MembershipWhereInput | MembershipWhereInput[]
+    OR?: MembershipWhereInput[]
+    NOT?: MembershipWhereInput | MembershipWhereInput[]
+    id?: StringFilter<"Membership"> | string
+    tenantId?: StringFilter<"Membership"> | string
+    userId?: StringFilter<"Membership"> | string
+    role?: EnumTenantRoleFilter<"Membership"> | $Enums.TenantRole
+    joinedAt?: DateTimeFilter<"Membership"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type TenantUserOrderByWithRelationInput = {
+  export type MembershipOrderByWithRelationInput = {
     id?: SortOrder
     tenantId?: SortOrder
     userId?: SortOrder
@@ -9822,40 +9780,40 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
   }
 
-  export type TenantUserWhereUniqueInput = Prisma.AtLeast<{
+  export type MembershipWhereUniqueInput = Prisma.AtLeast<{
     id?: string
-    tenantId_userId?: TenantUserTenantIdUserIdCompoundUniqueInput
-    AND?: TenantUserWhereInput | TenantUserWhereInput[]
-    OR?: TenantUserWhereInput[]
-    NOT?: TenantUserWhereInput | TenantUserWhereInput[]
-    tenantId?: StringFilter<"TenantUser"> | string
-    userId?: StringFilter<"TenantUser"> | string
-    role?: EnumTenantRoleFilter<"TenantUser"> | $Enums.TenantRole
-    joinedAt?: DateTimeFilter<"TenantUser"> | Date | string
+    tenantId_userId?: MembershipTenantIdUserIdCompoundUniqueInput
+    AND?: MembershipWhereInput | MembershipWhereInput[]
+    OR?: MembershipWhereInput[]
+    NOT?: MembershipWhereInput | MembershipWhereInput[]
+    tenantId?: StringFilter<"Membership"> | string
+    userId?: StringFilter<"Membership"> | string
+    role?: EnumTenantRoleFilter<"Membership"> | $Enums.TenantRole
+    joinedAt?: DateTimeFilter<"Membership"> | Date | string
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "tenantId_userId">
 
-  export type TenantUserOrderByWithAggregationInput = {
+  export type MembershipOrderByWithAggregationInput = {
     id?: SortOrder
     tenantId?: SortOrder
     userId?: SortOrder
     role?: SortOrder
     joinedAt?: SortOrder
-    _count?: TenantUserCountOrderByAggregateInput
-    _max?: TenantUserMaxOrderByAggregateInput
-    _min?: TenantUserMinOrderByAggregateInput
+    _count?: MembershipCountOrderByAggregateInput
+    _max?: MembershipMaxOrderByAggregateInput
+    _min?: MembershipMinOrderByAggregateInput
   }
 
-  export type TenantUserScalarWhereWithAggregatesInput = {
-    AND?: TenantUserScalarWhereWithAggregatesInput | TenantUserScalarWhereWithAggregatesInput[]
-    OR?: TenantUserScalarWhereWithAggregatesInput[]
-    NOT?: TenantUserScalarWhereWithAggregatesInput | TenantUserScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"TenantUser"> | string
-    tenantId?: StringWithAggregatesFilter<"TenantUser"> | string
-    userId?: StringWithAggregatesFilter<"TenantUser"> | string
-    role?: EnumTenantRoleWithAggregatesFilter<"TenantUser"> | $Enums.TenantRole
-    joinedAt?: DateTimeWithAggregatesFilter<"TenantUser"> | Date | string
+  export type MembershipScalarWhereWithAggregatesInput = {
+    AND?: MembershipScalarWhereWithAggregatesInput | MembershipScalarWhereWithAggregatesInput[]
+    OR?: MembershipScalarWhereWithAggregatesInput[]
+    NOT?: MembershipScalarWhereWithAggregatesInput | MembershipScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Membership"> | string
+    tenantId?: StringWithAggregatesFilter<"Membership"> | string
+    userId?: StringWithAggregatesFilter<"Membership"> | string
+    role?: EnumTenantRoleWithAggregatesFilter<"Membership"> | $Enums.TenantRole
+    joinedAt?: DateTimeWithAggregatesFilter<"Membership"> | Date | string
   }
 
   export type AuthenticatorWhereInput = {
@@ -10109,8 +10067,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantCreateNestedManyWithoutPrimaryUserInput
-    memberships?: TenantUserCreateNestedManyWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10125,8 +10082,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantUncheckedCreateNestedManyWithoutPrimaryUserInput
-    memberships?: TenantUserUncheckedCreateNestedManyWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10141,8 +10097,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUpdateManyWithoutPrimaryUserNestedInput
-    memberships?: TenantUserUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10157,8 +10112,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUncheckedUpdateManyWithoutPrimaryUserNestedInput
-    memberships?: TenantUserUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -10239,63 +10193,71 @@ export namespace Prisma {
   export type TenantCreateInput = {
     id?: string
     name: string
-    slug?: string | null
+    slug: string
     createdAt?: Date | string
-    primaryUser: UserCreateNestedOneWithoutPrimaryTenantsInput
-    members?: TenantUserCreateNestedManyWithoutTenantInput
+    phoneNumber: string
+    address: string
+    members?: MembershipCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUncheckedCreateInput = {
     id?: string
     name: string
-    slug?: string | null
+    slug: string
     createdAt?: Date | string
-    primaryUserId: string
-    members?: TenantUserUncheckedCreateNestedManyWithoutTenantInput
+    phoneNumber: string
+    address: string
+    members?: MembershipUncheckedCreateNestedManyWithoutTenantInput
   }
 
   export type TenantUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    primaryUser?: UserUpdateOneRequiredWithoutPrimaryTenantsNestedInput
-    members?: TenantUserUpdateManyWithoutTenantNestedInput
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    members?: MembershipUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    primaryUserId?: StringFieldUpdateOperationsInput | string
-    members?: TenantUserUncheckedUpdateManyWithoutTenantNestedInput
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    members?: MembershipUncheckedUpdateManyWithoutTenantNestedInput
   }
 
   export type TenantCreateManyInput = {
     id?: string
     name: string
-    slug?: string | null
+    slug: string
     createdAt?: Date | string
-    primaryUserId: string
+    phoneNumber: string
+    address: string
   }
 
   export type TenantUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
   }
 
   export type TenantUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    primaryUserId?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
   }
 
-  export type TenantUserCreateInput = {
+  export type MembershipCreateInput = {
     id?: string
     role?: $Enums.TenantRole
     joinedAt?: Date | string
@@ -10303,7 +10265,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutMembershipsInput
   }
 
-  export type TenantUserUncheckedCreateInput = {
+  export type MembershipUncheckedCreateInput = {
     id?: string
     tenantId: string
     userId: string
@@ -10311,7 +10273,7 @@ export namespace Prisma {
     joinedAt?: Date | string
   }
 
-  export type TenantUserUpdateInput = {
+  export type MembershipUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumTenantRoleFieldUpdateOperationsInput | $Enums.TenantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -10319,7 +10281,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutMembershipsNestedInput
   }
 
-  export type TenantUserUncheckedUpdateInput = {
+  export type MembershipUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -10327,7 +10289,7 @@ export namespace Prisma {
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TenantUserCreateManyInput = {
+  export type MembershipCreateManyInput = {
     id?: string
     tenantId: string
     userId: string
@@ -10335,13 +10297,13 @@ export namespace Prisma {
     joinedAt?: Date | string
   }
 
-  export type TenantUserUpdateManyMutationInput = {
+  export type MembershipUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumTenantRoleFieldUpdateOperationsInput | $Enums.TenantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TenantUserUncheckedUpdateManyInput = {
+  export type MembershipUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -10667,16 +10629,10 @@ export namespace Prisma {
     none?: AuthenticatorWhereInput
   }
 
-  export type TenantListRelationFilter = {
-    every?: TenantWhereInput
-    some?: TenantWhereInput
-    none?: TenantWhereInput
-  }
-
-  export type TenantUserListRelationFilter = {
-    every?: TenantUserWhereInput
-    some?: TenantUserWhereInput
-    none?: TenantUserWhereInput
+  export type MembershipListRelationFilter = {
+    every?: MembershipWhereInput
+    some?: MembershipWhereInput
+    none?: MembershipWhereInput
   }
 
   export type AccountOrderByRelationAggregateInput = {
@@ -10691,11 +10647,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type TenantOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type TenantUserOrderByRelationAggregateInput = {
+  export type MembershipOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10774,7 +10726,8 @@ export namespace Prisma {
     name?: SortOrder
     slug?: SortOrder
     createdAt?: SortOrder
-    primaryUserId?: SortOrder
+    phoneNumber?: SortOrder
+    address?: SortOrder
   }
 
   export type TenantMaxOrderByAggregateInput = {
@@ -10782,7 +10735,8 @@ export namespace Prisma {
     name?: SortOrder
     slug?: SortOrder
     createdAt?: SortOrder
-    primaryUserId?: SortOrder
+    phoneNumber?: SortOrder
+    address?: SortOrder
   }
 
   export type TenantMinOrderByAggregateInput = {
@@ -10790,7 +10744,8 @@ export namespace Prisma {
     name?: SortOrder
     slug?: SortOrder
     createdAt?: SortOrder
-    primaryUserId?: SortOrder
+    phoneNumber?: SortOrder
+    address?: SortOrder
   }
 
   export type EnumTenantRoleFilter<$PrismaModel = never> = {
@@ -10805,12 +10760,12 @@ export namespace Prisma {
     isNot?: TenantWhereInput
   }
 
-  export type TenantUserTenantIdUserIdCompoundUniqueInput = {
+  export type MembershipTenantIdUserIdCompoundUniqueInput = {
     tenantId: string
     userId: string
   }
 
-  export type TenantUserCountOrderByAggregateInput = {
+  export type MembershipCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
     userId?: SortOrder
@@ -10818,7 +10773,7 @@ export namespace Prisma {
     joinedAt?: SortOrder
   }
 
-  export type TenantUserMaxOrderByAggregateInput = {
+  export type MembershipMaxOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
     userId?: SortOrder
@@ -10826,7 +10781,7 @@ export namespace Prisma {
     joinedAt?: SortOrder
   }
 
-  export type TenantUserMinOrderByAggregateInput = {
+  export type MembershipMinOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
     userId?: SortOrder
@@ -10999,18 +10954,11 @@ export namespace Prisma {
     connect?: AuthenticatorWhereUniqueInput | AuthenticatorWhereUniqueInput[]
   }
 
-  export type TenantCreateNestedManyWithoutPrimaryUserInput = {
-    create?: XOR<TenantCreateWithoutPrimaryUserInput, TenantUncheckedCreateWithoutPrimaryUserInput> | TenantCreateWithoutPrimaryUserInput[] | TenantUncheckedCreateWithoutPrimaryUserInput[]
-    connectOrCreate?: TenantCreateOrConnectWithoutPrimaryUserInput | TenantCreateOrConnectWithoutPrimaryUserInput[]
-    createMany?: TenantCreateManyPrimaryUserInputEnvelope
-    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-  }
-
-  export type TenantUserCreateNestedManyWithoutUserInput = {
-    create?: XOR<TenantUserCreateWithoutUserInput, TenantUserUncheckedCreateWithoutUserInput> | TenantUserCreateWithoutUserInput[] | TenantUserUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TenantUserCreateOrConnectWithoutUserInput | TenantUserCreateOrConnectWithoutUserInput[]
-    createMany?: TenantUserCreateManyUserInputEnvelope
-    connect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
+  export type MembershipCreateNestedManyWithoutUserInput = {
+    create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
+    createMany?: MembershipCreateManyUserInputEnvelope
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
@@ -11034,18 +10982,11 @@ export namespace Prisma {
     connect?: AuthenticatorWhereUniqueInput | AuthenticatorWhereUniqueInput[]
   }
 
-  export type TenantUncheckedCreateNestedManyWithoutPrimaryUserInput = {
-    create?: XOR<TenantCreateWithoutPrimaryUserInput, TenantUncheckedCreateWithoutPrimaryUserInput> | TenantCreateWithoutPrimaryUserInput[] | TenantUncheckedCreateWithoutPrimaryUserInput[]
-    connectOrCreate?: TenantCreateOrConnectWithoutPrimaryUserInput | TenantCreateOrConnectWithoutPrimaryUserInput[]
-    createMany?: TenantCreateManyPrimaryUserInputEnvelope
-    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-  }
-
-  export type TenantUserUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<TenantUserCreateWithoutUserInput, TenantUserUncheckedCreateWithoutUserInput> | TenantUserCreateWithoutUserInput[] | TenantUserUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TenantUserCreateOrConnectWithoutUserInput | TenantUserCreateOrConnectWithoutUserInput[]
-    createMany?: TenantUserCreateManyUserInputEnvelope
-    connect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
+  export type MembershipUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
+    createMany?: MembershipCreateManyUserInputEnvelope
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
   export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -11094,32 +11035,18 @@ export namespace Prisma {
     deleteMany?: AuthenticatorScalarWhereInput | AuthenticatorScalarWhereInput[]
   }
 
-  export type TenantUpdateManyWithoutPrimaryUserNestedInput = {
-    create?: XOR<TenantCreateWithoutPrimaryUserInput, TenantUncheckedCreateWithoutPrimaryUserInput> | TenantCreateWithoutPrimaryUserInput[] | TenantUncheckedCreateWithoutPrimaryUserInput[]
-    connectOrCreate?: TenantCreateOrConnectWithoutPrimaryUserInput | TenantCreateOrConnectWithoutPrimaryUserInput[]
-    upsert?: TenantUpsertWithWhereUniqueWithoutPrimaryUserInput | TenantUpsertWithWhereUniqueWithoutPrimaryUserInput[]
-    createMany?: TenantCreateManyPrimaryUserInputEnvelope
-    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    update?: TenantUpdateWithWhereUniqueWithoutPrimaryUserInput | TenantUpdateWithWhereUniqueWithoutPrimaryUserInput[]
-    updateMany?: TenantUpdateManyWithWhereWithoutPrimaryUserInput | TenantUpdateManyWithWhereWithoutPrimaryUserInput[]
-    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
-  }
-
-  export type TenantUserUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TenantUserCreateWithoutUserInput, TenantUserUncheckedCreateWithoutUserInput> | TenantUserCreateWithoutUserInput[] | TenantUserUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TenantUserCreateOrConnectWithoutUserInput | TenantUserCreateOrConnectWithoutUserInput[]
-    upsert?: TenantUserUpsertWithWhereUniqueWithoutUserInput | TenantUserUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TenantUserCreateManyUserInputEnvelope
-    set?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    disconnect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    delete?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    connect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    update?: TenantUserUpdateWithWhereUniqueWithoutUserInput | TenantUserUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TenantUserUpdateManyWithWhereWithoutUserInput | TenantUserUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TenantUserScalarWhereInput | TenantUserScalarWhereInput[]
+  export type MembershipUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
+    upsert?: MembershipUpsertWithWhereUniqueWithoutUserInput | MembershipUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MembershipCreateManyUserInputEnvelope
+    set?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    disconnect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    delete?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    update?: MembershipUpdateWithWhereUniqueWithoutUserInput | MembershipUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MembershipUpdateManyWithWhereWithoutUserInput | MembershipUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
   }
 
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
@@ -11164,88 +11091,60 @@ export namespace Prisma {
     deleteMany?: AuthenticatorScalarWhereInput | AuthenticatorScalarWhereInput[]
   }
 
-  export type TenantUncheckedUpdateManyWithoutPrimaryUserNestedInput = {
-    create?: XOR<TenantCreateWithoutPrimaryUserInput, TenantUncheckedCreateWithoutPrimaryUserInput> | TenantCreateWithoutPrimaryUserInput[] | TenantUncheckedCreateWithoutPrimaryUserInput[]
-    connectOrCreate?: TenantCreateOrConnectWithoutPrimaryUserInput | TenantCreateOrConnectWithoutPrimaryUserInput[]
-    upsert?: TenantUpsertWithWhereUniqueWithoutPrimaryUserInput | TenantUpsertWithWhereUniqueWithoutPrimaryUserInput[]
-    createMany?: TenantCreateManyPrimaryUserInputEnvelope
-    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
-    update?: TenantUpdateWithWhereUniqueWithoutPrimaryUserInput | TenantUpdateWithWhereUniqueWithoutPrimaryUserInput[]
-    updateMany?: TenantUpdateManyWithWhereWithoutPrimaryUserInput | TenantUpdateManyWithWhereWithoutPrimaryUserInput[]
-    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  export type MembershipUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput> | MembershipCreateWithoutUserInput[] | MembershipUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutUserInput | MembershipCreateOrConnectWithoutUserInput[]
+    upsert?: MembershipUpsertWithWhereUniqueWithoutUserInput | MembershipUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MembershipCreateManyUserInputEnvelope
+    set?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    disconnect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    delete?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    update?: MembershipUpdateWithWhereUniqueWithoutUserInput | MembershipUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MembershipUpdateManyWithWhereWithoutUserInput | MembershipUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
   }
 
-  export type TenantUserUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<TenantUserCreateWithoutUserInput, TenantUserUncheckedCreateWithoutUserInput> | TenantUserCreateWithoutUserInput[] | TenantUserUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: TenantUserCreateOrConnectWithoutUserInput | TenantUserCreateOrConnectWithoutUserInput[]
-    upsert?: TenantUserUpsertWithWhereUniqueWithoutUserInput | TenantUserUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: TenantUserCreateManyUserInputEnvelope
-    set?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    disconnect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    delete?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    connect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    update?: TenantUserUpdateWithWhereUniqueWithoutUserInput | TenantUserUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: TenantUserUpdateManyWithWhereWithoutUserInput | TenantUserUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: TenantUserScalarWhereInput | TenantUserScalarWhereInput[]
+  export type MembershipCreateNestedManyWithoutTenantInput = {
+    create?: XOR<MembershipCreateWithoutTenantInput, MembershipUncheckedCreateWithoutTenantInput> | MembershipCreateWithoutTenantInput[] | MembershipUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutTenantInput | MembershipCreateOrConnectWithoutTenantInput[]
+    createMany?: MembershipCreateManyTenantInputEnvelope
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
-  export type UserCreateNestedOneWithoutPrimaryTenantsInput = {
-    create?: XOR<UserCreateWithoutPrimaryTenantsInput, UserUncheckedCreateWithoutPrimaryTenantsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPrimaryTenantsInput
-    connect?: UserWhereUniqueInput
+  export type MembershipUncheckedCreateNestedManyWithoutTenantInput = {
+    create?: XOR<MembershipCreateWithoutTenantInput, MembershipUncheckedCreateWithoutTenantInput> | MembershipCreateWithoutTenantInput[] | MembershipUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutTenantInput | MembershipCreateOrConnectWithoutTenantInput[]
+    createMany?: MembershipCreateManyTenantInputEnvelope
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
   }
 
-  export type TenantUserCreateNestedManyWithoutTenantInput = {
-    create?: XOR<TenantUserCreateWithoutTenantInput, TenantUserUncheckedCreateWithoutTenantInput> | TenantUserCreateWithoutTenantInput[] | TenantUserUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: TenantUserCreateOrConnectWithoutTenantInput | TenantUserCreateOrConnectWithoutTenantInput[]
-    createMany?: TenantUserCreateManyTenantInputEnvelope
-    connect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
+  export type MembershipUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<MembershipCreateWithoutTenantInput, MembershipUncheckedCreateWithoutTenantInput> | MembershipCreateWithoutTenantInput[] | MembershipUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutTenantInput | MembershipCreateOrConnectWithoutTenantInput[]
+    upsert?: MembershipUpsertWithWhereUniqueWithoutTenantInput | MembershipUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: MembershipCreateManyTenantInputEnvelope
+    set?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    disconnect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    delete?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    update?: MembershipUpdateWithWhereUniqueWithoutTenantInput | MembershipUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: MembershipUpdateManyWithWhereWithoutTenantInput | MembershipUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
   }
 
-  export type TenantUserUncheckedCreateNestedManyWithoutTenantInput = {
-    create?: XOR<TenantUserCreateWithoutTenantInput, TenantUserUncheckedCreateWithoutTenantInput> | TenantUserCreateWithoutTenantInput[] | TenantUserUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: TenantUserCreateOrConnectWithoutTenantInput | TenantUserCreateOrConnectWithoutTenantInput[]
-    createMany?: TenantUserCreateManyTenantInputEnvelope
-    connect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-  }
-
-  export type UserUpdateOneRequiredWithoutPrimaryTenantsNestedInput = {
-    create?: XOR<UserCreateWithoutPrimaryTenantsInput, UserUncheckedCreateWithoutPrimaryTenantsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutPrimaryTenantsInput
-    upsert?: UserUpsertWithoutPrimaryTenantsInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPrimaryTenantsInput, UserUpdateWithoutPrimaryTenantsInput>, UserUncheckedUpdateWithoutPrimaryTenantsInput>
-  }
-
-  export type TenantUserUpdateManyWithoutTenantNestedInput = {
-    create?: XOR<TenantUserCreateWithoutTenantInput, TenantUserUncheckedCreateWithoutTenantInput> | TenantUserCreateWithoutTenantInput[] | TenantUserUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: TenantUserCreateOrConnectWithoutTenantInput | TenantUserCreateOrConnectWithoutTenantInput[]
-    upsert?: TenantUserUpsertWithWhereUniqueWithoutTenantInput | TenantUserUpsertWithWhereUniqueWithoutTenantInput[]
-    createMany?: TenantUserCreateManyTenantInputEnvelope
-    set?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    disconnect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    delete?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    connect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    update?: TenantUserUpdateWithWhereUniqueWithoutTenantInput | TenantUserUpdateWithWhereUniqueWithoutTenantInput[]
-    updateMany?: TenantUserUpdateManyWithWhereWithoutTenantInput | TenantUserUpdateManyWithWhereWithoutTenantInput[]
-    deleteMany?: TenantUserScalarWhereInput | TenantUserScalarWhereInput[]
-  }
-
-  export type TenantUserUncheckedUpdateManyWithoutTenantNestedInput = {
-    create?: XOR<TenantUserCreateWithoutTenantInput, TenantUserUncheckedCreateWithoutTenantInput> | TenantUserCreateWithoutTenantInput[] | TenantUserUncheckedCreateWithoutTenantInput[]
-    connectOrCreate?: TenantUserCreateOrConnectWithoutTenantInput | TenantUserCreateOrConnectWithoutTenantInput[]
-    upsert?: TenantUserUpsertWithWhereUniqueWithoutTenantInput | TenantUserUpsertWithWhereUniqueWithoutTenantInput[]
-    createMany?: TenantUserCreateManyTenantInputEnvelope
-    set?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    disconnect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    delete?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    connect?: TenantUserWhereUniqueInput | TenantUserWhereUniqueInput[]
-    update?: TenantUserUpdateWithWhereUniqueWithoutTenantInput | TenantUserUpdateWithWhereUniqueWithoutTenantInput[]
-    updateMany?: TenantUserUpdateManyWithWhereWithoutTenantInput | TenantUserUpdateManyWithWhereWithoutTenantInput[]
-    deleteMany?: TenantUserScalarWhereInput | TenantUserScalarWhereInput[]
+  export type MembershipUncheckedUpdateManyWithoutTenantNestedInput = {
+    create?: XOR<MembershipCreateWithoutTenantInput, MembershipUncheckedCreateWithoutTenantInput> | MembershipCreateWithoutTenantInput[] | MembershipUncheckedCreateWithoutTenantInput[]
+    connectOrCreate?: MembershipCreateOrConnectWithoutTenantInput | MembershipCreateOrConnectWithoutTenantInput[]
+    upsert?: MembershipUpsertWithWhereUniqueWithoutTenantInput | MembershipUpsertWithWhereUniqueWithoutTenantInput[]
+    createMany?: MembershipCreateManyTenantInputEnvelope
+    set?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    disconnect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    delete?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    connect?: MembershipWhereUniqueInput | MembershipWhereUniqueInput[]
+    update?: MembershipUpdateWithWhereUniqueWithoutTenantInput | MembershipUpdateWithWhereUniqueWithoutTenantInput[]
+    updateMany?: MembershipUpdateManyWithWhereWithoutTenantInput | MembershipUpdateManyWithWhereWithoutTenantInput[]
+    deleteMany?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutMembersInput = {
@@ -11535,8 +11434,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantCreateNestedManyWithoutPrimaryUserInput
-    memberships?: TenantUserCreateNestedManyWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -11550,8 +11448,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantUncheckedCreateNestedManyWithoutPrimaryUserInput
-    memberships?: TenantUserUncheckedCreateNestedManyWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -11581,8 +11478,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUpdateManyWithoutPrimaryUserNestedInput
-    memberships?: TenantUserUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -11596,8 +11492,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUncheckedUpdateManyWithoutPrimaryUserNestedInput
-    memberships?: TenantUserUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -11611,8 +11506,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantCreateNestedManyWithoutPrimaryUserInput
-    memberships?: TenantUserCreateNestedManyWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -11626,8 +11520,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantUncheckedCreateNestedManyWithoutPrimaryUserInput
-    memberships?: TenantUserUncheckedCreateNestedManyWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -11657,8 +11550,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUpdateManyWithoutPrimaryUserNestedInput
-    memberships?: TenantUserUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -11672,8 +11564,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUncheckedUpdateManyWithoutPrimaryUserNestedInput
-    memberships?: TenantUserUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -11770,53 +11661,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type TenantCreateWithoutPrimaryUserInput = {
-    id?: string
-    name: string
-    slug?: string | null
-    createdAt?: Date | string
-    members?: TenantUserCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantUncheckedCreateWithoutPrimaryUserInput = {
-    id?: string
-    name: string
-    slug?: string | null
-    createdAt?: Date | string
-    members?: TenantUserUncheckedCreateNestedManyWithoutTenantInput
-  }
-
-  export type TenantCreateOrConnectWithoutPrimaryUserInput = {
-    where: TenantWhereUniqueInput
-    create: XOR<TenantCreateWithoutPrimaryUserInput, TenantUncheckedCreateWithoutPrimaryUserInput>
-  }
-
-  export type TenantCreateManyPrimaryUserInputEnvelope = {
-    data: TenantCreateManyPrimaryUserInput | TenantCreateManyPrimaryUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type TenantUserCreateWithoutUserInput = {
+  export type MembershipCreateWithoutUserInput = {
     id?: string
     role?: $Enums.TenantRole
     joinedAt?: Date | string
     tenant: TenantCreateNestedOneWithoutMembersInput
   }
 
-  export type TenantUserUncheckedCreateWithoutUserInput = {
+  export type MembershipUncheckedCreateWithoutUserInput = {
     id?: string
     tenantId: string
     role?: $Enums.TenantRole
     joinedAt?: Date | string
   }
 
-  export type TenantUserCreateOrConnectWithoutUserInput = {
-    where: TenantUserWhereUniqueInput
-    create: XOR<TenantUserCreateWithoutUserInput, TenantUserUncheckedCreateWithoutUserInput>
+  export type MembershipCreateOrConnectWithoutUserInput = {
+    where: MembershipWhereUniqueInput
+    create: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput>
   }
 
-  export type TenantUserCreateManyUserInputEnvelope = {
-    data: TenantUserCreateManyUserInput | TenantUserCreateManyUserInput[]
+  export type MembershipCreateManyUserInputEnvelope = {
+    data: MembershipCreateManyUserInput | MembershipCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -11912,190 +11777,89 @@ export namespace Prisma {
     transports?: StringNullableFilter<"Authenticator"> | string | null
   }
 
-  export type TenantUpsertWithWhereUniqueWithoutPrimaryUserInput = {
-    where: TenantWhereUniqueInput
-    update: XOR<TenantUpdateWithoutPrimaryUserInput, TenantUncheckedUpdateWithoutPrimaryUserInput>
-    create: XOR<TenantCreateWithoutPrimaryUserInput, TenantUncheckedCreateWithoutPrimaryUserInput>
+  export type MembershipUpsertWithWhereUniqueWithoutUserInput = {
+    where: MembershipWhereUniqueInput
+    update: XOR<MembershipUpdateWithoutUserInput, MembershipUncheckedUpdateWithoutUserInput>
+    create: XOR<MembershipCreateWithoutUserInput, MembershipUncheckedCreateWithoutUserInput>
   }
 
-  export type TenantUpdateWithWhereUniqueWithoutPrimaryUserInput = {
-    where: TenantWhereUniqueInput
-    data: XOR<TenantUpdateWithoutPrimaryUserInput, TenantUncheckedUpdateWithoutPrimaryUserInput>
+  export type MembershipUpdateWithWhereUniqueWithoutUserInput = {
+    where: MembershipWhereUniqueInput
+    data: XOR<MembershipUpdateWithoutUserInput, MembershipUncheckedUpdateWithoutUserInput>
   }
 
-  export type TenantUpdateManyWithWhereWithoutPrimaryUserInput = {
-    where: TenantScalarWhereInput
-    data: XOR<TenantUpdateManyMutationInput, TenantUncheckedUpdateManyWithoutPrimaryUserInput>
+  export type MembershipUpdateManyWithWhereWithoutUserInput = {
+    where: MembershipScalarWhereInput
+    data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type TenantScalarWhereInput = {
-    AND?: TenantScalarWhereInput | TenantScalarWhereInput[]
-    OR?: TenantScalarWhereInput[]
-    NOT?: TenantScalarWhereInput | TenantScalarWhereInput[]
-    id?: StringFilter<"Tenant"> | string
-    name?: StringFilter<"Tenant"> | string
-    slug?: StringNullableFilter<"Tenant"> | string | null
-    createdAt?: DateTimeFilter<"Tenant"> | Date | string
-    primaryUserId?: StringFilter<"Tenant"> | string
+  export type MembershipScalarWhereInput = {
+    AND?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
+    OR?: MembershipScalarWhereInput[]
+    NOT?: MembershipScalarWhereInput | MembershipScalarWhereInput[]
+    id?: StringFilter<"Membership"> | string
+    tenantId?: StringFilter<"Membership"> | string
+    userId?: StringFilter<"Membership"> | string
+    role?: EnumTenantRoleFilter<"Membership"> | $Enums.TenantRole
+    joinedAt?: DateTimeFilter<"Membership"> | Date | string
   }
 
-  export type TenantUserUpsertWithWhereUniqueWithoutUserInput = {
-    where: TenantUserWhereUniqueInput
-    update: XOR<TenantUserUpdateWithoutUserInput, TenantUserUncheckedUpdateWithoutUserInput>
-    create: XOR<TenantUserCreateWithoutUserInput, TenantUserUncheckedCreateWithoutUserInput>
-  }
-
-  export type TenantUserUpdateWithWhereUniqueWithoutUserInput = {
-    where: TenantUserWhereUniqueInput
-    data: XOR<TenantUserUpdateWithoutUserInput, TenantUserUncheckedUpdateWithoutUserInput>
-  }
-
-  export type TenantUserUpdateManyWithWhereWithoutUserInput = {
-    where: TenantUserScalarWhereInput
-    data: XOR<TenantUserUpdateManyMutationInput, TenantUserUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type TenantUserScalarWhereInput = {
-    AND?: TenantUserScalarWhereInput | TenantUserScalarWhereInput[]
-    OR?: TenantUserScalarWhereInput[]
-    NOT?: TenantUserScalarWhereInput | TenantUserScalarWhereInput[]
-    id?: StringFilter<"TenantUser"> | string
-    tenantId?: StringFilter<"TenantUser"> | string
-    userId?: StringFilter<"TenantUser"> | string
-    role?: EnumTenantRoleFilter<"TenantUser"> | $Enums.TenantRole
-    joinedAt?: DateTimeFilter<"TenantUser"> | Date | string
-  }
-
-  export type UserCreateWithoutPrimaryTenantsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    emailVerified?: Date | string | null
-    image?: string | null
-    passwordHash: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    accounts?: AccountCreateNestedManyWithoutUserInput
-    sessions?: SessionCreateNestedManyWithoutUserInput
-    Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
-    memberships?: TenantUserCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutPrimaryTenantsInput = {
-    id?: string
-    name?: string | null
-    email: string
-    emailVerified?: Date | string | null
-    image?: string | null
-    passwordHash: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
-    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-    memberships?: TenantUserUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutPrimaryTenantsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutPrimaryTenantsInput, UserUncheckedCreateWithoutPrimaryTenantsInput>
-  }
-
-  export type TenantUserCreateWithoutTenantInput = {
+  export type MembershipCreateWithoutTenantInput = {
     id?: string
     role?: $Enums.TenantRole
     joinedAt?: Date | string
     user: UserCreateNestedOneWithoutMembershipsInput
   }
 
-  export type TenantUserUncheckedCreateWithoutTenantInput = {
+  export type MembershipUncheckedCreateWithoutTenantInput = {
     id?: string
     userId: string
     role?: $Enums.TenantRole
     joinedAt?: Date | string
   }
 
-  export type TenantUserCreateOrConnectWithoutTenantInput = {
-    where: TenantUserWhereUniqueInput
-    create: XOR<TenantUserCreateWithoutTenantInput, TenantUserUncheckedCreateWithoutTenantInput>
+  export type MembershipCreateOrConnectWithoutTenantInput = {
+    where: MembershipWhereUniqueInput
+    create: XOR<MembershipCreateWithoutTenantInput, MembershipUncheckedCreateWithoutTenantInput>
   }
 
-  export type TenantUserCreateManyTenantInputEnvelope = {
-    data: TenantUserCreateManyTenantInput | TenantUserCreateManyTenantInput[]
+  export type MembershipCreateManyTenantInputEnvelope = {
+    data: MembershipCreateManyTenantInput | MembershipCreateManyTenantInput[]
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutPrimaryTenantsInput = {
-    update: XOR<UserUpdateWithoutPrimaryTenantsInput, UserUncheckedUpdateWithoutPrimaryTenantsInput>
-    create: XOR<UserCreateWithoutPrimaryTenantsInput, UserUncheckedCreateWithoutPrimaryTenantsInput>
-    where?: UserWhereInput
+  export type MembershipUpsertWithWhereUniqueWithoutTenantInput = {
+    where: MembershipWhereUniqueInput
+    update: XOR<MembershipUpdateWithoutTenantInput, MembershipUncheckedUpdateWithoutTenantInput>
+    create: XOR<MembershipCreateWithoutTenantInput, MembershipUncheckedCreateWithoutTenantInput>
   }
 
-  export type UserUpdateToOneWithWhereWithoutPrimaryTenantsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutPrimaryTenantsInput, UserUncheckedUpdateWithoutPrimaryTenantsInput>
+  export type MembershipUpdateWithWhereUniqueWithoutTenantInput = {
+    where: MembershipWhereUniqueInput
+    data: XOR<MembershipUpdateWithoutTenantInput, MembershipUncheckedUpdateWithoutTenantInput>
   }
 
-  export type UserUpdateWithoutPrimaryTenantsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accounts?: AccountUpdateManyWithoutUserNestedInput
-    sessions?: SessionUpdateManyWithoutUserNestedInput
-    Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
-    memberships?: TenantUserUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutPrimaryTenantsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    image?: NullableStringFieldUpdateOperationsInput | string | null
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
-    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-    memberships?: TenantUserUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type TenantUserUpsertWithWhereUniqueWithoutTenantInput = {
-    where: TenantUserWhereUniqueInput
-    update: XOR<TenantUserUpdateWithoutTenantInput, TenantUserUncheckedUpdateWithoutTenantInput>
-    create: XOR<TenantUserCreateWithoutTenantInput, TenantUserUncheckedCreateWithoutTenantInput>
-  }
-
-  export type TenantUserUpdateWithWhereUniqueWithoutTenantInput = {
-    where: TenantUserWhereUniqueInput
-    data: XOR<TenantUserUpdateWithoutTenantInput, TenantUserUncheckedUpdateWithoutTenantInput>
-  }
-
-  export type TenantUserUpdateManyWithWhereWithoutTenantInput = {
-    where: TenantUserScalarWhereInput
-    data: XOR<TenantUserUpdateManyMutationInput, TenantUserUncheckedUpdateManyWithoutTenantInput>
+  export type MembershipUpdateManyWithWhereWithoutTenantInput = {
+    where: MembershipScalarWhereInput
+    data: XOR<MembershipUpdateManyMutationInput, MembershipUncheckedUpdateManyWithoutTenantInput>
   }
 
   export type TenantCreateWithoutMembersInput = {
     id?: string
     name: string
-    slug?: string | null
+    slug: string
     createdAt?: Date | string
-    primaryUser: UserCreateNestedOneWithoutPrimaryTenantsInput
+    phoneNumber: string
+    address: string
   }
 
   export type TenantUncheckedCreateWithoutMembersInput = {
     id?: string
     name: string
-    slug?: string | null
+    slug: string
     createdAt?: Date | string
-    primaryUserId: string
+    phoneNumber: string
+    address: string
   }
 
   export type TenantCreateOrConnectWithoutMembersInput = {
@@ -12115,7 +11879,6 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantCreateNestedManyWithoutPrimaryUserInput
   }
 
   export type UserUncheckedCreateWithoutMembershipsInput = {
@@ -12130,7 +11893,6 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     Authenticator?: AuthenticatorUncheckedCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantUncheckedCreateNestedManyWithoutPrimaryUserInput
   }
 
   export type UserCreateOrConnectWithoutMembershipsInput = {
@@ -12152,17 +11914,19 @@ export namespace Prisma {
   export type TenantUpdateWithoutMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    primaryUser?: UserUpdateOneRequiredWithoutPrimaryTenantsNestedInput
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
   }
 
   export type TenantUncheckedUpdateWithoutMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
+    slug?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    primaryUserId?: StringFieldUpdateOperationsInput | string
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserUpsertWithoutMembershipsInput = {
@@ -12188,7 +11952,6 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUpdateManyWithoutPrimaryUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMembershipsInput = {
@@ -12203,7 +11966,6 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     Authenticator?: AuthenticatorUncheckedUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUncheckedUpdateManyWithoutPrimaryUserNestedInput
   }
 
   export type UserCreateWithoutAuthenticatorInput = {
@@ -12217,8 +11979,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantCreateNestedManyWithoutPrimaryUserInput
-    memberships?: TenantUserCreateNestedManyWithoutUserInput
+    memberships?: MembershipCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAuthenticatorInput = {
@@ -12232,8 +11993,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
-    primaryTenants?: TenantUncheckedCreateNestedManyWithoutPrimaryUserInput
-    memberships?: TenantUserUncheckedCreateNestedManyWithoutUserInput
+    memberships?: MembershipUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAuthenticatorInput = {
@@ -12263,8 +12023,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUpdateManyWithoutPrimaryUserNestedInput
-    memberships?: TenantUserUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAuthenticatorInput = {
@@ -12278,8 +12037,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
-    primaryTenants?: TenantUncheckedUpdateManyWithoutPrimaryUserNestedInput
-    memberships?: TenantUserUncheckedUpdateManyWithoutUserNestedInput
+    memberships?: MembershipUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -12314,14 +12072,7 @@ export namespace Prisma {
     transports?: string | null
   }
 
-  export type TenantCreateManyPrimaryUserInput = {
-    id?: string
-    name: string
-    slug?: string | null
-    createdAt?: Date | string
-  }
-
-  export type TenantUserCreateManyUserInput = {
+  export type MembershipCreateManyUserInput = {
     id?: string
     tenantId: string
     role?: $Enums.TenantRole
@@ -12424,72 +12175,49 @@ export namespace Prisma {
     transports?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type TenantUpdateWithoutPrimaryUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    members?: TenantUserUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantUncheckedUpdateWithoutPrimaryUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    members?: TenantUserUncheckedUpdateManyWithoutTenantNestedInput
-  }
-
-  export type TenantUncheckedUpdateManyWithoutPrimaryUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    name?: StringFieldUpdateOperationsInput | string
-    slug?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type TenantUserUpdateWithoutUserInput = {
+  export type MembershipUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumTenantRoleFieldUpdateOperationsInput | $Enums.TenantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     tenant?: TenantUpdateOneRequiredWithoutMembersNestedInput
   }
 
-  export type TenantUserUncheckedUpdateWithoutUserInput = {
+  export type MembershipUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     role?: EnumTenantRoleFieldUpdateOperationsInput | $Enums.TenantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TenantUserUncheckedUpdateManyWithoutUserInput = {
+  export type MembershipUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     tenantId?: StringFieldUpdateOperationsInput | string
     role?: EnumTenantRoleFieldUpdateOperationsInput | $Enums.TenantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TenantUserCreateManyTenantInput = {
+  export type MembershipCreateManyTenantInput = {
     id?: string
     userId: string
     role?: $Enums.TenantRole
     joinedAt?: Date | string
   }
 
-  export type TenantUserUpdateWithoutTenantInput = {
+  export type MembershipUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     role?: EnumTenantRoleFieldUpdateOperationsInput | $Enums.TenantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMembershipsNestedInput
   }
 
-  export type TenantUserUncheckedUpdateWithoutTenantInput = {
+  export type MembershipUncheckedUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumTenantRoleFieldUpdateOperationsInput | $Enums.TenantRole
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type TenantUserUncheckedUpdateManyWithoutTenantInput = {
+  export type MembershipUncheckedUpdateManyWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     role?: EnumTenantRoleFieldUpdateOperationsInput | $Enums.TenantRole

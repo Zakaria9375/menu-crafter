@@ -4,20 +4,25 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
-	registerSchema,
+	createRegisterSchema,
 	IRegisterSchema,
 } from "@/lib/validation/register-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { getUserByEmail, registerAction } from "@/lib/auth/actions";
+import { registerAction } from "@/lib/auth/actions";
+import { getUserByEmail } from "@/lib/db/actions";
 import React from "react";
-import ErrorMessage from "../ui/error-message";
+import {ErrorMessage} from "@/components/ui/error-message";
 import { useRouter } from "@/i18n/navigation";
 
 export default function RegisterForm() {
 	const t = useTranslations("auth.register");
+	const tValidation = useTranslations();
 	const router = useRouter();
 	const [serverError, setServerError] = React.useState<string>("");
+	
+	const registerSchema = React.useMemo(() => createRegisterSchema(tValidation), [tValidation]);
+	
 	const {
 		control,
 		handleSubmit,
@@ -61,7 +66,6 @@ export default function RegisterForm() {
 							<Input
 								id="name"
 								type="text"
-								required
 								autoComplete="name"
 								className="transition-all focus:shadow-soft"
 								{...field}
@@ -81,8 +85,7 @@ export default function RegisterForm() {
 						<>
 							<Input
 								id="email"
-								type="email"
-								required
+								type="text"
 								autoComplete="email"
 								className="transition-all focus:shadow-soft"
 								{...field}
@@ -103,7 +106,6 @@ export default function RegisterForm() {
 							<Input
 								id="password"
 								type="password"
-								required
 								className="transition-all focus:shadow-soft"
 								{...field}
 							/>
@@ -123,7 +125,6 @@ export default function RegisterForm() {
 							<Input
 								id="confirmPassword"
 								type="password"
-								required
 								className="transition-all focus:shadow-soft"
 								{...field}
 							/>

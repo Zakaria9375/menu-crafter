@@ -7,3 +7,4 @@ export interface IActionResult<T> {
 	error?: Error;
 }
 
+export type TranslationFunction = (key: string, values?: Record<string, string | number>) => string;

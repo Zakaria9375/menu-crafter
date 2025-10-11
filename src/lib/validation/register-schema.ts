@@ -1,31 +1,40 @@
 import { z } from "zod";
+import { TranslationFunction } from "@/types/ITypes";
 
-export const registerSchema = z
+
+export const createRegisterSchema = (t: TranslationFunction) => z
 	.object({
 		name: z
 			.string()
 			.trim()
-			.min(1, "Full Name is required")
+			.min(1, t("validation.name.required"))
 			.regex(
 				/^[a-zA-Z]+ [a-zA-Z]+/,
-				"Please provide both first and last name(e.g. John Doe)"
+				t("validation.name.pattern")
 			),
-		email: z.email("Invalid email").trim().min(1, "Email is required"),
+		email: z
+			.string()
+			.trim()
+			.min(1, t("validation.email.required"))
+			.email(t("validation.email.invalid")),
 		password: z
 			.string()
 			.trim()
-			.min(1, "Password is required")
-			.min(8, "Password must be at least 8 characters")
-			.max(32, "Password must be less than 32 characters")
+			.min(1, t("validation.password.required"))
+			.min(8, t("validation.password.min", { min: 8 }))
+			.max(32, t("validation.password.max", { max: 32 }))
 			.regex(
 				/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
-				"Password must contain at least one uppercase letter, one lowercase letter, one number"
+				t("validation.password.pattern")
 			),
-		confirmPassword: z.string().trim().min(1, "Confirm Password is required"),
+		confirmPassword: z.string().trim().min(1, t("validation.confirmPassword.required")),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
-		message: "Passwords must match",
+		message: t("validation.confirmPassword.match"),
 		path: ["confirmPassword"],
 	});
 
-export type IRegisterSchema = z.infer<typeof registerSchema>;
+export type IRegisterSchema = z.infer<ReturnType<typeof createRegisterSchema>>;
+
+// For backwards compatibility
+export const registerSchema = createRegisterSchema((key) => key);

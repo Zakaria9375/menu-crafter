@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChefHat } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
-import LoginForm from "@/components/auth/LoginForm";
+import LoginForm from "./LoginForm";
 import { LocaleParams } from "@/types/ITypes";
 import GoogleBtn from "@/components/ui/google-btn";
 import ContinueWithSeparator from "@/components/ui/provider-separator";

@@ -18,4 +18,4 @@ const ErrorMessage = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes
 ErrorMessage.displayName = "ErrorMessage";
 
 
-export default ErrorMessage;
+export { ErrorMessage };
