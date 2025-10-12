@@ -39,7 +39,7 @@ const Register = async ({params}: {params: LocaleParams}) => {
 							<p className="text-sm text-muted-foreground">
 								{t("hasAccount")}{" "}
 								<Link
-									href="/auth/login"
+									href="/login"
 									className="text-primary hover:text-primary-glow font-semibold transition-colors"
 								>
 									{t("signIn")}

@@ -1,9 +1,9 @@
 import Features from "@/components/home/Features";
 import Hero from "@/components/home/Hero";
-import ProductLayout from "./product/layout";
 import { setRequestLocale } from 'next-intl/server';
 import { LocaleParams } from "@/types/ITypes";
 import { auth } from "@/lib/auth";
+import ProductLayout from "./(public)/(product)/layout";
 
 export default async function Home({params}: {params: LocaleParams}) {
   const { locale } = await params;

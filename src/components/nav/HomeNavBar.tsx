@@ -26,10 +26,10 @@ const HomeNavBar = async () => {
 						<LanguageSelector />
 						{!isLoggedIn ? (
 							<>
-								<Link href="/auth/login">
+								<Link href="/login">
 									<Button variant="outline">{t("login")}</Button>
 								</Link>
-								<Link href="/auth/register">
+								<Link href="/register">
 									<Button variant="hero">{t("register")}</Button>
 								</Link>
 							</>

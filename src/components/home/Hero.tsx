@@ -20,13 +20,13 @@ const Hero = () => {
 						</p>
 
 						<div className="flex flex-col sm:flex-row gap-4">
-							<Link href="/auth/register">
+							<Link href="/register">
 								<Button variant="hero" size="lg" className="group">
 									{t("cta")}
 									<ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
 								</Button>
 							</Link>
-							<Link href="/product/demo">
+							<Link href="/demo">
 								<Button variant="outline" size="lg">
 									{t("secondary")}
 								</Button>

@@ -53,7 +53,7 @@ const ForgotPassword = async ({
 
 					<div className="text-center">
 						<Link
-							href="/auth/login"
+							href="/login"
 							className="inline-flex items-center text-sm text-primary hover:underline"
 						>
 							<ArrowLeft className="mr-2 h-4 w-4" />

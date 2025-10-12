@@ -48,7 +48,7 @@ export default function RegisterForm() {
 		} else {
 			const result = await registerAction(data);
 			if (result.success) {
-				router.push("/auth/login");
+				router.push("/login");
 			} else {
 				setServerError(result.message);
 			}

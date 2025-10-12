@@ -21,7 +21,7 @@ export default async function ForbiddenPage({
 
 	// If not logged in, redirect to login
 	if (!session?.user) {
-		redirect({ href: `/${locale}/auth/login`, locale });
+		redirect({ href: `/${locale}/login`, locale });
 	}
 
 	// Get user's available tenants

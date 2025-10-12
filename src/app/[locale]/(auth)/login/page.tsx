@@ -30,7 +30,7 @@ const Login = async ({ params }: { params: LocaleParams }) => {
 
 					<div className="mt-6 text-center space-y-3">
 						<Link
-							href="/auth/password-reset"
+							href="/password-reset"
 							className="text-sm text-primary hover:text-primary-glow transition-colors block"
 						>
 							{t("forgot")}
@@ -38,7 +38,7 @@ const Login = async ({ params }: { params: LocaleParams }) => {
 						<p className="text-sm text-muted-foreground">
 							{t("noAccount")}{" "}
 							<Link
-								href="/auth/register"
+								href="/register"
 								className="text-primary hover:text-primary-glow font-semibold transition-colors"
 							>
 								{t("signUp")}

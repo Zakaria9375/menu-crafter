@@ -5,9 +5,9 @@ import { intlMiddleware } from "./intl";
 import { isTenantRoute, splitLocale } from "./helper";
 
 // Public/auth route config (locale-agnostic)
-const PUBLIC_EXACT = ["/", "/product"];
-const PUBLIC_PREFIX = ["/product/"];
-const AUTH_PAGES = ["/auth/login", "/auth/register", "/auth/password-reset"];
+const PUBLIC_EXACT = ["/", "/pricing", "/contact", "/faq", "/terms", "/privacy", "/demo", "/features", "/help-center"];
+const PUBLIC_PREFIX: string[] = [];
+const AUTH_PAGES = ["/login", "/register", "/password-reset"];
 
 // ---- match helpers ----
 const isPublic = (p: string) =>
@@ -45,7 +45,7 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 		// This is a tenant-specific protected route
 		if (!loggedIn) {
 			// Not logged in - redirect to login
-			const redirectUrl = new URL(`/${locale}/auth/login`, req.url);
+			const redirectUrl = new URL(`/${locale}/login`, req.url);
 			redirectUrl.searchParams.set(
 				"callbackUrl",
 				`/${locale}/${tenantSlug}${remainingPath}`
@@ -78,7 +78,7 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 
 	// 3) Protected: require login
 	if (!loggedIn) {
-		const redirectUrl = new URL(`/${locale}/auth/login`, req.url);
+		const redirectUrl = new URL(`/${locale}/login`, req.url);
 		return NextResponse.redirect(redirectUrl);
 	}
 

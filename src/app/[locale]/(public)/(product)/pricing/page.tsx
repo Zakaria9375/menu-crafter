@@ -54,7 +54,7 @@ const Pricing = async ({params}: {params: LocaleParams}) => {
 								{t("starter.feature3")}
 							</li>
 						</ul>
-						<Link href="/auth/register" className="block">
+						<Link href="/register" className="block">
 							<Button variant="outline" className="w-full">
 								{t("getStarted")}
 							</Button>
@@ -96,7 +96,7 @@ const Pricing = async ({params}: {params: LocaleParams}) => {
 								{t("pro.feature4")}
 							</li>
 						</ul>
-						<Link href="/auth/register" className="block">
+						<Link href="/register" className="block">
 							<Button variant="hero" className="w-full">
 								{t("getStarted")}
 							</Button>
@@ -135,7 +135,7 @@ const Pricing = async ({params}: {params: LocaleParams}) => {
 								{t("enterprise.feature4")}
 							</li>
 						</ul>
-						<Link href="/product/contact" className="block">
+						<Link href="/contact" className="block">
 							<Button variant="outline" className="w-full">
 								{t("contactUs")}
 							</Button>

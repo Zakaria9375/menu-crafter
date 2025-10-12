@@ -115,7 +115,7 @@ const FAQ = async ({params}: {params: LocaleParams}) => {
               <p className="text-muted-foreground mb-6">
                 {t('stillNeedHelp.description')}
               </p>
-              <Link href="/product/contact">
+              <Link href="/contact">
                 <Button variant="hero">
                   {t('stillNeedHelp.button')}
                 </Button>
