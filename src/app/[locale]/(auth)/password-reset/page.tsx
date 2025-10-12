@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
 	Card,
 	CardContent,
@@ -6,12 +5,11 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Link } from "@/i18n/navigation";
 import { ArrowLeft, Mail } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LocaleParams } from "@/types/ITypes";
+import PasswordResetForm from "./PasswordResetForm";
 
 const ForgotPassword = async ({
 	params,
@@ -37,20 +35,7 @@ const ForgotPassword = async ({
 				</CardHeader>
 
 				<CardContent className="space-y-6">
-					<div className="space-y-2">
-						<Label htmlFor="email">{t("email")}</Label>
-						<Input
-							id="email"
-							type="text"
-							placeholder={t("emailPlaceholder")}
-							className="bg-background/50"
-						/>
-					</div>
-
-					<Button variant="hero" className="w-full">
-						{t("button")}
-					</Button>
-
+					<PasswordResetForm />
 					<div className="text-center">
 						<Link
 							href="/login"

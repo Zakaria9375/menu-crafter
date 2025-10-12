@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
 	createOnboardingSchema,
-	OnboardingFormData,
+	IOnboardingSchema,
 } from "@/lib/validation/onboarding-schema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,9 +14,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { ErrorMessage } from "@/components/ui/error-message";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { Loader2 } from "lucide-react";
+import { createTenant } from "@/lib/db/actions";
 
 export default function OnboardingForm() {
-	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<string | null>(null);
 	const router = useRouter();
 	const t = useTranslations();
@@ -27,35 +29,30 @@ export default function OnboardingForm() {
 		handleSubmit,
 		control,
 		formState: { errors },
-	} = useForm<OnboardingFormData>({
+	} = useForm<IOnboardingSchema>({
 		resolver: zodResolver(onboardingSchema),
 	});
 
-	const onSubmit = async (data: OnboardingFormData) => {
-		setIsSubmitting(true);
+	const onSubmit = async (data: IOnboardingSchema) => {
+		setIsLoading(true);
 		setError(null);
 
 		try {
-			const response = await fetch("/api/onboarding", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			});
+			const result = await createTenant(
+				data
+			);
 
-			const result = await response.json();
-
-			if (result.success) {
+			if (result.succeeded && result.data) {
 				// Redirect to the tenant dashboard
-				router.push(`/${result.tenant.slug}/dashboard`);
+				router.push(`/${result.data.slug}/admin/dashboard`);
 			} else {
 				setError(result.message || "Failed to create business");
+				setIsLoading(false);
 			}
-		} catch (err) {
+		} catch (error) {
+			console.error(error);
 			setError("An error occurred. Please try again.");
-		} finally {
-			setIsSubmitting(false);
+			setIsLoading(false);
 		}
 	};
 
@@ -153,9 +150,15 @@ export default function OnboardingForm() {
 				</div>
 			)}
 
-			<Button type="submit" disabled={isSubmitting} className="w-full">
-				{isSubmitting ? "Creating Business..." : "Create Business"}
-			</Button>
+		<Button type="submit" disabled={isLoading} className="w-full" variant="hero">
+			{isLoading ? (
+				<>
+					<Loader2 className="mr-2 w-4 h-4 animate-spin" /> Creating Business...
+				</>
+			) : (
+				"Create Business"
+			)}
+		</Button>
 		</form>
 	);
 }

@@ -7,7 +7,7 @@ import { isTenantRoute, splitLocale } from "./helper";
 // Public/auth route config (locale-agnostic)
 const PUBLIC_EXACT = ["/", "/pricing", "/contact", "/faq", "/terms", "/privacy", "/demo", "/features", "/help-center"];
 const PUBLIC_PREFIX: string[] = [];
-const AUTH_PAGES = ["/login", "/register", "/password-reset"];
+const AUTH_PAGES = ["/login", "/register", "/password-reset", "/change-password"];
 
 // ---- match helpers ----
 const isPublic = (p: string) =>
@@ -31,8 +31,18 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 	// 2) Visiting an auth page
 	if (isAuthPage(pathNoLocale)) {
 		if (loggedIn) {
-			const redirectUrl = new URL(`/${locale}/onboarding`, req.url);
-			return NextResponse.redirect(redirectUrl);
+			// Check if user has tenants
+			const memberships: Array<{ slug: string }> = session?.user?.memberships || [];
+			
+			if (memberships.length > 0) {
+				// User has tenants, redirect to first tenant's dashboard
+				const redirectUrl = new URL(`/${locale}/${memberships[0].slug}/admin/dashboard`, req.url);
+				return NextResponse.redirect(redirectUrl);
+			} else {
+				// User has no tenants, redirect to onboarding
+				const redirectUrl = new URL(`/${locale}/onboarding`, req.url);
+				return NextResponse.redirect(redirectUrl);
+			}
 		}
 		return intlMiddleware(req);
 	}

@@ -67,6 +67,41 @@
 			"emailPlaceholder": "Enter your email address",
 			"button": "Send Reset Link",
 			"backToLogin": "Back to Login"
+		},
+		"changePassword": {
+			"title": "Change Password",
+			"subtitle": "Enter your new password below",
+			"password": "New Password",
+			"passwordPlaceholder": "Enter new password",
+			"confirmPassword": "Confirm Password",
+			"confirmPasswordPlaceholder": "Confirm new password",
+			"button": "Change Password",
+			"updating": "Updating...",
+			"backToLogin": "Back to Login"
+		},
+		"resetError": {
+			"title": "Reset Link Invalid",
+			"subtitle": "The password reset link is invalid or has expired",
+			"description": "Password reset links expire after 1 hour for security reasons. Please request a new reset link to continue.",
+			"button": "Request New Reset Link",
+			"backToLogin": "Back to Login"
+		}
+	},
+	"email": {
+		"passwordReset": {
+			"subject": "Reset Your Password - Menu Crafter",
+			"greeting": "Hello",
+			"title": "Password Reset Request",
+			"description": "We received a request to reset your password for your Menu Crafter account. Click the button below to create a new password:",
+			"button": "Reset Password",
+			"linkExpiry": "This link will expire in 1 hour for security reasons.",
+			"notRequested": "If you didn't request a password reset, you can safely ignore this email. Your password will remain unchanged.",
+			"noReply": "This is an automated email. Please do not reply to this message.",
+			"support": "Need help? Contact our support team at",
+			"footer": "Menu Crafter - The modern platform for restaurant menu management",
+			"copyright": "© 2025 Menu Crafter. All rights reserved.",
+			"troubleButton": "If the button above doesn't work, copy and paste this link into your browser:",
+			"securityTip": "For your security, never share this link with anyone."
 		}
 	},
 	"common": {

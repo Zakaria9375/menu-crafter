@@ -1,8 +1,24 @@
 import OnboardingForm from "./OnboardingForm";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { ChefHat } from "lucide-react";
+import { auth } from "@/lib/auth";
+import { redirect } from "@/i18n/navigation";
 
-export default function Onboarding() {
+export default async function Onboarding() {
+	const session = await auth();
+
+	// If not logged in, redirect to login (middleware should handle this, but double-check)
+	if (!session?.user?.id) {
+		redirect({ href: "/login", locale: "en" });
+	}
+
+	// If user has tenants, redirect to first tenant's dashboard
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const memberships = (session?.user as any)?.memberships as Array<{ slug: string }> | undefined;
+	if (memberships && memberships.length > 0) {
+		redirect({ href: `/${memberships[0].slug}/admin/dashboard`, locale: "en" });
+	}
+
 	return (
 		<div className="min-h-screen bg-gradient-hero flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
 			<Card className="w-full max-w-md bg-card/80 backdrop-blur-sm shadow-elegant border-0">

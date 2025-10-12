@@ -7,7 +7,6 @@ import db from "@/lib/db";
 import { tenants } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
-
 const PRIVATE_TENANT_ROUTES = [
 	"/admin",
 ];

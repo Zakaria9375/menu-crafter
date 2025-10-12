@@ -9,13 +9,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useMemo } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { signInAction } from "@/lib/auth/actions";
-import { getUserByEmail } from "@/lib/db/actions";
 import { ErrorMessage } from "@/components/ui/error-message";
+import { Loader2 } from "lucide-react";
 
 export default function LoginForm() {
 	const t = useTranslations("auth.login");
 	const tValidation = useTranslations();
 	const [serverError, setServerError] = useState<string>("");
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const router = useRouter();
 	
 	const loginSchema = useMemo(() => createLoginSchema(tValidation), [tValidation]);
@@ -34,18 +35,15 @@ export default function LoginForm() {
 		},
 	});
 	const onSubmit = handleSubmit(async (data) => {
+		setIsLoading(true);
 		setServerError("");
-		const existedUser = await getUserByEmail(data.email);
-		if (existedUser.success) {
-			const result = await signInAction(data.email, data.password);
-			if (result.success) {
-				router.push("/onboarding");
-			} else {
-				setServerError(result.message);
-			}
+		const result = await signInAction(data);
+		if (result.succeeded) {
+			router.push("/onboarding");
 		} else {
-			setServerError(existedUser.message);
+			setServerError(result.message);
 		}
+		setIsLoading(false);
 	});
 	return (
 		<form onSubmit={onSubmit} className="space-y-4">
@@ -90,10 +88,16 @@ export default function LoginForm() {
 				/>
 			</div>
 
-			<ErrorMessage error={serverError} />
-			<Button type="submit" className="w-full" variant="hero">
-				{t("button")}
-			</Button>
+		<ErrorMessage error={serverError} />
+		<Button type="submit" className="w-full" variant="hero" disabled={isLoading}>
+			{isLoading ? (
+				<>
+					<Loader2 className="mr-2 w-4 h-4 animate-spin" /> {t("button")}
+				</>
+			) : (
+				t("button")
+			)}
+		</Button>
 		</form>
 	);
 }

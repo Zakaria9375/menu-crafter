@@ -30,7 +30,7 @@ const Login = async ({ params }: { params: LocaleParams }) => {
 
 					<div className="mt-6 text-center space-y-3">
 						<Link
-							href="/password-reset"
+							href={"/password-reset"}
 							className="text-sm text-primary hover:text-primary-glow transition-colors block"
 						>
 							{t("forgot")}

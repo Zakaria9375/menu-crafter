@@ -26,7 +26,7 @@ export const createOnboardingSchema = (t: TranslationFunction) => z.object({
     ),
 });
 
-export type OnboardingFormData = z.infer<ReturnType<typeof createOnboardingSchema>>;
+export type IOnboardingSchema = z.infer<ReturnType<typeof createOnboardingSchema>>;
 
 // For backwards compatibility
 export const onboardingSchema = createOnboardingSchema((key) => key);

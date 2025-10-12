@@ -1,7 +1,7 @@
 export type LocaleParams = Promise<{ locale: string }>;
 
 export interface IActionResult<T> {
-	success: boolean;
+	succeeded: boolean;
 	message: string;
 	data?: T;
 	error?: Error;

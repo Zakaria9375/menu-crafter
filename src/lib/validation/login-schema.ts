@@ -15,3 +15,5 @@ export const createLoginSchema = (t: TranslationFunction) => z.object({
 });
 
 export type ILoginSchema = z.infer<ReturnType<typeof createLoginSchema>>;
+
+export const loginSchema = createLoginSchema((key) => key);

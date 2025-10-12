@@ -21,7 +21,7 @@ export const {
 			if (user) {
 				const result = await getUserMembershipsWithTenants(user.id ?? "");
 
-				if (result.success && result.data) {
+				if (result.succeeded && result.data) {
 					token.tenants = result.data.map((m) => ({
 						id: m.tenantId,
 						slug: m.slug,
@@ -56,7 +56,7 @@ export const {
 				
 				const user = await getUserByEmail(email as string);
 
-				if (user.success && user.data) {
+				if (user.succeeded && user.data) {
 					const isPasswordValid = await bcrypt.compare(
 						password as string,
 						user.data.passwordHash

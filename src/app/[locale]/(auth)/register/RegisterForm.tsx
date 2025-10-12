@@ -9,17 +9,20 @@ import {
 } from "@/lib/validation/register-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { registerAction } from "@/lib/auth/actions";
-import { getUserByEmail } from "@/lib/db/actions";
+import { registerAction } from "@/lib/auth/actions/register";
 import React from "react";
 import {ErrorMessage} from "@/components/ui/error-message";
+import {SuccessMessage} from "@/components/ui/success-message";
 import { useRouter } from "@/i18n/navigation";
+import { Loader2 } from "lucide-react";
 
 export default function RegisterForm() {
 	const t = useTranslations("auth.register");
 	const tValidation = useTranslations();
 	const router = useRouter();
 	const [serverError, setServerError] = React.useState<string>("");
+	const [successMessage, setSuccessMessage] = React.useState<string>("");
+	const [isLoading, setIsLoading] = React.useState<boolean>(false);
 	
 	const registerSchema = React.useMemo(() => createRegisterSchema(tValidation), [tValidation]);
 	
@@ -40,19 +43,19 @@ export default function RegisterForm() {
 	});
 
 	const onSubmit = handleSubmit(async (data) => {
+		setIsLoading(true);
 		setServerError("");
-		const existedUser = await getUserByEmail(data.email);
-		if (existedUser.success) {
-			setServerError(existedUser.message);
-			return;
+		setSuccessMessage("");
+
+		const result = await registerAction(data);
+		if (result.succeeded) {
+			setSuccessMessage("Registration successful! Redirecting to login...");
+			setTimeout(() => router.push("/login"), 2000);
 		} else {
-			const result = await registerAction(data);
-			if (result.success) {
-				router.push("/login");
-			} else {
-				setServerError(result.message);
-			}
+			setServerError(result.message);
 		}
+
+		setIsLoading(false);
 	});
 	return (
 		<form onSubmit={onSubmit} className="space-y-4" autoComplete="off">
@@ -133,10 +136,17 @@ export default function RegisterForm() {
 					)}
 				/>
 			</div>
-			<ErrorMessage error={serverError} />
-			<Button type="submit" className="w-full" variant="hero">
-				{t("button")}
-			</Button>
+		<ErrorMessage error={serverError} />
+		<SuccessMessage message={successMessage} />
+		<Button type="submit" className="w-full" variant="hero" disabled={isLoading}>
+			{isLoading ? (
+				<>
+					<Loader2 className="mr-2 w-4 h-4 animate-spin" /> {t("button")}
+				</>
+			) : (
+				t("button")
+			)}
+		</Button>
 		</form>
 	);
 }

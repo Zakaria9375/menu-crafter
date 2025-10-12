@@ -54,6 +54,16 @@ export const verificationTokens = pgTable('verification_tokens', {
   pk: primaryKey({ columns: [table.identifier, table.token] }),
 }));
 
+// Password reset tokens table
+export const passwordResetTokens = pgTable('password_reset_tokens', {
+  id: text('id').primaryKey().$defaultFn(() => randomUUID()),
+  email: text('email').notNull(),
+  token: text('token').notNull().unique(),
+  createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
+  userId: text('userId').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  expires: timestamp('expires', { mode: 'date' }).notNull(),
+});
+
 // Tenants table
 export const tenants = pgTable('tenants', {
   id: text('id').primaryKey().$defaultFn(() => randomUUID()),
@@ -95,6 +105,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   sessions: many(sessions),
   memberships: many(memberships),
   authenticators: many(authenticators),
+  passwordResetTokens: many(passwordResetTokens),
 }));
 
 export const accountsRelations = relations(accounts, ({ one }) => ({
@@ -133,6 +144,13 @@ export const authenticatorsRelations = relations(authenticators, ({ one }) => ({
   }),
 }));
 
+export const passwordResetTokensRelations = relations(passwordResetTokens, ({ one }) => ({
+  user: one(users, {
+    fields: [passwordResetTokens.userId],
+    references: [users.id],
+  }),
+}));
+
 // Types
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
@@ -140,4 +158,6 @@ export type Tenant = typeof tenants.$inferSelect;
 export type NewTenant = typeof tenants.$inferInsert;
 export type Membership = typeof memberships.$inferSelect;
 export type NewMembership = typeof memberships.$inferInsert;
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
+export type NewPasswordResetToken = typeof passwordResetTokens.$inferInsert;
 
