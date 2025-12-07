@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { intlMiddleware } from "./intl";
 import { isTenantRoute, splitLocale } from "./helper";
+import { getUserTenants } from "@/lib/db/actions";
 
 // Public/auth route config (locale-agnostic)
 const PUBLIC_EXACT = ["/", "/pricing", "/contact", "/faq", "/terms", "/privacy", "/demo", "/features", "/help-center"];
@@ -30,13 +31,14 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 
 	// 2) Visiting an auth page
 	if (isAuthPage(pathNoLocale)) {
-		if (loggedIn) {
-			// Check if user has tenants
-			const memberships: Array<{ slug: string }> = session?.user?.memberships || [];
+		if (loggedIn && session?.user?.id) {
+			// Fetch user's tenants dynamically
+			const tenantsResult = await getUserTenants(session.user.id);
+			const userTenants = tenantsResult.succeeded ? tenantsResult.data : [];
 			
-			if (memberships.length > 0) {
+			if (userTenants && userTenants.length > 0) {
 				// User has tenants, redirect to first tenant's dashboard
-				const redirectUrl = new URL(`/${locale}/${memberships[0].slug}/admin/dashboard`, req.url);
+				const redirectUrl = new URL(`/${locale}/${userTenants[0].slug}/admin/dashboard`, req.url);
 				return NextResponse.redirect(redirectUrl);
 			} else {
 				// User has no tenants, redirect to onboarding
@@ -53,7 +55,7 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 
 	if (isTenant && tenantSlug) {
 		// This is a tenant-specific protected route
-		if (!loggedIn) {
+		if (!loggedIn || !session?.user?.id) {
 			// Not logged in - redirect to login
 			const redirectUrl = new URL(`/${locale}/login`, req.url);
 			redirectUrl.searchParams.set(
@@ -63,17 +65,16 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 			return NextResponse.redirect(redirectUrl);
 		}
 
-		// Check if user has access to this tenant
-		const memberships: Array<{ slug: string; id: string; role: string }> =
-			session?.user?.memberships || [];
+		// Fetch user's tenants dynamically
+		const tenantsResult = await getUserTenants(session.user.id);
+		const userTenants = tenantsResult.succeeded && tenantsResult.data ? tenantsResult.data : [];
 
-		if (memberships.length === 0) {
+		if (!userTenants || userTenants.length === 0) {
 			const redirectUrl = new URL(`/${locale}/onboarding`, req.url);
 			return NextResponse.redirect(redirectUrl);
 		}
-		const hasAccess = memberships.some(
-			(m: { slug: string }) => m.slug === tenantSlug
-		);
+
+		const hasAccess = userTenants.some((t) => t.slug === tenantSlug);
 
 		if (!hasAccess) {
 			// User has other tenants but not this one - show 403 forbidden

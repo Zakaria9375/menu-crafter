@@ -24,7 +24,7 @@ export {
 // Membership actions
 export {
 	getUserMemberships,
-	getUserMembershipsWithTenants,
+	getUserTenants,
 } from "./memberships";
 
 // Password reset token actions

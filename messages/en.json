@@ -361,5 +361,8 @@
 		"yourTenants": "Your Available Restaurants:",
 		"goHome": "Go Home",
 		"goBack": "Go Back"
+	},
+	"admin": {
+		"addVenue": "Add New Restaurant"
 	}
 }

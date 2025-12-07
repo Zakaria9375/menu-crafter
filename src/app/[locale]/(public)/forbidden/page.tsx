@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/auth";
 import { redirect } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
+import { getUserTenants } from "@/lib/db/actions";
 
 interface PageProps {
 	searchParams: Promise<{ tenant?: string }>;
@@ -18,16 +19,17 @@ export default async function ForbiddenPage({
 	const { locale } = await params;
 	const { tenant } = await searchParams;
 	const session = await auth();
+	const userId = session?.user?.id;
 
 	// If not logged in, redirect to login
-	if (!session?.user) {
+	if (!userId) {
 		redirect({ href: `/${locale}/login`, locale });
+		return null; // TypeScript flow control
 	}
 
-	// Get user's available tenants
-	const memberships: Array<{ slug: string }> =
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	(session?.user as any)?.memberships || [];
+	// Fetch user's tenants dynamically
+	const tenantsResult = await getUserTenants(userId);
+	const userTenants = tenantsResult.succeeded && tenantsResult.data ? tenantsResult.data : [];
 
 	return (
 		<div className="min-h-screen flex items-center justify-center px-6 py-12">
@@ -50,22 +52,23 @@ export default async function ForbiddenPage({
 					)}
 				</div>
 
-				{memberships.length > 0 && (
-					<div className="mb-8 p-6 bg-muted rounded-lg">
-						<h3 className="font-semibold mb-3">{t("yourTenants")}</h3>
-						<div className="space-y-2">
-							{memberships.map((m) => (
-								<Link
-									key={m.slug}
-									href={`/${locale}/${m.slug}/admin`}
-									className="block p-3 bg-background hover:bg-accent rounded-md transition-colors"
-								>
-									{m.slug}
-								</Link>
-							))}
-						</div>
-					</div>
-				)}
+		{userTenants && userTenants.length > 0 && (
+			<div className="mb-8 p-6 bg-muted rounded-lg">
+				<h3 className="font-semibold mb-3">{t("yourTenants")}</h3>
+				<div className="space-y-2">
+					{userTenants.map((tenant) => (
+						<Link
+							key={tenant.slug}
+							href={`/${locale}/${tenant.slug}/admin`}
+							className="block p-3 bg-background hover:bg-accent rounded-md transition-colors"
+						>
+							<div className="font-medium">{tenant.name}</div>
+							<div className="text-sm text-muted-foreground">{tenant.slug}</div>
+						</Link>
+					))}
+				</div>
+			</div>
+		)}
 
 				<div className="flex flex-col sm:flex-row gap-4 justify-center">
 					<Button asChild variant="default" size="lg">

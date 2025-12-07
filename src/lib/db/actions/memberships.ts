@@ -1,6 +1,7 @@
 "use server";
 
 import { IActionResult } from "@/types/ITypes";
+import { IUserTenants } from "@/types/IUserTenants";
 import db from "..";
 import { memberships, tenants } from "../schema";
 import type { Membership } from "../schema";
@@ -32,33 +33,35 @@ export const getUserMemberships = async (
 };
 
 /**
- * Get user memberships with tenant information (for JWT token)
+ * Get user tenants with role information
  * @param userId - User ID
- * @returns IActionResult with array of memberships with tenant slug
+ * @returns IActionResult with array of tenants including user's role
  */
-export const getUserMembershipsWithTenants = async (
+export const getUserTenants = async (
 	userId: string
-): Promise<
-	IActionResult<{ tenantId: string; role: string; slug: string | null }[]>
-> => {
+): Promise<IActionResult<IUserTenants[]>> => {
 	try {
 		const result = await db
 			.select({
-				tenantId: memberships.tenantId,
-				role: memberships.role,
+				id: tenants.id,
+				name: tenants.name,
 				slug: tenants.slug,
+				phoneNumber: tenants.phoneNumber,
+				address: tenants.address,
+				createdAt: tenants.createdAt,
+				role: memberships.role,
 			})
 			.from(memberships)
-			.leftJoin(tenants, eq(memberships.tenantId, tenants.id))
+			.innerJoin(tenants, eq(memberships.tenantId, tenants.id))
 			.where(eq(memberships.userId, userId));
 
 		if (result.length === 0) {
-			return success("User has no memberships", []);
+			return success("User has no tenants", []);
 		}
 
-		return success(`Found ${result.length} membership(s)`, result);
+		return success(`Found ${result.length} tenant(s)`, result);
 	} catch (error) {
-		return failure("Error fetching user memberships", error as Error);
+		return failure("Error fetching user tenants", error as Error);
 	}
 };
 

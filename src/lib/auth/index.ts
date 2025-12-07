@@ -3,7 +3,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import db from "@/lib/db";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Google from "next-auth/providers/google";
-import { getUserByEmail, getUserMembershipsWithTenants } from "../db/actions";
+import { getUserByEmail } from "../db/actions";
 import bcrypt from "bcryptjs";
 
 export const {
@@ -11,33 +11,18 @@ export const {
 	auth,
 	signIn,
 	signOut,
+	
 } = NextAuth({
 	adapter: DrizzleAdapter(db),
 	cookies: {
 	},
 	callbacks: {
-		async jwt({ token, user }) {
-			// On first sign-in, fetch memberships
-			if (user) {
-				const result = await getUserMembershipsWithTenants(user.id ?? "");
-
-				if (result.succeeded && result.data) {
-					token.tenants = result.data.map((m) => ({
-						id: m.tenantId,
-						slug: m.slug,
-						role: m.role,
-					}));
-				}
-			}
-			return token;
-		},
 		async session({ session, token }) {
+			// Add user ID to session for easy access
 			if (session.user && token.sub) {
 				session.user.id = token.sub;
-				// @ts-expect-error: memberships is added dynamically to the user object
-				if (token?.tenants) session.user.memberships = token.tenants;
 			}
-      return session;
+			return session;
 		},
 	},
 	session: {

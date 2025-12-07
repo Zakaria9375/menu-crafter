@@ -55,6 +55,12 @@ export const createTenant = async (
 			return failure("User not authenticated");
 		}
 		const { businessName, phoneNumber, address, tenantSlug } = validatedData.data;
+		
+		// Get user email from session
+		if (!session.user.email) {
+			return failure("User email is required to create a tenant");
+		}
+		
 		// Check if slug already exists
 		const existingTenant = await db
 			.select()
@@ -78,6 +84,7 @@ export const createTenant = async (
 					slug: tenantSlug,
 					phoneNumber: phoneNumber,
 					address: address,
+					email: session?.user?.email as string,
 				})
 				.returning();
 

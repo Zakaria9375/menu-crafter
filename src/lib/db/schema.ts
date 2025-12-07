@@ -1,13 +1,13 @@
 import { pgTable, text, timestamp, integer, boolean, pgEnum, unique, primaryKey } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
-import { randomUUID } from 'crypto';
 
 // Enums
 export const tenantRoleEnum = pgEnum('TenantRole', ['OWNER', 'ADMIN', 'STAFF', 'MEMBER']);
+export const businessTypeEnum = pgEnum('BusinessType', ['RESTAURANT', 'HOTEL', 'CAFE', 'BAR', 'BAKERY', 'OTHER']);
 
 // Users table
 export const users = pgTable('users', {
-  id: text('id').primaryKey().$defaultFn(() => randomUUID()),
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   name: text('name'),
   email: text('email').notNull().unique(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
@@ -56,7 +56,7 @@ export const verificationTokens = pgTable('verification_tokens', {
 
 // Password reset tokens table
 export const passwordResetTokens = pgTable('password_reset_tokens', {
-  id: text('id').primaryKey().$defaultFn(() => randomUUID()),
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   email: text('email').notNull(),
   token: text('token').notNull().unique(),
   createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
@@ -66,17 +66,42 @@ export const passwordResetTokens = pgTable('password_reset_tokens', {
 
 // Tenants table
 export const tenants = pgTable('tenants', {
-  id: text('id').primaryKey().$defaultFn(() => randomUUID()),
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   name: text('name').notNull(),
   slug: text('slug').notNull().unique(),
   phoneNumber: text('phoneNumber').notNull(),
   address: text('address').notNull(),
+  email: text('email').notNull(),
   createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
+});
+
+// Tenant Details table (one-to-one with tenants)
+export const tenantDetails = pgTable('tenant_details', {
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
+  tenantId: text('tenantId').notNull().unique().references(() => tenants.id, { onDelete: 'cascade' }),
+  logo: text('logo'), // URL to logo image
+  businessType: businessTypeEnum('businessType').default('RESTAURANT'),
+  
+  // Social media accounts
+  facebook: text('facebook'),
+  instagram: text('instagram'),
+  x: text('x'), // X (formerly Twitter)
+  whatsapp: text('whatsapp'),
+  tiktok: text('tiktok'),
+  
+  // Languages supported (array of language codes: ['en', 'ar', 'fr'])
+  languages: text('languages').array().default(['en']),
+  currencies: text('currency').array().default(["EUR"]),
+  // Additional info
+  website: text('website'),
+  
+  createdAt: timestamp('createdAt', { mode: 'date' }).notNull().defaultNow(),
+  updatedAt: timestamp('updatedAt', { mode: 'date' }).notNull().defaultNow(),
 });
 
 // Memberships table (join table for users and tenants)
 export const memberships = pgTable('memberships', {
-  id: text('id').primaryKey().$defaultFn(() => randomUUID()),
+  id: text('id').primaryKey().$defaultFn(() => crypto.randomUUID()),
   tenantId: text('tenantId').notNull().references(() => tenants.id),
   userId: text('userId').notNull().references(() => users.id),
   role: tenantRoleEnum('role').notNull().default('MEMBER'),
@@ -122,8 +147,19 @@ export const sessionsRelations = relations(sessions, ({ one }) => ({
   }),
 }));
 
-export const tenantsRelations = relations(tenants, ({ many }) => ({
+export const tenantsRelations = relations(tenants, ({ many, one }) => ({
   members: many(memberships),
+  details: one(tenantDetails, {
+    fields: [tenants.id],
+    references: [tenantDetails.tenantId],
+  }),
+}));
+
+export const tenantDetailsRelations = relations(tenantDetails, ({ one }) => ({
+  tenant: one(tenants, {
+    fields: [tenantDetails.tenantId],
+    references: [tenants.id],
+  }),
 }));
 
 export const membershipsRelations = relations(memberships, ({ one }) => ({
@@ -156,6 +192,8 @@ export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
 export type Tenant = typeof tenants.$inferSelect;
 export type NewTenant = typeof tenants.$inferInsert;
+export type TenantDetails = typeof tenantDetails.$inferSelect;
+export type NewTenantDetails = typeof tenantDetails.$inferInsert;
 export type Membership = typeof memberships.$inferSelect;
 export type NewMembership = typeof memberships.$inferInsert;
 export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
