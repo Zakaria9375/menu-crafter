@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useMemo } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { signInAction } from "@/lib/auth/actions";
+import { getUserTenants } from "@/lib/db/actions";
 import { ErrorMessage } from "@/components/ui/error-message";
 import { Loader2 } from "lucide-react";
 
@@ -38,8 +39,13 @@ export default function LoginForm() {
 		setIsLoading(true);
 		setServerError("");
 		const result = await signInAction(data);
-		if (result.succeeded) {
-			router.push("/onboarding");
+		if (result.succeeded && result.data) {
+			const userTenants = await getUserTenants(result.data.id);
+			if (userTenants.succeeded && userTenants.data && userTenants.data.length > 0) {
+				router.push(`/${userTenants.data[0].slug}/admin`);
+			} else {
+				router.push("/onboarding");
+			}
 		} else {
 			setServerError(result.message);
 		}

@@ -22,7 +22,7 @@ export const signInAction = async (
 		}
 
 		const existedUser = await getUserByEmail(validatedData.data.email);
-		if (!existedUser.succeeded) {
+		if (!existedUser.succeeded || !existedUser.data) {
 			return failure("User not found");
 		}
 
@@ -32,10 +32,19 @@ export const signInAction = async (
 			redirect: false,
 		});
 
-		return result
-			? success("Sign in successful", result)
-			: failure("Sign in failed");
+		if (result?.error) {
+			return failure(result.code === "credentials" ? "Invalid credentials" : result.error);
+		}
+
+		return success("Sign in successful", existedUser.data);
 	} catch (error) {
+		// NextAuth throws on some errors even with redirect: false
+		if (error instanceof Error && error.message.includes("Read more at")) {
+             // This is likely a NextAuth error that we can't easily parse, or it's a redirect (but redirect: false should prevent that)
+             // Actually, for credentials provider, it might throw.
+             // Let's just return failure.
+             return failure("Sign in failed", error);
+        }
 		return failure("Sign in failed", error as Error);
 	}
 };
