@@ -1,5 +1,5 @@
 import db from './index';
-import { users, tenants, memberships } from './schema';
+import { users, tenants, memberships, categories, menuItems } from './schema';
 import * as bcrypt from 'bcryptjs';
 
 async function main() {
@@ -7,6 +7,8 @@ async function main() {
 
   // Clear existing data (in reverse order of dependencies)
   console.log('🧹 Cleaning existing data...');
+  await db.delete(menuItems);
+  await db.delete(categories);
   await db.delete(memberships);
   await db.delete(tenants);
   await db.delete(users);
@@ -184,12 +186,104 @@ async function main() {
 
   console.log(`✅ Created ${createdMemberships.length} memberships`);
 
+  // Create Menu Data for Bella Italia
+  console.log('🍽️ Creating menu for Bella Italia...');
+  const bellaItalia = createdTenants[0];
+
+  const createdCategories = await db.insert(categories).values([
+    { tenantId: bellaItalia.id, name: 'Appetizers', order: 0 },
+    { tenantId: bellaItalia.id, name: 'Mains', order: 1 },
+    { tenantId: bellaItalia.id, name: 'Desserts', order: 2 },
+    { tenantId: bellaItalia.id, name: 'Drinks', order: 3 },
+  ]).returning();
+
+  console.log(`✅ Created ${createdCategories.length} categories`);
+
+  const createdItems = await db.insert(menuItems).values([
+    // Appetizers
+    {
+      categoryId: createdCategories[0].id,
+      name: 'Bruschetta',
+      description: 'Toasted bread with tomatoes, garlic, and basil',
+      price: '$8.00',
+      dietary: ['vegetarian'],
+      order: 0,
+    },
+    {
+      categoryId: createdCategories[0].id,
+      name: 'Calamari',
+      description: 'Fried squid rings with marinara sauce',
+      price: '$12.00',
+      order: 1,
+    },
+    // Mains
+    {
+      categoryId: createdCategories[1].id,
+      name: 'Margherita Pizza',
+      description: 'Tomato sauce, mozzarella, and basil',
+      price: '$14.00',
+      dietary: ['vegetarian'],
+      order: 0,
+    },
+    {
+      categoryId: createdCategories[1].id,
+      name: 'Spaghetti Carbonara',
+      description: 'Pasta with eggs, cheese, pancetta, and pepper',
+      price: '$16.00',
+      order: 1,
+    },
+    {
+      categoryId: createdCategories[1].id,
+      name: 'Grilled Salmon',
+      description: 'Fresh Atlantic salmon with seasonal vegetables',
+      price: '$22.00',
+      dietary: ['gluten-free'],
+      order: 2,
+    },
+    // Desserts
+    {
+      categoryId: createdCategories[2].id,
+      name: 'Tiramisu',
+      description: 'Coffee-flavoured Italian dessert',
+      price: '$8.00',
+      dietary: ['vegetarian'],
+      order: 0,
+    },
+    {
+      categoryId: createdCategories[2].id,
+      name: 'Panna Cotta',
+      description: 'Italian dessert of sweetened cream thickened with gelatin',
+      price: '$7.00',
+      dietary: ['gluten-free'],
+      order: 1,
+    },
+    // Drinks
+    {
+      categoryId: createdCategories[3].id,
+      name: 'Italian Soda',
+      description: 'Sparkling water with flavored syrup',
+      price: '$4.00',
+      order: 0,
+    },
+    {
+      categoryId: createdCategories[3].id,
+      name: 'Espresso',
+      description: 'Strong black coffee',
+      price: '$3.00',
+      order: 1,
+    },
+  ]).returning();
+
+  console.log(`✅ Created ${createdItems.length} menu items`);
+
   // Print summary
   console.log('\n📊 Seeding Summary:');
   console.log('='.repeat(50));
   console.log(`👥 Users: ${createdUsers.length}`);
   console.log(`🏢 Tenants: ${createdTenants.length}`);
   console.log(`🔗 Memberships: ${createdMemberships.length}`);
+  console.log(`📂 Categories: ${createdCategories.length}`);
+  console.log(`🍽️ Menu Items: ${createdItems.length}`);
   console.log('='.repeat(50));
 
   console.log('\n📝 Test Credentials:');

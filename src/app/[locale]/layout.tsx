@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import { LocaleParams } from "@/types/ITypes";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/lib/auth";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -47,6 +48,7 @@ export default async function LocaleLayout({
 			>
 				<NextIntlClientProvider messages={messages}>
 					<SessionProvider session={session}>{children}</SessionProvider>
+					<Toaster />
 				</NextIntlClientProvider>
 			</body>
 		</html>
