@@ -6,9 +6,24 @@ import { isTenantRoute, splitLocale } from "./helper";
 import { getUserTenants } from "@/lib/db/actions";
 
 // Public/auth route config (locale-agnostic)
-const PUBLIC_EXACT = ["/", "/pricing", "/contact", "/faq", "/terms", "/privacy", "/demo", "/features", "/help-center"];
+const PUBLIC_EXACT = [
+	"/",
+	"/pricing",
+	"/contact",
+	"/faq",
+	"/terms",
+	"/privacy",
+	"/demo",
+	"/features",
+	"/help-center",
+];
 const PUBLIC_PREFIX: string[] = [];
-const AUTH_PAGES = ["/login", "/register", "/password-reset", "/change-password"];
+const AUTH_PAGES = [
+	"/login",
+	"/register",
+	"/password-reset",
+	"/change-password",
+];
 
 // ---- match helpers ----
 const isPublic = (p: string) =>
@@ -35,10 +50,13 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 			// Fetch user's tenants dynamically
 			const tenantsResult = await getUserTenants(session.user.id);
 			const userTenants = tenantsResult.succeeded ? tenantsResult.data : [];
-			
+
 			if (userTenants && userTenants.length > 0) {
 				// User has tenants, redirect to first tenant's dashboard
-				const redirectUrl = new URL(`/${locale}/${userTenants[0].slug}/admin/dashboard`, req.url);
+				const redirectUrl = new URL(
+					`/${locale}/${userTenants[0].slug}/admin/dashboard`,
+					req.url
+				);
 				return NextResponse.redirect(redirectUrl);
 			} else {
 				// User has no tenants, redirect to onboarding
@@ -52,7 +70,6 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 	const { isTenant, tenantSlug, remainingPath } = await isTenantRoute(
 		pathNoLocale
 	);
-
 	if (isTenant && tenantSlug) {
 		// This is a tenant-specific protected route
 		if (!loggedIn || !session?.user?.id) {
@@ -67,19 +84,18 @@ export const appMiddleware = auth(async (req: NextRequest) => {
 
 		// Fetch user's tenants dynamically
 		const tenantsResult = await getUserTenants(session.user.id);
-		const userTenants = tenantsResult.succeeded && tenantsResult.data ? tenantsResult.data : [];
-
+		const userTenants =
+			tenantsResult.succeeded && tenantsResult.data ? tenantsResult.data : [];
 		if (!userTenants || userTenants.length === 0) {
 			const redirectUrl = new URL(`/${locale}/onboarding`, req.url);
 			return NextResponse.redirect(redirectUrl);
 		}
 
 		const hasAccess = userTenants.some((t) => t.slug === tenantSlug);
-
 		if (!hasAccess) {
 			// User has other tenants but not this one - show 403 forbidden
 			const redirectUrl = new URL(`/${locale}/forbidden`, req.url);
-			redirectUrl.searchParams.set('tenant', tenantSlug);
+			redirectUrl.searchParams.set("tenant", tenantSlug);
 			return NextResponse.redirect(redirectUrl);
 		}
 

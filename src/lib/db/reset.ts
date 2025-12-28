@@ -1,23 +1,23 @@
-import db from './index';
-import { sql } from 'drizzle-orm';
+import { neon } from "@neondatabase/serverless";
+import * as dotenv from "dotenv";
 
-async function main() {
-  console.log('🗑️ Dropping all tables...');
-  
-  // Disable foreign key checks temporarily if possible, or just drop cascade
-  await db.execute(sql`DROP SCHEMA public CASCADE;`);
-  await db.execute(sql`CREATE SCHEMA public;`);
-  await db.execute(sql`GRANT ALL ON SCHEMA public TO public;`);
-  await db.execute(sql`COMMENT ON SCHEMA public IS 'standard public schema';`);
+dotenv.config();
 
-  console.log('✅ Database reset complete');
+if (!process.env.DATABASE_URL) {
+	throw new Error("DATABASE_URL environment variable is not set");
 }
 
-main()
-  .catch((e) => {
-    console.error('❌ Error resetting database:', e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    process.exit(0);
-  });
+const sql = neon(process.env.DATABASE_URL);
+
+async function reset() {
+	console.log("🗑️ Dropping public schema...");
+	await sql`DROP SCHEMA public CASCADE`;
+	console.log("✨ Creating public schema...");
+	await sql`CREATE SCHEMA public`;
+	console.log("✅ Database reset complete.");
+}
+
+reset().catch((e) => {
+	console.error(e);
+	process.exit(1);
+});

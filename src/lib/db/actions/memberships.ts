@@ -64,4 +64,3 @@ export const getUserTenants = async (
 		return failure("Error fetching user tenants", error as Error);
 	}
 };
-

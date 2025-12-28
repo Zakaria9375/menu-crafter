@@ -8,7 +8,6 @@ import { revalidatePath } from 'next/cache';
 // --- Categories ---
 
 export async function getMenu(tenantId: string) {
-  console.log('tenantId', tenantId);
   const menuCategories = await db.query.categories.findMany({
     where: eq(categories.tenantId, tenantId),
     orderBy: [asc(categories.order)],
@@ -18,7 +17,6 @@ export async function getMenu(tenantId: string) {
       },
     },
   });
-  console.log('menuCategories', menuCategories);
   return menuCategories;
 }
 
