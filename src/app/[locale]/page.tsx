@@ -2,21 +2,14 @@ import Features from "@/components/home/Features";
 import Hero from "@/components/home/Hero";
 import { setRequestLocale } from "next-intl/server";
 import { LocaleParams } from "@/types/ITypes";
-import { auth } from "@/lib/auth";
 import ProductLayout from "./(public)/(product)/layout";
 
 export default async function Home({ params }: { params: LocaleParams }) {
 	const { locale } = await params;
-	const session = await auth();
 	setRequestLocale(locale);
 
 	return (
 		<ProductLayout params={params}>
-			{session ? (
-				<pre>{JSON.stringify(session, null, 2)}</pre>
-			) : (
-				<pre>No session</pre>
-			)}
 			<Hero />
 			<Features />
 		</ProductLayout>

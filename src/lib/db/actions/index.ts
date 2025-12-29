@@ -14,8 +14,20 @@ export { createUser, getUserByEmail, updateUserPassword } from "./users";
 // Tenant actions
 export { getTenantBySubdomain, createTenant } from "./tenants";
 
+export { getTenantDetails, updateTenantDetails } from "./tenant-details";
+
+// Table actions
+export { getTables, createTable, updateTable, deleteTable } from "./tables";
+
 // Membership actions
-export { getUserMemberships, getUserTenants } from "./memberships";
+export {
+	getUserMemberships,
+	getUserTenants,
+	getTenantMembers,
+	addTenantMember,
+	updateTenantMemberRole,
+	removeTenantMember,
+} from "./memberships";
 
 // Password reset token actions
 export {

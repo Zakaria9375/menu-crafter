@@ -1,249 +1,350 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Download, Copy, Check, QrCodeIcon } from "lucide-react"
-import { useState } from "react"
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Download, Copy, Check } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { QRCodeSVG } from "qrcode.react";
+import { useParams } from "next/navigation";
 
 export default function AdminQRCodesPage() {
-  const [copied, setCopied] = useState(false)
+	const params = useParams();
+	const tenant = params.tenant as string;
+	const [copied, setCopied] = useState(false);
+	const [qrType, setQrType] = useState("menu");
+	const [customUrl, setCustomUrl] = useState("");
+	const [size, setSize] = useState("medium");
+	const [fgColor, setFgColor] = useState("#000000");
+	const [bgColor, setBgColor] = useState("#ffffff");
+	const [level, setLevel] = useState("M");
+	const [includeLogo, setIncludeLogo] = useState(false);
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText("https://golden-spoon.menucrafter.com/menu")
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+	const qrRef = useRef<SVGSVGElement>(null);
 
-  return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="mb-2 text-3xl font-bold">QR Codes</h1>
-        <p className="text-muted-foreground">Generate and download QR codes for your restaurant menu</p>
-      </div>
+	// Determine the base URL (in production, this should be the actual domain)
+	// For local dev, we assume subdomain routing or path-based
+	const origin = typeof window !== "undefined" ? window.location.origin : "";
+	// If we are on a subdomain (e.g. tenant.domain.com), origin is correct.
+	// If we are on path based (domain.com/tenant), we need to check capabilities.
+	// Assuming subdomain for now based on previous context, but fallback to constructing it.
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* QR Code Preview */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Menu QR Code</CardTitle>
-            <CardDescription>Scan this code to view your digital menu</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex justify-center">
-              <div className="rounded-lg border-4 border-border bg-white p-8">
-                <div className="flex h-64 w-64 items-center justify-center bg-muted">
-                  <QrCodeIcon className="h-32 w-32 text-muted-foreground" />
-                </div>
-              </div>
-            </div>
+	const getBaseUrl = () => {
+		// Logic to construct the public URL for the tenant
+		// For localhost:3000, if we are at admin.localhost or similar, we want tenant.localhost
+		if (origin.includes(tenant)) return origin;
+		return origin.replace("://", `://${tenant}.`);
+	};
 
-            <div className="space-y-2">
-              <Label>Menu URL</Label>
-              <div className="flex gap-2">
-                <Input value="https://golden-spoon.menucrafter.com/menu" readOnly />
-                <Button variant="outline" size="icon" onClick={handleCopyLink}>
-                  {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                </Button>
-              </div>
-            </div>
+	const baseUrl = getBaseUrl();
 
-            <div className="flex gap-2">
-              <Button className="flex-1 gap-2 bg-accent text-accent-foreground hover:bg-accent/90">
-                <Download className="h-4 w-4" />
-                Download PNG
-              </Button>
-              <Button variant="outline" className="flex-1 gap-2 bg-transparent">
-                <Download className="h-4 w-4" />
-                Download SVG
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+	const getQrValue = () => {
+		switch (qrType) {
+			case "menu":
+				return `${baseUrl}`; // Homepage contains menu
+			case "homepage":
+				return `${baseUrl}`;
+			case "custom":
+				return customUrl || baseUrl;
+			default:
+				return baseUrl;
+		}
+	};
 
-        {/* Customization Options */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Customize QR Code</CardTitle>
-            <CardDescription>Personalize your QR code appearance</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="style" className="space-y-4">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="style">Style</TabsTrigger>
-                <TabsTrigger value="content">Content</TabsTrigger>
-              </TabsList>
+	const qrValue = getQrValue();
 
-              <TabsContent value="style" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="size">Size</Label>
-                  <Select defaultValue="medium">
-                    <SelectTrigger id="size">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="small">Small (256x256)</SelectItem>
-                      <SelectItem value="medium">Medium (512x512)</SelectItem>
-                      <SelectItem value="large">Large (1024x1024)</SelectItem>
-                      <SelectItem value="xlarge">Extra Large (2048x2048)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+	const handleCopyLink = () => {
+		navigator.clipboard.writeText(qrValue);
+		setCopied(true);
+		setTimeout(() => setCopied(false), 2000);
+	};
 
-                <div className="space-y-2">
-                  <Label htmlFor="foreground">Foreground Color</Label>
-                  <div className="flex gap-2">
-                    <Input id="foreground" type="color" defaultValue="#000000" className="h-10 w-20" />
-                    <Input defaultValue="#000000" className="flex-1" />
-                  </div>
-                </div>
+	const getSizeInPixels = () => {
+		switch (size) {
+			case "small":
+				return 256;
+			case "medium":
+				return 512;
+			case "large":
+				return 1024;
+			case "xlarge":
+				return 2048;
+			default:
+				return 512;
+		}
+	};
 
-                <div className="space-y-2">
-                  <Label htmlFor="background">Background Color</Label>
-                  <div className="flex gap-2">
-                    <Input id="background" type="color" defaultValue="#ffffff" className="h-10 w-20" />
-                    <Input defaultValue="#ffffff" className="flex-1" />
-                  </div>
-                </div>
+	const handleDownloadSVG = () => {
+		if (!qrRef.current) return;
+		const svgData = new XMLSerializer().serializeToString(qrRef.current);
+		const blob = new Blob([svgData], { type: "image/svg+xml;charset=utf-8" });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = url;
+		link.download = `${tenant}-qrcode.svg`;
+		document.body.appendChild(link);
+		link.click();
+		document.body.removeChild(link);
+	};
 
-                <div className="space-y-2">
-                  <Label htmlFor="errorCorrection">Error Correction</Label>
-                  <Select defaultValue="medium">
-                    <SelectTrigger id="errorCorrection">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="low">Low (7%)</SelectItem>
-                      <SelectItem value="medium">Medium (15%)</SelectItem>
-                      <SelectItem value="high">High (25%)</SelectItem>
-                      <SelectItem value="highest">Highest (30%)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <p className="text-xs text-muted-foreground">
-                    Higher levels allow the QR code to be read even if partially damaged
-                  </p>
-                </div>
+	const handleDownloadPNG = () => {
+		if (!qrRef.current) return;
 
+		const svgData = new XMLSerializer().serializeToString(qrRef.current);
+		const canvas = document.createElement("canvas");
+		const ctx = canvas.getContext("2d");
+		const img = new Image();
+
+		const pixelSize = getSizeInPixels();
+		canvas.width = pixelSize;
+		canvas.height = pixelSize;
+
+		img.onload = () => {
+			if (!ctx) return;
+			ctx.fillStyle = bgColor;
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(img, 0, 0, pixelSize, pixelSize);
+			const pngFile = canvas.toDataURL("image/png");
+			const link = document.createElement("a");
+			link.download = `${tenant}-qrcode.png`;
+			link.href = pngFile;
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+		};
+
+		img.src = "data:image/svg+xml;base64," + btoa(svgData);
+	};
+
+	return (
+		<div className="space-y-6">
+			<div>
+				<h1 className="mb-2 text-3xl font-bold">QR Codes</h1>
+				<p className="text-muted-foreground">
+					Generate and download QR codes for your restaurant menu
+				</p>
+			</div>
+
+			<div className="grid gap-6 lg:grid-cols-2">
+				{/* QR Code Preview */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Menu QR Code</CardTitle>
+						<CardDescription>
+							Scan this code to view your digital menu
+						</CardDescription>
+					</CardHeader>
+					<CardContent className="space-y-6">
+						<div className="flex justify-center">
+							<div className="rounded-lg border-4 border-border bg-white p-8">
+								<div className="flex items-center justify-center bg-white">
+									<QRCodeSVG
+										ref={qrRef}
+										value={qrValue}
+										size={256}
+										bgColor={bgColor}
+										fgColor={fgColor}
+										level={level as "L" | "M" | "Q" | "H"}
+										includeMargin={true}
+										imageSettings={
+											includeLogo
+												? {
+														src: "/logo-placeholder.png", // Access actual logo if available
+														x: undefined,
+														y: undefined,
+														height: 24,
+														width: 24,
+														excavate: true,
+												  }
+												: undefined
+										}
+									/>
+								</div>
+							</div>
+						</div>
+
+						<div className="space-y-2">
+							<Label>Target URL</Label>
+							<div className="flex gap-2">
+								<Input value={qrValue} readOnly />
+								<Button variant="outline" size="icon" onClick={handleCopyLink}>
+									{copied ? (
+										<Check className="h-4 w-4" />
+									) : (
+										<Copy className="h-4 w-4" />
+									)}
+								</Button>
+							</div>
+						</div>
+
+						<div className="flex gap-2">
+							<Button
+								className="flex-1 gap-2 bg-accent text-accent-foreground hover:bg-accent/90"
+								onClick={handleDownloadPNG}
+							>
+								<Download className="h-4 w-4" />
+								Download PNG
+							</Button>
+							<Button
+								variant="outline"
+								className="flex-1 gap-2 bg-transparent"
+								onClick={handleDownloadSVG}
+							>
+								<Download className="h-4 w-4" />
+								Download SVG
+							</Button>
+						</div>
+					</CardContent>
+				</Card>
+
+				{/* Customization Options */}
+				<Card>
+					<CardHeader>
+						<CardTitle>Customize QR Code</CardTitle>
+						<CardDescription>
+							Personalize your QR code appearance
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<Tabs defaultValue="style" className="space-y-4">
+							<TabsList className="grid w-full grid-cols-2">
+								<TabsTrigger value="style">Style</TabsTrigger>
+								<TabsTrigger value="content">Content</TabsTrigger>
+							</TabsList>
+
+							<TabsContent value="style" className="space-y-4">
+								<div className="space-y-2">
+									<Label htmlFor="size">Download Size</Label>
+									<Select value={size} onValueChange={setSize}>
+										<SelectTrigger id="size">
+											<SelectValue />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectItem value="small">Small (256x256)</SelectItem>
+											<SelectItem value="medium">Medium (512x512)</SelectItem>
+											<SelectItem value="large">Large (1024x1024)</SelectItem>
+											<SelectItem value="xlarge">
+												Extra Large (2048x2048)
+											</SelectItem>
+										</SelectContent>
+									</Select>
+								</div>
+
+								<div className="space-y-2">
+									<Label htmlFor="foreground">Foreground Color</Label>
+									<div className="flex gap-2">
+										<Input
+											id="foreground"
+											type="color"
+											value={fgColor}
+											onChange={(e) => setFgColor(e.target.value)}
+											className="h-10 w-20"
+										/>
+										<Input
+											value={fgColor}
+											onChange={(e) => setFgColor(e.target.value)}
+											className="flex-1"
+										/>
+									</div>
+								</div>
+
+								<div className="space-y-2">
+									<Label htmlFor="background">Background Color</Label>
+									<div className="flex gap-2">
+										<Input
+											id="background"
+											type="color"
+											value={bgColor}
+											onChange={(e) => setBgColor(e.target.value)}
+											className="h-10 w-20"
+										/>
+										<Input
+											value={bgColor}
+											onChange={(e) => setBgColor(e.target.value)}
+											className="flex-1"
+										/>
+									</div>
+								</div>
+
+								<div className="space-y-2">
+									<Label htmlFor="errorCorrection">Error Correction</Label>
+									<Select value={level} onValueChange={setLevel}>
+										<SelectTrigger id="errorCorrection">
+											<SelectValue />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectItem value="L">Low (7%)</SelectItem>
+											<SelectItem value="M">Medium (15%)</SelectItem>
+											<SelectItem value="Q">High (25%)</SelectItem>
+											<SelectItem value="H">Highest (30%)</SelectItem>
+										</SelectContent>
+									</Select>
+									<p className="text-xs text-muted-foreground">
+										Higher levels allow the QR code to be read even if partially
+										damaged
+									</p>
+								</div>
+
+								{/* Logo upload would require file storage, skipping for now or using placeholder toggle */}
+								{/* 
                 <div className="space-y-2">
                   <Label htmlFor="logo">Add Logo (Optional)</Label>
                   <Input id="logo" type="file" accept="image/*" />
-                  <p className="text-xs text-muted-foreground">Add your restaurant logo to the center of the QR code</p>
                 </div>
-              </TabsContent>
+                */}
+							</TabsContent>
 
-              <TabsContent value="content" className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="qrType">QR Code Type</Label>
-                  <Select defaultValue="menu">
-                    <SelectTrigger id="qrType">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="menu">Full Menu</SelectItem>
-                      <SelectItem value="homepage">Restaurant Homepage</SelectItem>
-                      <SelectItem value="category">Specific Category</SelectItem>
-                      <SelectItem value="custom">Custom URL</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+							<TabsContent value="content" className="space-y-4">
+								<div className="space-y-2">
+									<Label htmlFor="qrType">QR Code Type</Label>
+									<Select value={qrType} onValueChange={setQrType}>
+										<SelectTrigger id="qrType">
+											<SelectValue />
+										</SelectTrigger>
+										<SelectContent>
+											<SelectItem value="menu">Full Menu</SelectItem>
+											<SelectItem value="homepage">
+												Restaurant Homepage
+											</SelectItem>
+											<SelectItem value="custom">Custom URL</SelectItem>
+										</SelectContent>
+									</Select>
+								</div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="customUrl">Custom URL (Optional)</Label>
-                  <Input id="customUrl" placeholder="https://..." />
-                  <p className="text-xs text-muted-foreground">Override the default menu URL</p>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="label">Label Text (Optional)</Label>
-                  <Input id="label" placeholder="Scan for Menu" />
-                  <p className="text-xs text-muted-foreground">Add text below the QR code</p>
-                </div>
-              </TabsContent>
-            </Tabs>
-
-            <div className="mt-6">
-              <Button className="w-full">Apply Changes</Button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Print Templates */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Print Templates</CardTitle>
-          <CardDescription>Ready-to-print QR code designs for your restaurant</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                name: "Table Tent",
-                description: "Foldable stand for tables",
-                size: "4x6 inches",
-              },
-              {
-                name: "Poster",
-                description: "Large format for walls",
-                size: "11x17 inches",
-              },
-              {
-                name: "Sticker",
-                description: "Adhesive labels",
-                size: "3x3 inches",
-              },
-            ].map((template, i) => (
-              <Card key={i}>
-                <CardContent className="pt-6">
-                  <div className="mb-4 flex h-32 items-center justify-center rounded-lg bg-muted">
-                    <QrCodeIcon className="h-16 w-16 text-muted-foreground" />
-                  </div>
-                  <h3 className="mb-1 font-semibold">{template.name}</h3>
-                  <p className="mb-1 text-sm text-muted-foreground">{template.description}</p>
-                  <p className="mb-4 text-xs text-muted-foreground">{template.size}</p>
-                  <Button variant="outline" size="sm" className="w-full gap-2 bg-transparent">
-                    <Download className="h-4 w-4" />
-                    Download PDF
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Usage Tips */}
-      <Card>
-        <CardHeader>
-          <CardTitle>QR Code Best Practices</CardTitle>
-          <CardDescription>Tips for effective QR code placement and usage</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <h4 className="font-medium">Placement Tips</h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
-                <li>• Place at eye level for easy scanning</li>
-                <li>• Ensure good lighting conditions</li>
-                <li>• Keep QR codes at least 1 inch in size</li>
-                <li>• Avoid placing on curved or reflective surfaces</li>
-              </ul>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-medium">Design Tips</h4>
-              <ul className="space-y-1 text-sm text-muted-foreground">
-                <li>• Maintain high contrast between colors</li>
-                <li>• Test QR codes before printing</li>
-                <li>• Include a call-to-action like &quot;Scan for Menu&quot;</li>
-                <li>• Keep logos small to ensure scannability</li>
-              </ul>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
+								{qrType === "custom" && (
+									<div className="space-y-2">
+										<Label htmlFor="customUrl">Custom URL</Label>
+										<Input
+											id="customUrl"
+											placeholder="https://..."
+											value={customUrl}
+											onChange={(e) => setCustomUrl(e.target.value)}
+										/>
+										<p className="text-xs text-muted-foreground">
+											Override the default menu URL
+										</p>
+									</div>
+								)}
+							</TabsContent>
+						</Tabs>
+					</CardContent>
+				</Card>
+			</div>
+		</div>
+	);
 }

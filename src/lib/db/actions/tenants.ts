@@ -6,7 +6,10 @@ import { tenants, memberships } from "../schema";
 import type { Tenant } from "../schema";
 import { eq } from "drizzle-orm";
 import { success, failure } from "@/utils/actionResult";
-import { IOnboardingSchema, onboardingSchema } from "@/lib/validation/onboarding-schema";
+import {
+	IOnboardingSchema,
+	onboardingSchema,
+} from "@/lib/validation/onboarding-schema";
 import { auth } from "@/lib/auth";
 
 /**
@@ -43,8 +46,8 @@ export const getTenantBySubdomain = async (
  * @returns IActionResult
  */
 export const createTenant = async (
-	onBoardingData: IOnboardingSchema,
-	): Promise<IActionResult<Tenant>> => {
+	onBoardingData: IOnboardingSchema
+): Promise<IActionResult<Tenant>> => {
 	try {
 		const validatedData = onboardingSchema.safeParse(onBoardingData);
 		if (!validatedData.success) {
@@ -54,13 +57,14 @@ export const createTenant = async (
 		if (!session?.user?.id) {
 			return failure("User not authenticated");
 		}
-		const { businessName, phoneNumber, address, tenantSlug } = validatedData.data;
-		
+		const { businessName, phoneNumber, address, tenantSlug } =
+			validatedData.data;
+
 		// Get user email from session
 		if (!session.user.email) {
 			return failure("User email is required to create a tenant");
 		}
-		
+
 		// Check if slug already exists
 		const existingTenant = await db
 			.select()
@@ -74,33 +78,29 @@ export const createTenant = async (
 			);
 		}
 
-		// Create tenant and membership in a transaction
-		const result = await db.transaction(async (tx) => {
-			// Create the tenant
-			const [newTenant] = await tx
-				.insert(tenants)
-				.values({
-					name: businessName,
-					slug: tenantSlug,
-					phoneNumber: phoneNumber,
-					address: address,
-					email: session?.user?.email as string,
-				})
-				.returning();
+		// Create the tenant
+		const [newTenant] = await db
+			.insert(tenants)
+			.values({
+				name: businessName,
+				slug: tenantSlug,
+				phoneNumber: phoneNumber,
+				address: address,
+				email: session?.user?.email as string,
+			})
+			.returning();
 
-			// Create membership with OWNER role
-			await tx.insert(memberships).values({
-				tenantId: newTenant.id,
-				userId: session?.user?.id as string,
-				role: "OWNER",
-			});
-
-			return newTenant;
+		// Create membership with OWNER role
+		await db.insert(memberships).values({
+			tenantId: newTenant.id,
+			userId: session?.user?.id as string,
+			role: "OWNER",
 		});
+
+		const result = newTenant;
 
 		return success("Tenant created successfully", result);
 	} catch (error) {
 		return failure("Error creating tenant", error as Error);
 	}
 };
-

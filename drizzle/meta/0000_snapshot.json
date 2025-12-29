@@ -1,5 +1,5 @@
 {
-  "id": "89d262ab-09ec-4cef-b0cc-c57fc8e8cde8",
+  "id": "3690302e-717e-4745-90f7-a20ee57beb06",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -286,20 +286,14 @@
       "name": "memberships",
       "schema": "",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "text",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "tenantId": {
-          "name": "tenantId",
+        "userId": {
+          "name": "userId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "userId": {
-          "name": "userId",
+        "tenantId": {
+          "name": "tenantId",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -312,8 +306,15 @@
           "notNull": true,
           "default": "'MEMBER'"
         },
-        "joinedAt": {
-          "name": "joinedAt",
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
@@ -322,19 +323,6 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "memberships_tenantId_tenants_id_fk": {
-          "name": "memberships_tenantId_tenants_id_fk",
-          "tableFrom": "memberships",
-          "tableTo": "tenants",
-          "columnsFrom": [
-            "tenantId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
         "memberships_userId_users_id_fk": {
           "name": "memberships_userId_users_id_fk",
           "tableFrom": "memberships",
@@ -345,21 +333,33 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "memberships_tenantId_tenants_id_fk": {
+          "name": "memberships_tenantId_tenants_id_fk",
+          "tableFrom": "memberships",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "tenantId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "memberships_tenantId_userId_unique": {
-          "name": "memberships_tenantId_userId_unique",
-          "nullsNotDistinct": false,
+      "compositePrimaryKeys": {
+        "memberships_userId_tenantId_pk": {
+          "name": "memberships_userId_tenantId_pk",
           "columns": [
-            "tenantId",
-            "userId"
+            "userId",
+            "tenantId"
           ]
         }
       },
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false
@@ -593,6 +593,85 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.tables": {
+      "name": "tables",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "tenantId": {
+          "name": "tenantId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "minSeats": {
+          "name": "minSeats",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 1
+        },
+        "maxSeats": {
+          "name": "maxSeats",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 4
+        },
+        "qrCode": {
+          "name": "qrCode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tables_tenantId_tenants_id_fk": {
+          "name": "tables_tenantId_tenants_id_fk",
+          "tableFrom": "tables",
+          "tableTo": "tenants",
+          "columnsFrom": [
+            "tenantId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.tenant_details": {
       "name": "tenant_details",
       "schema": "",
@@ -672,6 +751,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "websiteConfig": {
+          "name": "websiteConfig",
+          "type": "json",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'{}'::json"
         },
         "createdAt": {
           "name": "createdAt",

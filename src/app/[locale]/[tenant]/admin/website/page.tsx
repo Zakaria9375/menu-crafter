@@ -1,5 +1,5 @@
 import { getWebsiteConfig } from "@/lib/db/actions/website";
-import { getTenantBySubdomain } from "@/lib/db/actions";
+import { getTenantBySubdomain, getTenantDetails } from "@/lib/db/actions";
 import WebsiteEditor from "@/components/admin/website/WebsiteEditor";
 import { notFound } from "next/navigation";
 
@@ -21,11 +21,21 @@ export default async function WebsiteEditorPage({
 	const tenantId = tenantInfo.data.id;
 	const websiteConfig = await getWebsiteConfig(tenantId);
 
+	// Fetch tenant details for languages
+	const detailsResult = await getTenantDetails(tenantId);
+	const languages = detailsResult.succeeded
+		? detailsResult.data?.languages || ["en"]
+		: ["en"];
+
 	return (
 		<WebsiteEditor
 			tenantId={tenantId}
-			initialContent={websiteConfig.data || {}}
+			initialContent={websiteConfig.data?.content || {}}
 			initialTheme={websiteConfig.data?.theme || "modern"}
+			initialPrimaryColor={websiteConfig.data?.primaryColor}
+			initialSecondaryColor={websiteConfig.data?.secondaryColor}
+			languages={languages}
+			initialTranslations={websiteConfig.data?.translations || {}}
 		/>
 	);
 }

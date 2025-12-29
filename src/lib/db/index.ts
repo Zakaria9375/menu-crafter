@@ -3,10 +3,10 @@ import { neon } from "@neondatabase/serverless";
 import * as schema from "./schema";
 
 if (!process.env.DATABASE_URL) {
-    throw new Error("DATABASE_URL environment variable is not set");
+	throw new Error("DATABASE_URL environment variable is not set");
 }
 
-// Create Neon HTTP client
+// Create Neon serverless client (supports transactions via WebSockets)
 const sql = neon(process.env.DATABASE_URL);
 
 // Create Drizzle instance

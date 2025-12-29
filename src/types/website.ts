@@ -1,9 +1,22 @@
+export type WebsiteTheme =
+	| "modern"
+	| "classic"
+	| "minimal"
+	| "bold"
+	| "nature"
+	| "cozy";
+
 export interface IWebsiteConfig {
-	theme: "modern" | "classic" | "minimal" | "bold" | "nature" | "cozy";
+	theme: WebsiteTheme;
 	primaryColor?: string;
 	secondaryColor?: string;
 	content: IWebsiteContent;
+	translations?: { [langCode: string]: DeepPartial<IWebsiteContent> };
 }
+
+export type DeepPartial<T> = {
+	[P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
 
 export interface IWebsiteContent {
 	hero?: IHeroSection;

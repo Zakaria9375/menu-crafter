@@ -1,3 +1,5 @@
+"use server";
+
 import db from "@/lib/db";
 import { tenantDetails } from "@/lib/db/schema";
 import { IWebsiteConfig } from "@/types/website";
@@ -35,15 +37,32 @@ export async function getWebsiteConfig(tenantId: string) {
 
 export async function updateWebsiteConfig(
 	tenantId: string,
-	data: IWebsiteConfig
+	data: Partial<IWebsiteConfig>
 ) {
 	try {
 		// Ensure data is an object
 		const configData = typeof data === "string" ? JSON.parse(data) : data;
 
+		// Fetch existing config to merge
+		const existing = await db.query.tenantDetails.findFirst({
+			where: eq(tenantDetails.tenantId, tenantId),
+			columns: { websiteConfig: true },
+		});
+
+		const existingConfig = (existing?.websiteConfig || {}) as IWebsiteConfig;
+		const mergedConfig = {
+			...existingConfig,
+			...configData,
+			// Deep merge for translations if both exist
+			translations: {
+				...(existingConfig.translations || {}),
+				...(configData.translations || {}),
+			},
+		};
+
 		const result = await db
 			.update(tenantDetails)
-			.set({ websiteConfig: configData })
+			.set({ websiteConfig: mergedConfig })
 			.where(eq(tenantDetails.tenantId, tenantId))
 			.returning({ websiteConfig: tenantDetails.websiteConfig });
 

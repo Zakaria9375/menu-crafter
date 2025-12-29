@@ -7,19 +7,34 @@ import {
 	IFooterLink,
 	IMenuCategoryWithItems,
 } from "@/types/website";
+import * as LucideIcons from "lucide-react";
 
 interface WebsiteRendererProps {
 	content: IWebsiteContent;
-	theme: string; // 'modern', 'classic', 'minimal'
+	theme: string; // 'modern', 'classic', 'minimal', 'bold', 'nature', 'cozy'
 	menuCategories?: IMenuCategoryWithItems[];
 	preview?: boolean;
+	primaryColor?: string;
+	secondaryColor?: string;
 }
+
+// Helper to render Lucide icons dynamically
+const renderIcon = (iconName?: string) => {
+	if (!iconName) return null;
+
+	const IconComponent = (LucideIcons as any)[iconName];
+	if (!IconComponent) return null;
+
+	return <IconComponent className="h-8 w-8 mb-4 mx-auto" />;
+};
 
 export default function WebsiteRenderer({
 	content,
 	theme,
 	menuCategories,
 	preview = false,
+	primaryColor,
+	secondaryColor,
 }: WebsiteRendererProps) {
 	const { hero, about, whyUs, footer } = content || {};
 
@@ -43,6 +58,21 @@ export default function WebsiteRenderer({
 			section: "py-12",
 			heading: "text-3xl font-light mb-3",
 		},
+		bold: {
+			hero: "bg-black text-white",
+			section: "py-24",
+			heading: "text-6xl font-extrabold mb-8 uppercase",
+		},
+		nature: {
+			hero: "bg-gradient-to-b from-green-800 to-green-600 text-white",
+			section: "py-16",
+			heading: "text-4xl font-semibold mb-6",
+		},
+		cozy: {
+			hero: "bg-amber-900 text-amber-50",
+			section: "py-14",
+			heading: "text-4xl font-medium mb-5",
+		},
 	};
 
 	const currentTheme = themeStyles[theme] || themeStyles.modern;
@@ -59,18 +89,23 @@ export default function WebsiteRenderer({
 				<section
 					className={cn(
 						"relative flex items-center justify-center text-center px-4",
-						currentTheme.hero,
+						!primaryColor && currentTheme.hero,
 						"min-h-[500px]"
 					)}
-					style={
-						hero.backgroundImage
+					style={{
+						...(hero.backgroundImage
 							? {
 									backgroundImage: `url(${hero.backgroundImage})`,
 									backgroundSize: "cover",
 									backgroundPosition: "center",
 							  }
-							: {}
-					}
+							: primaryColor
+							? {
+									backgroundColor: primaryColor,
+									color: "white",
+							  }
+							: {}),
+					}}
 				>
 					{hero.backgroundImage && (
 						<div
@@ -91,6 +126,11 @@ export default function WebsiteRenderer({
 									theme === "classic"
 										? "border-white text-white hover:bg-white hover:text-black"
 										: ""
+								}
+								style={
+									primaryColor && theme !== "classic"
+										? { backgroundColor: secondaryColor || "#ffffff" }
+										: {}
 								}
 								asChild={!!hero.ctaLink}
 							>
@@ -162,6 +202,7 @@ export default function WebsiteRenderer({
 									key={index}
 									className="bg-background p-6 rounded-lg shadow-sm text-center"
 								>
+									{renderIcon(feature.icon)}
 									<h3 className="text-xl font-semibold mb-3">
 										{feature.title}
 									</h3>

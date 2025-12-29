@@ -7,7 +7,9 @@ import {
 	Menu,
 	QrCode,
 	Settings,
+	Languages,
 	User,
+	Wrench,
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -31,6 +33,8 @@ export default function LeftSideBar({ tenant, userTenants }: LeftSideBarProps) {
 		{ name: "Analytics", href: "analytics", icon: BarChart3 },
 		{ name: "QR Codes", href: "qr-codes", icon: QrCode },
 		{ name: "Website", href: "website", icon: Globe },
+		{ name: "Operations", href: "operations", icon: Wrench },
+		{ name: "Translations", href: "translation-center", icon: Languages },
 		{ name: "Profile", href: "profile", icon: User },
 		{ name: "Settings", href: "settings", icon: Settings },
 	];
