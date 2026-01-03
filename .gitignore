@@ -43,4 +43,3 @@ next-env.d.ts
 /docs
 /draft
 /drizzle
-/src/lib/db/seed
