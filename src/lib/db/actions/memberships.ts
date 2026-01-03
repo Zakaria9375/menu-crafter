@@ -72,7 +72,18 @@ export const getUserTenants = async (
  */
 export const getTenantMembers = async (
 	tenantId: string
-): Promise<IActionResult<any[]>> => {
+): Promise<
+	IActionResult<
+		{
+			userId: string;
+			name: string | null;
+			email: string;
+			image: string | null;
+			role: "OWNER" | "ADMIN" | "STAFF" | "MEMBER";
+			joinedAt: Date;
+		}[]
+	>
+> => {
 	try {
 		const result = await db
 			.select({
@@ -103,7 +114,7 @@ export const addTenantMember = async (
 	tenantId: string,
 	email: string,
 	role: "OWNER" | "ADMIN" | "STAFF" | "MEMBER"
-): Promise<IActionResult<any>> => {
+): Promise<IActionResult<void>> => {
 	try {
 		// 1. Find user by email
 		const userResult = await db

@@ -34,7 +34,6 @@ const isAuthPage = (p: string) => AUTH_PAGES.includes(p);
 // Check if path is a tenant route (e.g., /cafe-mocha/admin)
 
 export const appMiddleware = auth(async (req: NextRequest) => {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const session = (req as any).auth;
 	const loggedIn = !!session;
 	const { pathNoLocale, locale } = splitLocale(req.nextUrl.pathname);

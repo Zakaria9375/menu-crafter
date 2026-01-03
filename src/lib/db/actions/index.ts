@@ -14,7 +14,12 @@ export { createUser, getUserByEmail, updateUserPassword } from "./users";
 // Tenant actions
 export { getTenantBySubdomain, createTenant } from "./tenants";
 
-export { getTenantDetails, updateTenantDetails } from "./tenant-details";
+export {
+	getTenantDetails,
+	updateTenantDetails,
+	updateQRCodeSettings,
+	getQRCodeSettings,
+} from "./tenant-details";
 
 // Table actions
 export { getTables, createTable, updateTable, deleteTable } from "./tables";

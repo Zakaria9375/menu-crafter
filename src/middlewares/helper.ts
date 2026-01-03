@@ -1,7 +1,6 @@
 import { hasLocale as isLocale } from "next-intl";
 import { Locale, routing } from "../i18n/routing";
 import { NextRequest } from "next/server";
-import { parse } from 'tldts';
 import db from "@/lib/db";
 import { tenants } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -31,54 +30,66 @@ export function toLocalizedPath(locale: string, pathNoLocale: string): string {
 }
 
 export function extractSubdomain(request: NextRequest): string | null {
-	const url = request.url;
-	const { subdomain } = parse(url);
 	const host = request.headers.get("host") || "";
 	const hostname = host.split(":")[0];
 
 	/* Local environment */
-	if (url.includes("localhost") || url.includes("127.0.0.1")) {
-		// Try to extract subdomain from the full URL
-		const fullUrlMatch = url.match(/http:\/\/([^.]+)\.localhost/);
-		if (fullUrlMatch && fullUrlMatch[1]) {
-			return fullUrlMatch[1];
+	if (hostname.includes("localhost") || hostname.includes("127.0.0.1")) {
+		const parts = hostname.split(".");
+		if (parts.length > 1) {
+			return parts[0];
 		}
-
-		// Fallback to host header approach
-		if (hostname.includes(".localhost")) {
-			return hostname.split(".")[0];
-		}
-
 		return null;
 	}
 
-
 	/* Handle Vercel environment */
-	if (subdomain?.includes(".")) {
-		const parts = subdomain.split(".");
-		return parts[0] || null;
+	if (hostname?.includes("vercel.app")) {
+		const parts = hostname.split(".");
+		if (parts.length > 3) {
+			return parts[0];
+		}
+		return null;
 	}
 
-	return subdomain || null;
+	/* Handle Generic Domain environment */
+	if (hostname?.includes(".")) {
+		const parts = hostname.split(".");
+		if (parts.length > 1) {
+			return parts[0];
+		}
+		return null;
+	}
+
+	return null;
 }
 
-
-export const isTenantRoute = async (p: string): Promise<{ isTenant: boolean; tenantSlug?: string; remainingPath?: string }> => {
-  const segments = p.split('/').filter(Boolean);
-  // If path has at least 2 segments and doesn't start with known routes
-  if (segments.length >= 1) {
-    // First segment might be tenant slug
-    const tenantSlug = segments[0];
-		const tenant = await db.select({ id: tenants.id, slug: tenants.slug })
+export const isTenantRoute = async (
+	p: string
+): Promise<{
+	isTenant: boolean;
+	tenantSlug?: string;
+	remainingPath?: string;
+}> => {
+	const segments = p.split("/").filter(Boolean);
+	// If path has at least 2 segments and doesn't start with known routes
+	if (segments.length >= 1) {
+		// First segment might be tenant slug
+		const tenantSlug = segments[0];
+		const tenant = await db
+			.select({ id: tenants.id, slug: tenants.slug })
 			.from(tenants)
 			.where(eq(tenants.slug, tenantSlug))
 			.limit(1);
-			
+
 		if (tenant.length === 0) {
 			return { isTenant: false };
 		}
-    const remainingPath = '/' + segments.slice(1).join('/');
-    return { isTenant: true, tenantSlug, remainingPath: remainingPath === '/' ? '' : remainingPath };
-  }
-  return { isTenant: false };
+		const remainingPath = "/" + segments.slice(1).join("/");
+		return {
+			isTenant: true,
+			tenantSlug,
+			remainingPath: remainingPath === "/" ? "" : remainingPath,
+		};
+	}
+	return { isTenant: false };
 };

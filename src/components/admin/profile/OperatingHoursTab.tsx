@@ -286,7 +286,9 @@ export default function OperatingHoursTab({
 							variant="outline"
 							size="sm"
 							onClick={() => {
-								const standardHours = DAYS_OF_WEEK.reduce(
+								const standardHours = DAYS_OF_WEEK.reduce<
+									Record<string, DayHours>
+								>(
 									(acc, day) => ({
 										...acc,
 										[day.id]: {
@@ -297,8 +299,8 @@ export default function OperatingHoursTab({
 									}),
 									{}
 								);
-								setDineInHours(standardHours as any);
-								setDeliveryHours(standardHours as any);
+								setDineInHours(standardHours);
+								setDeliveryHours(standardHours);
 							}}
 						>
 							Standard (9 AM - 10 PM)
@@ -308,7 +310,9 @@ export default function OperatingHoursTab({
 							variant="outline"
 							size="sm"
 							onClick={() => {
-								const extendedHours = DAYS_OF_WEEK.reduce(
+								const extendedHours = DAYS_OF_WEEK.reduce<
+									Record<string, DayHours>
+								>(
 									(acc, day) => ({
 										...acc,
 										[day.id]: {
@@ -319,8 +323,8 @@ export default function OperatingHoursTab({
 									}),
 									{}
 								);
-								setDineInHours(extendedHours as any);
-								setDeliveryHours(extendedHours as any);
+								setDineInHours(extendedHours);
+								setDeliveryHours(extendedHours);
 							}}
 						>
 							Extended (7 AM - 11 PM)
@@ -330,7 +334,9 @@ export default function OperatingHoursTab({
 							variant="outline"
 							size="sm"
 							onClick={() => {
-								const weekendHours = DAYS_OF_WEEK.reduce(
+								const weekendHours = DAYS_OF_WEEK.reduce<
+									Record<string, DayHours>
+								>(
 									(acc, day) => ({
 										...acc,
 										[day.id]: {
@@ -345,8 +351,8 @@ export default function OperatingHoursTab({
 									}),
 									{}
 								);
-								setDineInHours(weekendHours as any);
-								setDeliveryHours(weekendHours as any);
+								setDineInHours(weekendHours);
+								setDeliveryHours(weekendHours);
 							}}
 						>
 							Weekend Extended

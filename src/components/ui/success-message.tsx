@@ -5,7 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 const SuccessMessage = React.forwardRef<
 	HTMLDivElement,
 	React.HTMLAttributes<HTMLDivElement> & { message: string | undefined }
->(({ className, children, message, ...props }, ref) => {
+>(({ className, message, ...props }, ref) => {
 	if (!message) {
 		return null;
 	}
@@ -27,4 +27,3 @@ const SuccessMessage = React.forwardRef<
 SuccessMessage.displayName = "SuccessMessage";
 
 export { SuccessMessage };
-

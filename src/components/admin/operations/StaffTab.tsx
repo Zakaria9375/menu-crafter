@@ -16,7 +16,6 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -73,11 +72,7 @@ interface StaffTabProps {
 	currentUserEmail?: string;
 }
 
-export default function StaffTab({
-	tenantId,
-	initialMembers,
-	currentUserEmail,
-}: StaffTabProps) {
+export default function StaffTab({ tenantId, initialMembers }: StaffTabProps) {
 	const [members, setMembers] = useState<StaffMember[]>(initialMembers);
 	const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
 	const [isRoleDialogOpen, setIsRoleDialogOpen] = useState(false);
@@ -135,7 +130,9 @@ export default function StaffTab({
 			if (result.succeeded) {
 				setMembers(
 					members.map((m) =>
-						m.userId === selectedMember.userId ? { ...m, role: role as any } : m
+						m.userId === selectedMember.userId
+							? { ...m, role: role as StaffMember["role"] }
+							: m
 					)
 				);
 				toast.success("Role updated successfully");
@@ -175,7 +172,7 @@ export default function StaffTab({
 
 	const openRoleDialog = (member: StaffMember) => {
 		setSelectedMember(member);
-		setRole(member.role as any);
+		setRole(member.role as "ADMIN" | "STAFF" | "MEMBER");
 		setIsRoleDialogOpen(true);
 	};
 
@@ -306,7 +303,9 @@ export default function StaffTab({
 							</Label>
 							<Select
 								value={role}
-								onValueChange={(value: any) => setRole(value)}
+								onValueChange={(value) =>
+									setRole(value as "ADMIN" | "STAFF" | "MEMBER")
+								}
 							>
 								<SelectTrigger className="col-span-3">
 									<SelectValue placeholder="Select a role" />
@@ -351,7 +350,9 @@ export default function StaffTab({
 							</Label>
 							<Select
 								value={role}
-								onValueChange={(value: any) => setRole(value)}
+								onValueChange={(value) =>
+									setRole(value as "ADMIN" | "STAFF" | "MEMBER")
+								}
 							>
 								<SelectTrigger className="col-span-3">
 									<SelectValue placeholder="Select a role" />

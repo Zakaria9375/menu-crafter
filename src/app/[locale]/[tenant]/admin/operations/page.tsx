@@ -5,6 +5,7 @@ import {
 	getTenantBySubdomain,
 	getTables,
 	getTenantMembers,
+	getQRCodeSettings,
 } from "@/lib/db/actions";
 import { notFound } from "next/navigation";
 import { UtensilsCrossed, Users } from "lucide-react";
@@ -28,14 +29,21 @@ export default async function OperationsPage({ params }: OperationsPageProps) {
 	}
 	const tenant = tenantResult.data;
 
-	// 2. Fetch tables & staff
-	const [tablesResult, membersResult] = await Promise.all([
+	// 2. Fetch tables, staff, and QR code settings
+	const [tablesResult, membersResult, qrSettingsResult] = await Promise.all([
 		getTables(tenant.id),
 		getTenantMembers(tenant.id),
+		getQRCodeSettings(tenant.id),
 	]);
 
 	const tables = tablesResult.succeeded ? tablesResult.data || [] : [];
 	const members = membersResult.succeeded ? membersResult.data || [] : [];
+	const qrSettings = {
+		fgColor: qrSettingsResult.data?.fgColor || "#000000",
+		bgColor: qrSettingsResult.data?.bgColor || "#ffffff",
+		size: qrSettingsResult.data?.size || ("medium" as const),
+		level: qrSettingsResult.data?.level || ("M" as const),
+	};
 
 	return (
 		<div className="space-y-6">
@@ -63,6 +71,7 @@ export default async function OperationsPage({ params }: OperationsPageProps) {
 						tenantId={tenant.id}
 						tenantSlug={tenant.slug}
 						initialTables={tables}
+						qrCodeSettings={qrSettings}
 					/>
 				</TabsContent>
 

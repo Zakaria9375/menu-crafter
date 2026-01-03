@@ -40,6 +40,7 @@ import { Slider } from "@/components/ui/slider";
 import { WEBSITE_THEMES } from "@/constants/website-themes";
 import FeatureDialog from "./FeatureDialog";
 import FooterLinkDialog from "./FooterLinkDialog";
+import AutoTranslateButton from "./AutoTranslateButton";
 
 const LANGUAGE_OPTIONS = [
 	{ code: "en", name: "English", nativeName: "English" },
@@ -287,7 +288,7 @@ export default function WebsiteEditor({
 						<div className="space-y-3">
 							<Label className="text-base font-semibold">Choose a theme</Label>
 							<p className="text-sm text-muted-foreground">
-								Select a theme that best represents your restaurant's style
+								Select a theme that best represents your restaurant&apos;s style
 							</p>
 
 							<div className="space-y-3">
@@ -397,24 +398,35 @@ export default function WebsiteEditor({
 						</div>
 
 						{languages.length > 1 && (
-							<div className="space-y-2">
-								<Label>Language</Label>
-								<Select
-									value={selectedLanguage}
-									onValueChange={setSelectedLanguage}
-								>
-									<SelectTrigger>
-										<SelectValue />
-									</SelectTrigger>
-									<SelectContent>
-										{languages.map((lang) => (
-											<SelectItem key={lang} value={lang}>
-												{getLanguageName(lang)}
-											</SelectItem>
-										))}
-									</SelectContent>
-								</Select>
-							</div>
+							<>
+								<div className="space-y-2">
+									<Label>Language</Label>
+									<Select
+										value={selectedLanguage}
+										onValueChange={setSelectedLanguage}
+									>
+										<SelectTrigger>
+											<SelectValue />
+										</SelectTrigger>
+										<SelectContent>
+											{languages.map((lang) => (
+												<SelectItem key={lang} value={lang}>
+													{getLanguageName(lang)}
+												</SelectItem>
+											))}
+										</SelectContent>
+									</Select>
+								</div>
+
+								{/* Auto-Translate Button */}
+								<div className="flex justify-end">
+									<AutoTranslateButton
+										tenantId={tenantId}
+										currentLanguage={selectedLanguage}
+										sourceLanguage={languages[0]}
+									/>
+								</div>
+							</>
 						)}
 
 						{/* Hero Section Editor */}
@@ -609,7 +621,11 @@ export default function WebsiteEditor({
 										id="whyus-description"
 										value={getCurrentContent("whyUs", "description")}
 										onChange={(e) =>
-											handleContentChange("whyUs", "description", e.target.value)
+											handleContentChange(
+												"whyUs",
+												"description",
+												e.target.value
+											)
 										}
 										placeholder="Enter section description"
 										rows={2}
@@ -633,7 +649,8 @@ export default function WebsiteEditor({
 										</Button>
 									</div>
 
-									{content.whyUs.features && content.whyUs.features.length > 0 ? (
+									{content.whyUs.features &&
+									content.whyUs.features.length > 0 ? (
 										<div className="space-y-2">
 											{content.whyUs.features.map((feature, index) => (
 												<Card key={index} className="p-3">
@@ -673,7 +690,11 @@ export default function WebsiteEditor({
 																		content.whyUs?.features?.filter(
 																			(_, i) => i !== index
 																		) || [];
-																	updateContent("whyUs", "features", newFeatures);
+																	updateContent(
+																		"whyUs",
+																		"features",
+																		newFeatures
+																	);
 																}}
 															>
 																<Trash2 className="h-3 w-3 text-destructive" />
@@ -685,7 +706,8 @@ export default function WebsiteEditor({
 										</div>
 									) : (
 										<p className="text-sm text-muted-foreground">
-											No features added yet. Click "Add Feature" to get started.
+											No features added yet. Click &quot;Add Feature&quot; to
+											get started.
 										</p>
 									)}
 								</div>
@@ -730,7 +752,9 @@ export default function WebsiteEditor({
 												<Card key={index} className="p-3">
 													<div className="flex items-center justify-between gap-3">
 														<div className="flex-1">
-															<p className="font-medium text-sm">{link.label}</p>
+															<p className="font-medium text-sm">
+																{link.label}
+															</p>
 															<p className="text-xs text-muted-foreground">
 																{link.url}
 															</p>
@@ -753,9 +777,10 @@ export default function WebsiteEditor({
 																size="icon"
 																className="h-8 w-8"
 																onClick={() => {
-																	const newLinks = content.footer?.links?.filter(
-																		(_, i) => i !== index
-																	);
+																	const newLinks =
+																		content.footer?.links?.filter(
+																			(_, i) => i !== index
+																		);
 																	updateContent("footer", "links", newLinks);
 																}}
 															>

@@ -46,15 +46,35 @@ export function downloadQRCodeAsSVG(
 }
 
 /**
- * Generates a QR code URL for a table in the menu
+ * Generates a QR code URL for a table in the menu using tenant subdomain format
  * @param tableId - The ID of the table
+ * @param tenantSlug - The tenant's subdomain slug
  * @returns The full URL for the QR code
  */
-export function getTableQRUrl(tableId: string): string {
+export function getTableQRUrl(tableId: string, tenantSlug: string): string {
 	if (typeof window !== "undefined") {
 		const protocol = window.location.protocol;
 		const host = window.location.host;
-		return `${protocol}//${host}/menu?tableId=${tableId}`;
+
+		// Extract the base domain (remove any existing subdomain)
+		let baseDomain = host;
+
+		// Handle localhost development
+		if (host.includes("localhost")) {
+			baseDomain = host.includes(".localhost")
+				? host.substring(host.indexOf(".localhost") + 1)
+				: `localhost${host.includes(":") ? ":" + host.split(":")[1] : ""}`;
+		} else {
+			// Production: extract base domain
+			const parts = host.split(".");
+			if (parts.length > 2) {
+				// Remove subdomain, keep domain + TLD
+				baseDomain = parts.slice(-2).join(".");
+			}
+		}
+
+		// Construct tenant subdomain URL
+		return `${protocol}//${tenantSlug}.${baseDomain}/menu?tableId=${tableId}`;
 	}
 	return `/menu?tableId=${tableId}`;
 }

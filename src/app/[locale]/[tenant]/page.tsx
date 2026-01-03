@@ -28,6 +28,8 @@ export default async function TenantPage({ params }: TenantPageProps) {
 			content={content}
 			theme={theme}
 			menuCategories={menuData as unknown as IMenuCategoryWithItems[]}
+			primaryColor={config?.primaryColor}
+			secondaryColor={config?.secondaryColor}
 		/>
 	);
 }

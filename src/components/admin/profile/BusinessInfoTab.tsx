@@ -125,14 +125,20 @@ export default function BusinessInfoTab({
 		}
 	};
 
-	const handleSubmit = async (section: "basic" | "contact") => {
+	const handleSubmit = async () => {
 		setIsLoading(true);
 		try {
 			// Construct payload based on what we have (sending all for simplicity mostly)
 			const payload = {
 				name: formData.name,
 				slug: formData.slug,
-				businessType: formData.businessType as any,
+				businessType: formData.businessType as
+					| "RESTAURANT"
+					| "HOTEL"
+					| "CAFE"
+					| "BAR"
+					| "BAKERY"
+					| "OTHER",
 				phoneNumber: formData.phoneNumber,
 				address: formData.address,
 				email: formData.email,
@@ -205,7 +211,7 @@ export default function BusinessInfoTab({
 						</Select>
 					</div>
 
-					<Button onClick={() => handleSubmit("basic")} disabled={isLoading}>
+					<Button onClick={() => handleSubmit()} disabled={isLoading}>
 						{isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 						Save Changes
 					</Button>
@@ -261,7 +267,7 @@ export default function BusinessInfoTab({
 						/>
 					</div>
 
-					<Button onClick={() => handleSubmit("contact")} disabled={isLoading}>
+					<Button onClick={() => handleSubmit()} disabled={isLoading}>
 						{isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
 						Save Changes
 					</Button>
@@ -280,6 +286,7 @@ export default function BusinessInfoTab({
 						<div className="flex items-center gap-4">
 							<div className="flex h-24 w-24 items-center justify-center rounded-lg border-2 border-dashed border-border bg-muted overflow-hidden">
 								{logoPreview ? (
+									// eslint-disable-next-line @next/next/no-img-element
 									<img
 										src={logoPreview}
 										alt="Logo preview"
@@ -287,7 +294,9 @@ export default function BusinessInfoTab({
 									/>
 								) : (
 									<span className="text-3xl font-bold text-muted-foreground">
-										{formData.name ? formData.name.substring(0, 2).toUpperCase() : "GS"}
+										{formData.name
+											? formData.name.substring(0, 2).toUpperCase()
+											: "GS"}
 									</span>
 								)}
 							</div>

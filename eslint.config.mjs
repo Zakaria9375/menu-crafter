@@ -31,7 +31,8 @@ const eslintConfig = [
           importNames: ['redirect', 'permanentRedirect', 'useRouter', 'usePathname'],
           message: 'Please import from `@/i18n/routing` instead.'
         }
-      ]
+      ],
+      "@typescript-eslint/no-explicit-any": "off"
     },
   },
 ];

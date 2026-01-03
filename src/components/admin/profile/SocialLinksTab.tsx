@@ -132,7 +132,7 @@ export default function SocialLinksTab({
 							id={platform.id}
 							type={platform.type}
 							placeholder={platform.placeholder}
-							value={(formData as any)[platform.id]}
+							value={formData[platform.id as keyof typeof formData]}
 							onChange={(e) => handleChange(platform.id, e.target.value)}
 						/>
 						{platform.helper && (

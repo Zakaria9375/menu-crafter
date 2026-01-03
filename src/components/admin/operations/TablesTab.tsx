@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Table as DBTable } from "@/lib/db/schema";
 import {
 	Card,
@@ -17,7 +17,6 @@ import {
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
-	DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -48,17 +47,25 @@ import {
 import { createTable, updateTable, deleteTable } from "@/lib/db/actions";
 import { toast } from "sonner";
 import { QRCodeSVG } from "qrcode.react";
+import { downloadQRCodeAsPNG, getTableQRUrl } from "@/utils/qr-code";
 
 interface TablesTabProps {
 	tenantId: string;
 	tenantSlug: string;
 	initialTables: DBTable[];
+	qrCodeSettings: {
+		fgColor: string;
+		bgColor: string;
+		size: "small" | "medium" | "large" | "xlarge";
+		level: "L" | "M" | "Q" | "H";
+	};
 }
 
 export default function TablesTab({
 	tenantId,
 	tenantSlug,
 	initialTables,
+	qrCodeSettings,
 }: TablesTabProps) {
 	const [tables, setTables] = useState<DBTable[]>(initialTables);
 	const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -66,6 +73,7 @@ export default function TablesTab({
 	const [isQRDialogOpen, setIsQRDialogOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [currentTable, setCurrentTable] = useState<DBTable | null>(null);
+	const qrCodeRef = useRef<SVGSVGElement>(null);
 
 	// Form states
 	const [tableName, setTableName] = useState("");
@@ -162,32 +170,10 @@ export default function TablesTab({
 		setIsQRDialogOpen(true);
 	};
 
-	const getQRUrl = (tableId: string) => {
-		// Assuming localhost for dev, but functionality should use window.location or configured domain
-		// Ideally we use the actual domain. For now construct relative or absolute based on current knowledge.
-		// We have tenantSlug.
-		// Format: https://[slug].[domain]/menu?tableId=[id]
-		// But we are in admin panel. We need the public URL.
-		// Let's assume the public URL structure is derived from slug.
-		// If we are developing locally on localhost:3000, subdomains might be handled via middleware rewriting.
-		// Let's generate a relative URL for now or just the path if it's scanned by the app?
-		// Usually QR code contains full URL.
-		// Let's use a placeholder domain if env not set, usually `window.location.host` but we are server rendering initially or client.
-		// `window` is available in client.
-
-		if (typeof window !== "undefined") {
-			const protocol = window.location.protocol;
-			const host = window.location.host; // e.g. app.localhost:3000 or app.menu-crafter.com
-			// If we are on app subdomain, we need to construct the tenant subdomain URL.
-			// If we are using path based routing for tenants in dev (often case), it might be /slug/menu.
-			// But valid production setup uses subdomains?
-			// Checking `getTenantBySubdomain` suggests subdomains are used.
-
-			// Simplest assumption: REPLACE current subdomain with tenant slug?
-			// OR if we are ON the tenant subdomain already (admin is under tenant subdomain), then just origin + /menu?tableId=...
-			return `${protocol}//${host}/menu?tableId=${tableId}`;
+	const handleDownloadQRCode = () => {
+		if (qrCodeRef.current && currentTable) {
+			downloadQRCodeAsPNG(qrCodeRef.current, `QR-${currentTable.name}`);
 		}
-		return `/menu?tableId=${tableId}`;
 	};
 
 	return (
@@ -419,16 +405,19 @@ export default function TablesTab({
 						{currentTable && (
 							<div className="p-4 bg-white rounded-lg shadow-sm border">
 								<QRCodeSVG
-									value={getQRUrl(currentTable.id)}
+									ref={qrCodeRef}
+									value={getTableQRUrl(currentTable.id, tenantSlug)}
 									size={200}
-									level={"H"}
+									bgColor={qrCodeSettings.bgColor}
+									fgColor={qrCodeSettings.fgColor}
+									level={qrCodeSettings.level}
 									includeMargin={true}
 								/>
 							</div>
 						)}
 					</div>
 					<div className="text-center text-sm text-muted-foreground break-all px-4">
-						{currentTable && getQRUrl(currentTable.id)}
+						{currentTable && getTableQRUrl(currentTable.id, tenantSlug)}
 					</div>
 					<DialogFooter className="sm:justify-center">
 						<Button
@@ -438,30 +427,7 @@ export default function TablesTab({
 						>
 							Close
 						</Button>
-						<Button
-							type="button"
-							onClick={() => {
-								// Simple download logic
-								const svg = document.querySelector("svg");
-								if (svg) {
-									const svgData = new XMLSerializer().serializeToString(svg);
-									const canvas = document.createElement("canvas");
-									const ctx = canvas.getContext("2d");
-									const img = new Image();
-									img.onload = () => {
-										canvas.width = img.width;
-										canvas.height = img.height;
-										ctx?.drawImage(img, 0, 0);
-										const pngFile = canvas.toDataURL("image/png");
-										const downloadLink = document.createElement("a");
-										downloadLink.download = `QR-${currentTable?.name}.png`;
-										downloadLink.href = `${pngFile}`;
-										downloadLink.click();
-									};
-									img.src = "data:image/svg+xml;base64," + btoa(svgData);
-								}
-							}}
-						>
+						<Button type="button" onClick={handleDownloadQRCode}>
 							Download PNG
 						</Button>
 					</DialogFooter>

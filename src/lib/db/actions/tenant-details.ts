@@ -3,7 +3,7 @@
 import { IActionResult } from "@/types/ITypes";
 import db from "..";
 import { tenants, tenantDetails } from "../schema";
-import type { NewTenantDetails } from "../schema";
+import type { NewTenantDetails, NewTenant } from "../schema";
 import { eq } from "drizzle-orm";
 import { success, failure } from "@/utils/actionResult";
 
@@ -14,7 +14,7 @@ import { success, failure } from "@/utils/actionResult";
  */
 export const getTenantDetails = async (
 	tenantId: string
-): Promise<IActionResult<any>> => {
+): Promise<IActionResult<NewTenantDetails & { base: NewTenant }>> => {
 	try {
 		console.log("tenantid", tenantId);
 		const result = await db
@@ -64,7 +64,7 @@ export const updateTenantDetails = async (
 
 		// Update base tenant table if needed
 		if (name || slug || phoneNumber || address || email) {
-			const baseUpdate: any = {};
+			const baseUpdate: Partial<NewTenant> = {};
 			if (name) baseUpdate.name = name;
 			if (slug) baseUpdate.slug = slug;
 			if (phoneNumber) baseUpdate.phoneNumber = phoneNumber;
@@ -103,5 +103,82 @@ export const updateTenantDetails = async (
 		return success("Tenant updated successfully");
 	} catch (error) {
 		return failure("Error updating tenant details", error as Error);
+	}
+};
+
+/**
+ * Update QR code settings for a tenant
+ * @param tenantId - Tenant ID
+ * @param settings - QR code settings (colors, size, error correction level)
+ * @returns IActionResult
+ */
+export const updateQRCodeSettings = async (
+	tenantId: string,
+	settings: {
+		fgColor?: string;
+		bgColor?: string;
+		size?: "small" | "medium" | "large" | "xlarge";
+		level?: "L" | "M" | "Q" | "H";
+	}
+): Promise<IActionResult<any>> => {
+	try {
+		// Check if details record exists
+		const existing = await db
+			.select()
+			.from(tenantDetails)
+			.where(eq(tenantDetails.tenantId, tenantId))
+			.limit(1);
+
+		if (existing.length > 0) {
+			await db
+				.update(tenantDetails)
+				.set({ qrCodeSettings: settings, updatedAt: new Date() })
+				.where(eq(tenantDetails.tenantId, tenantId));
+		} else {
+			// Create if not exists
+			await db.insert(tenantDetails).values({
+				tenantId,
+				qrCodeSettings: settings,
+			} as NewTenantDetails);
+		}
+
+		return success("QR code settings saved successfully", settings);
+	} catch (error) {
+		return failure("Error saving QR code settings", error as Error);
+	}
+};
+
+/**
+ * Get QR code settings for a tenant
+ * @param tenantId - Tenant ID
+ * @returns IActionResult with QR code settings
+ */
+export const getQRCodeSettings = async (
+	tenantId: string
+): Promise<
+	IActionResult<{
+		fgColor?: string;
+		bgColor?: string;
+		size?: "small" | "medium" | "large" | "xlarge";
+		level?: "L" | "M" | "Q" | "H";
+	}>
+> => {
+	try {
+		const result = await db
+			.select({ qrCodeSettings: tenantDetails.qrCodeSettings })
+			.from(tenantDetails)
+			.where(eq(tenantDetails.tenantId, tenantId))
+			.limit(1);
+
+		const settings = result[0]?.qrCodeSettings || {
+			fgColor: "#000000",
+			bgColor: "#ffffff",
+			size: "medium",
+			level: "M",
+		};
+
+		return success("QR code settings retrieved", settings);
+	} catch (error) {
+		return failure("Error getting QR code settings", error as Error);
 	}
 };

@@ -548,6 +548,7 @@ export default function TranslationCenter({
 									</Label>
 									<Input
 										value={
+											// eslint-disable-next-line @typescript-eslint/no-explicit-any
 											(websiteTranslationsState[selectedLanguage] as any)
 												?.footer?.text || ""
 										}

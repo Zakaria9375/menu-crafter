@@ -46,6 +46,21 @@ export const tenantDetails = pgTable("tenant_details", {
 	// Website Configuration (Theme, Content, etc.)
 	websiteConfig: json("websiteConfig").$type<any>().default({}),
 
+	// QR Code Settings (colors, size, and error correction for all QR codes)
+	qrCodeSettings: json("qrCodeSettings")
+		.$type<{
+			fgColor?: string;
+			bgColor?: string;
+			size?: "small" | "medium" | "large" | "xlarge";
+			level?: "L" | "M" | "Q" | "H";
+		}>()
+		.default({
+			fgColor: "#000000",
+			bgColor: "#ffffff",
+			size: "medium",
+			level: "M",
+		}),
+
 	createdAt: timestamp("createdAt", { mode: "date" }).notNull().defaultNow(),
 	updatedAt: timestamp("updatedAt", { mode: "date" }).notNull().defaultNow(),
 });
