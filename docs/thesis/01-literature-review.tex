@@ -1,0 +1,192 @@
+\chapter{Literature Review and Theoretical Background}
+\label{chap:litreview}
+
+\noindent\textbf{Chapter Goal.} To survey existing knowledge on digital menu systems and enabling technologies, establish the theoretical lenses guiding this thesis, and articulate a precise, actionable research gap for the development of the \emph{Menu Crafter} QR menu platform.
+
+% ---------------------------------------------------------------------------
+% 1.1 CORE CONCEPTS AND DEFINITIONS
+% ---------------------------------------------------------------------------
+\section{Core Concepts and Definitions}\label{sec:concepts}
+This section consolidates foundational terminology referenced throughout subsequent chapters. Each concept is defined once with authoritative sources; consistency of use is enforced for analytical clarity.
+
+\subsection{QR Codes in Hospitality}
+	extbf{Quick Response (QR) Codes} are two-dimensional matrix barcodes supporting high information density (up to 4{,}296 alphanumeric characters) and robust error correction (7--30\% damage tolerance), scanable using commodity smartphone cameras (ISO/IEC 18004:2015). Their post-pandemic proliferation in restaurants reflects converging pressures for hygiene, efficiency, and cost reduction. Common applications include: (i) contactless access to digital menus, (ii) in-venue table identification, (iii) feedback capture, (iv) loyalty activation, and (v) initiating payment flows.
+
+\subsection{Software as a Service (SaaS)}
+SaaS denotes a cloud delivery paradigm in which centrally hosted applications are accessed over the Internet via subscription \cite{laudon2015}. Core characteristics include multi-tenancy, elastic scalability, managed updates, and device-agnostic accessibility. These properties reduce total cost of ownership and accelerate iterative feature delivery for niche verticals such as hospitality.
+
+\subsection{Multi-Tenant Architecture}
+	extbf{Multi-tenancy} refers to serving multiple customers (tenants) from a shared application deployment with logical (and sometimes physical) isolation of data and configuration \cite{chong2006}. Principal forms:
+\begin{enumerate}[label=\alph*)]
+  \item Shared database, shared schema (tenant rows distinguished by a \texttt{tenant\_id})
+  \item Shared database, separate schemas (one schema per tenant)
+  \item Separate databases (physical isolation of storage)
+\end{enumerate}
+Trade-offs span cost vs. isolation, performance vs. customization, and operational simplicity vs. flexibility. Empirical comparisons (e.g., \cite{guo2020}) show row-level isolation with indexing scales economically for early-stage platforms (\textless{}1{,}000 tenants).
+
+\subsection{Progressive Web Applications (PWA)}
+PWAs are web applications enhanced with capabilities (offline caching, installability, push notifications, responsive performance) traditionally associated with native apps. For a QR menu platform, a PWA approach promotes frictionless diner access (no app-store step) and rapid iteration without per-device release cycles.
+
+\subsection{Internationalization (i18n)}
+Internationalization generalizes a software system for localization across languages, regions, and cultural conventions \cite{unicode2023}. Relevant dimensions: string translation, date/time formats, numeral and currency rendering, and bidirectional or right-to-left script handling. Automated translation and menu semantic normalization enable rapid cross-lingual deployment for restaurants serving multicultural clienteles.
+
+% ---------------------------------------------------------------------------
+% 1.2 RELATED WORK: DIGITAL MENU SYSTEMS
+% ---------------------------------------------------------------------------
+\section{Related Work: Digital Menu Systems}\label{sec:related}
+We organize existing solutions and empirical studies into (i) commercial platforms, (ii) open-source implementations, and (iii) academic investigations of adoption and architecture.
+
+\subsection{Commercial QR Menu Platforms}
+Representative offerings include MenuDrive, TouchBistro, and MustHaveMenus (sources as per provider documentation). Strength patterns reveal a dichotomy: comprehensive POS-integrated systems with higher complexity and cost versus lightweight menu generators with limited extensibility. Constraints observed: restricted branding, absence of integrated website creation, and longer setup trajectories (often \textgreater{}2 hours for full POS suites).
+
+\subsection{Restaurant Website Builders}
+Generic site builders (e.g., Wix, Squarespace) provide e-commerce scaffolding and visual templates but lack deep integration with menu-specific data models or AI augmentation (translation, extraction). Customization depth competes with specialized functionality; restaurants frequently assemble fragmented toolchains (builder + standalone menu + QR generator).
+
+\subsection{Open Source Solutions}
+Existing open-source projects (e.g., \emph{MenuMaker}, \emph{QRMenu}) illustrate minimal feature sets: single-tenant focus, limited authentication, absence of multi-language and AI-driven ingestion. They confirm feasibility but underscore a maturity gap for production-grade multi-tenant architectures tailored to hospitality workflows.
+
+\subsection{Academic Research on Adoption and Architecture}
+Empirical adoption studies report sustained use of QR-based menus post-pandemic, linking hygiene imperatives and operational flexibility to continued retention. Prior work on multi-tenant SaaS isolation (\cite{guo2020}) quantifies cost-efficiency of shared-schema strategies given appropriate indexing and row-level security. Pricing model analyses highlight increasing prevalence of usage-based tiers for scalability and fairness.
+
+% ---------------------------------------------------------------------------
+% 1.3 THEORETICAL FRAMEWORK
+% ---------------------------------------------------------------------------
+\section{Theoretical Framework}\label{sec:theory}
+Three lenses inform design decisions and evaluation criteria: Technology Acceptance Model, Platform Business Model theory, and Design Science Research Methodology.
+
+\subsection{Technology Acceptance Model (TAM)}
+Under TAM \cite{davis1989}, adoption emerges from perceived usefulness (PU) and perceived ease of use (PEOU), shaping behavioral intention (BI) and ultimately actual system use (U). A simplified relation:
+\begin{equation}\label{eq:tam}
+U \propto BI = f(\mathrm{PU},\, \mathrm{PEOU}).
+\end{equation}
+\noindent For \emph{Menu Crafter}, \emph{PU} encapsulates revenue uplift (e.g., upselling via richer media) and operational agility (rapid updates), while \emph{PEOU} addresses onboarding speed and the cognitive load of menu maintenance.
+
+\subsection{Platform Business Model}
+Platform theory \cite{parker2016} emphasizes value creation by enabling interactions between producers (restaurants) and consumers (diners). Network effects emerge: more restaurants enhance perceived legitimacy; richer feature sets (e.g., real-time translations) draw additional producers. Formally, if $R$ denotes number of restaurants and $F$ feature richness, perceived platform utility $V$ may grow superlinearly: $V \approx k R^{\alpha} F^{\beta}$ with $\alpha,\beta > 0$ (conceptual, not empirically estimated here).
+
+\subsection{Design Science Research Methodology (DSRM)}
+Following \cite{hevner2004}, the artifact trajectory spans constructs (multi-tenancy, AI-assisted menu ingestion), models (architecture diagrams, schema design), methods (onboarding workflows, translation pipeline), and instantiation (deployed PWA). Evaluation through pilot deployments (Chapter~\ref{chap:empirical}) examines utility, quality, and adoption.
+
+% ---------------------------------------------------------------------------
+% 1.4 TECHNOLOGY STACK CONSIDERATIONS
+% ---------------------------------------------------------------------------
+\section{Technology Stack Considerations}\label{sec:tech-stack}
+Platform implementation choices reflect trade-offs between developer velocity, scalability, and feature extensibility.
+
+\subsection{Frontend Frameworks}
+React (with Next.js) was selected for component modularity, ecosystem maturity, and mixed rendering (SSR + CSR) conducive to SEO and perceived performance. Alternatives (Vue, Angular, Svelte) were evaluated for learning curve, ecosystem breadth, and strategic fit with multi-tenant theming; their exclusion aligns with MVP focus.
+
+\begin{table}[ht]
+  \caption{Frontend framework comparison (synthesis)}\label{tab:frontend}
+  \centering
+  \begin{tabular}{p{2.6cm}p{4.2cm}p{4.2cm}p{2cm}}
+    	oprule
+    Framework & Advantages & Limitations & Decision \\
+    \midrule
+    React / Next.js & Large ecosystem; SSR/ISR; TypeScript synergy & Steeper initial cognitive load & Chosen \\
+    Vue & Gentle learning; clear docs & Smaller enterprise footprint & Not adopted \\
+    Angular & Integrated tooling; strong patterns & Heavy runtime; steep learning & Not adopted \\
+    Svelte & Lean compilation; fast & Less mature ecosystem & Not adopted \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Backend Architecture}
+A monolithic Next.js codebase accelerates early iteration and reduces operational surface area. Microservices and serverless alternatives introduce orchestration and cold-start complexity disproportionate to current scale. Strategic migration paths remain feasible (Chapter~\ref{chap:analysis}).
+
+\subsection{Database Selection}
+PostgreSQL offers ACID guarantees, advanced indexing, JSONB flexibility, and row-level security, aligning with multi-tenant cost-performance objectives. Competing choices (MongoDB, MySQL) were deprioritized due to weaker relational querying flexibility or missing feature richness.
+
+\begin{table}[ht]
+  \caption{Database comparison for multi-tenancy}\label{tab:database}
+  \centering
+  \begin{tabular}{p{2.4cm}p{2.1cm}p{4.5cm}p{4.5cm}}
+    	oprule
+    DB & Type & Strengths & Constraints \\
+    \midrule
+    PostgreSQL & Relational & Mature, RLS, JSONB, robust indexing & Vertical scaling limits (mitigated via partitioning) \\
+    MongoDB & Document & Flexible schema evolution & Complex joins; eventual consistency trade-offs \\
+    MySQL & Relational & Widely adopted, performant reads & Fewer advanced features (e.g., partial indexes) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+% ---------------------------------------------------------------------------
+% 1.5 FEATURE AND MARKET GAP ANALYSIS
+% ---------------------------------------------------------------------------
+\section{Feature Comparison and Gap Analysis}\label{sec:gap-analysis}
+Synthesizing solution capabilities reveals a multi-dimensional gap where integrated, low-friction deployment intersects with AI augmentation.
+
+\subsection{Feature Matrix}
+\begin{table}[ht]
+  \caption{Representative feature comparison}\label{tab:feature-comparison}
+  \centering
+  \begin{tabular}{p{2.6cm}p{1.5cm}p{1.7cm}p{1.9cm}p{1.2cm}p{2.3cm}}
+    	oprule
+    Feature & MenuCrafter & MenuDrive & TouchBistro & Wix & Advantage \\
+    \midrule
+    QR Menus & \checkmark & \checkmark & \checkmark & \textemdash & Core focus \\
+    Custom Website & \checkmark & \textemdash & \textemdash & \checkmark & Integrated stack \\
+    Multi-language (AI) & \checkmark & Partial & \textemdash & \checkmark & AI-powered flexibility \\
+    Subdomain Provisioning & \checkmark & \textemdash & \textemdash & \checkmark & Automated onboarding \\
+    Pricing (Monthly) & $0$--$49$ & $29$--$99$ & $69$--$399$ & $16$--$29$ & Competitive tiers \\
+    Setup Time & $<15$ min & $\sim30$ min & $2$--$4$ h & $1$--$2$ h & Fastest path \\
+    Technical Skill & None & Low & Medium & Low & Guided flow \\
+    Open Source Trajectory & Planned & \textemdash & \textemdash & \textemdash & Transparency \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Identified Gap}
+\begin{quote}\itshape
+There is no affordable, easy-to-use, integrated platform combining QR menu management, custom website creation, and multi-language support enhanced by AI features for small and medium restaurants with minimal technical expertise.
+\end{quote}
+Fragmentation (separate tools for QR, menus, and web presence), elevated subscription costs, high setup complexity, limited branding, and absence of AI-assisted ingestion collectively inhibit adoption for resource-constrained venues.
+
+% ---------------------------------------------------------------------------
+% 1.6 RESEARCH MOTIVATION AND DIRECTION
+% ---------------------------------------------------------------------------
+\section{Research Motivation and Direction}\label{sec:motivation}
+This section translates the synthesized gap (\cref{sec:gap-analysis}) and theoretical framing (\cref{sec:theory}) into a concrete, testable trajectory.
+
+\paragraph{Problem Significance.} Scientifically, the work contributes to applied multi-tenant SaaS design (tenant isolation, cost-performance modeling) and technology adoption analysis in hospitality. Practically, it aims to accelerate digital transition, reduce printing waste, and democratize feature access for smaller establishments.
+
+\paragraph{Stakeholders.} Primary: restaurant operators; secondary: diners (interaction quality, menu transparency); tertiary: developer and open-source communities (architectural patterns, AI ingestion examples).
+
+\paragraph{Research Direction.} Develop a multi-tenant PWA platform leveraging Next.js and PostgreSQL that (i) integrates QR menu generation and website authoring, (ii) automates tenant provisioning via subdomains, (iii) embeds AI services (image-based menu extraction, translation), and (iv) delivers guided onboarding minimizing time-to-first-menu.
+
+\paragraph{Scope Boundaries.} \emph{In scope:} menu CRUD, QR generation, template theming, translations, lightweight analytics. \emph{Out of scope:} payment processing, inventory management, full POS integration (deferred; see Chapter~\ref{chap:analysis}).
+
+\paragraph{Success Criteria.} The platform is considered successful upon meeting combined technical, usability, and business metrics:
+\begin{enumerate}[label=SC\arabic*)]
+  \item Technical: $<200$ ms p95 response latency; support for $\geq 100$ concurrent tenants; $99.9\%$ uptime; no high-severity OWASP Top 10 issues post-audit.
+  \item Usability: $\geq80\%$ of pilot users finish onboarding in $<15$ minutes; SUS score $>70$; $\geq90\%$ create first menu item without assistance.
+  \item Business: $\geq10$ pilot restaurants deployed; satisfaction $\geq70\%$; infrastructure cost $<\$5$ per active tenant per month at pilot scale.
+\end{enumerate}
+
+% ---------------------------------------------------------------------------
+% 1.7 ILLUSTRATIVE LISTING
+% ---------------------------------------------------------------------------
+\section{Illustrative Code Listing}\label{sec:listings}
+The following abbreviated utility function exemplifies normalization logic applied during AI-assisted menu ingestion (schema sanitization):
+\begin{lstlisting}[language=Python,caption={Record normalization helper (illustrative)},label={lst:normalize},float=htbp]
+def normalize(records: list[dict]) -> list[dict]:
+    """Normalize raw extracted menu records: lowercase keys, skip incomplete items."""
+    out: list[dict] = []
+    for r in records:
+        if "id" not in r:
+            continue
+        cleaned = {k.strip().lower(): v for k, v in r.items()}
+        out.append(cleaned)
+    return out
+\end{lstlisting}
+Referenced via \cref{lst:normalize}.
+
+% ---------------------------------------------------------------------------
+% 1.8 CHAPTER SUMMARY
+% ---------------------------------------------------------------------------
+\section{Chapter Summary}\label{sec:summary}
+This chapter established a conceptual vocabulary (\cref{sec:concepts}), surveyed solution and research landscapes (\cref{sec:related}), grounded analysis in three complementary theories (\cref{sec:theory}), evaluated technology stack trade-offs (\cref{sec:tech-stack}), articulated a multi-faceted market gap (\cref{sec:gap-analysis}), and translated that gap into an actionable research direction (\cref{sec:motivation}). The next chapter (Chapter~\ref{chap:analysis}) operationalizes these foundations into detailed system and stakeholder requirements preceding the empirical evaluation in Chapter~\ref{chap:empirical}.
+
+\noindent\textbf{Conclusions.} A clear adoption and feature integration gap persists for small and medium restaurants seeking unified QR menu and web presence solutions with multilingual capability. The proposed architecture leverages established theoretical lenses to justify design decisions and define measurable success criteria.
+
